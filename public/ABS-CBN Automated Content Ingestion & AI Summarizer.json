@@ -1,0 +1,382 @@
+{
+  "name": "ABS-CBN Automated Content Ingestion & AI Summarizer",
+  "nodes": [
+    {
+      "parameters": {
+        "url": "https://news.google.com/rss/search?q=ABS-CBN+News&hl=en-PH&gl=PH&ceid=PH:en",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1.2,
+      "position": [
+        112,
+        0
+      ],
+      "id": "a9f6bf4c-1940-4cbc-b626-4a18e0b04232",
+      "name": "RSS Read"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are an executive news editor. Analyze this news article from ABS-CBN:\n\nHeadline: {{ $json.title }}\nSnippet: {{ $json.contentSnippet || $json.content }}\n\nProvide a clean JSON response using EXACTLY this schema (no markdown formatting, no backticks):\n{\n  \"category\": \"Politics/Business/Tech/Entertainment/General\",\n  \"urgency\": 3,\n  \"summary\": \"3 concise bullet points summarizing the key facts\"\n}",
+        "options": {
+          "systemMessage": "You are a professional news editor who only outputs raw JSON."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        1008,
+        0
+      ],
+      "id": "8086f454-f63f-4130-bd47-565aea3f5861",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1.1,
+      "position": [
+        1088,
+        224
+      ],
+      "id": "936aa2de-4235-4aff-9e6d-f99b73d81960",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "6aHL7Ju6lvz8IHOQ",
+          "name": "Google Gemini(PaLM) Api account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "const rawText = $json.output || $json.text || $json.response?.text || '';\nconst jsonMatch = rawText.match(/\\{[\\s\\S]*\\}/);\n\nlet parsed = { category: 'General', urgency: 3, summary: rawText };\nif (jsonMatch) {\n  try {\n    parsed = JSON.parse(jsonMatch[0]);\n  } catch (e) {\n    // fallback if JSON parsing encounters malformed syntax\n  }\n}\n\n// Safely grab the original article details from Limit (or Filter)\nconst sourceItem = $('Limit')?.item?.json || $('Filter')?.item?.json || {};\n\nreturn {\n  json: {\n    category: parsed.category || 'General',\n    urgency: parsed.urgency || 3,\n    summary: parsed.summary || rawText,\n    original_title: sourceItem.title || '',\n    link: sourceItem.link || '',\n    pubDate: sourceItem.pubDate || new Date().toISOString()\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1360,
+        0
+      ],
+      "id": "78ee8926-4b7f-4011-96d7-53c4c8c787ac",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1ngk93LMW93yExRSeNfAR_1SHVI0k2FVqVpRojxrZokE",
+          "mode": "list",
+          "cachedResultName": "ABS-CBN Automated Content Ingestion & AI Summarizer",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1ngk93LMW93yExRSeNfAR_1SHVI0k2FVqVpRojxrZokE/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1ngk93LMW93yExRSeNfAR_1SHVI0k2FVqVpRojxrZokE/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Published Date": "={{ $json.pubDate }}",
+            "Original Title": "={{ $json.original_title }}",
+            "Category": "={{ $json.category }}",
+            "Urgency (1-5)": "={{ $json.urgency }}",
+            "AI Summary": "={{ $json.summary }}",
+            "Source Link": "={{ $json.link }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Published Date",
+              "displayName": "Published Date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Original Title",
+              "displayName": "Original Title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Category",
+              "displayName": "Category",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Urgency (1-5)",
+              "displayName": "Urgency (1-5)",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "AI Summary",
+              "displayName": "AI Summary",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Source Link",
+              "displayName": "Source Link",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1584,
+        0
+      ],
+      "id": "762ade4c-906d-42b6-ac15-41db5c156505",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "lB5bSbNAVEojQV5Q",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "maxItems": 3
+      },
+      "type": "n8n-nodes-base.limit",
+      "typeVersion": 1,
+      "position": [
+        336,
+        0
+      ],
+      "id": "bde26129-2fe9-4588-b6a6-82e0c5823781",
+      "name": "Limit"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1ngk93LMW93yExRSeNfAR_1SHVI0k2FVqVpRojxrZokE",
+          "mode": "list",
+          "cachedResultName": "ABS-CBN Automated Content Ingestion & AI Summarizer",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1ngk93LMW93yExRSeNfAR_1SHVI0k2FVqVpRojxrZokE/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1ngk93LMW93yExRSeNfAR_1SHVI0k2FVqVpRojxrZokE/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        560,
+        0
+      ],
+      "id": "18688b20-ffc7-4907-b6e3-990013709def",
+      "name": "Get row(s) in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "lB5bSbNAVEojQV5Q",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "0e12fab6-88ed-44d2-8bbb-7b9339b52dd3",
+              "leftValue": "={{ $('Get row(s) in sheet').all().map(item => item.json['Source Link']) }}",
+              "rightValue": "={{ $('Limit').item.json.link }}",
+              "operator": {
+                "type": "array",
+                "operation": "notContains",
+                "rightType": "any"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.3,
+      "position": [
+        784,
+        0
+      ],
+      "id": "99c6130c-6b3e-46ac-ad98-15f23135d28b",
+      "name": "Filter"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours",
+              "hoursInterval": 6
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        -96,
+        0
+      ],
+      "id": "99c1ce71-99f8-4285-84a9-e45c196f4b2d",
+      "name": "Schedule Trigger"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "RSS Read": {
+      "main": [
+        [
+          {
+            "node": "Limit",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Limit": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "Filter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "RSS Read",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "timeSavedMode": "fixed",
+    "timezone": "Asia/Manila",
+    "callerPolicy": "workflowsFromSameOwner",
+    "executionTimeout": -1,
+    "availableInMCP": false
+  },
+  "versionId": "4bf25772-e900-4ef6-9e6f-899b76865f17",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "d47817c96aac052ed41b97e2a2dc5de26e9e1a3574e54409c0794a096ee01ee2"
+  },
+  "nodeGroups": [],
+  "id": "nDkW30byMhiT6lVH",
+  "tags": []
+}

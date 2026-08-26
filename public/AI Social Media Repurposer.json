@@ -1,0 +1,300 @@
+{
+  "name": "AI Social Media Repurposer",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "d1a6d6dd-863c-4403-adaf-8a6a8a1e57ed",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1ngk93LMW93yExRSeNfAR_1SHVI0k2FVqVpRojxrZokE",
+          "mode": "list",
+          "cachedResultName": "ABS-CBN Automated Content Ingestion & AI Summarizer",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1ngk93LMW93yExRSeNfAR_1SHVI0k2FVqVpRojxrZokE/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1ngk93LMW93yExRSeNfAR_1SHVI0k2FVqVpRojxrZokE/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": []
+        },
+        "options": {
+          "returnFirstMatch": false
+        }
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        208,
+        0
+      ],
+      "id": "de6668e2-5811-4aaf-b67c-dbc899640662",
+      "name": "Get row(s) in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "lB5bSbNAVEojQV5Q",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are a viral social media strategist and ghostwriter. \nTransform the following news story / article into high-performing social media drafts for two platforms: LinkedIn and X (formerly Twitter).\n\nTitle: {{ $json['Original Title'] || $json.title }}\nSummary / Content: {{ $json['AI Summary'] || $json.contentSnippet || $json.summary }}\nLink: {{ $json['Source Link'] || $json.link }}\n\nGenerate a structured JSON output matching EXACTLY this schema (no markdown formatting, no code backticks):\n{\n  \"linkedin_post\": \"Hook on the first line.\\n\\nKey analysis in 2-3 short readable paragraphs.\\n\\nActionable takeaway or question to start a conversation in comments.\\n\\nLink placeholder: {{ $json['Source Link'] || $json.link }}\",\n  \"twitter_thread\": \"Tweet 1: Strong punchy hook with a surprising stat or takeaway.\\n\\nTweet 2: Context and details.\\n\\nTweet 3: Why it matters.\\n\\nTweet 4: Link + Question to engage followers.\",\n  \"hashtags\": \"#Tech #News #Trends\"\n}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        624,
+        0
+      ],
+      "id": "59c191d4-9a2b-41e6-a055-ab79d1f8b4ef",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1.1,
+      "position": [
+        288,
+        208
+      ],
+      "id": "8d410f55-65df-423c-9017-1cac6a6b6bf7",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "6aHL7Ju6lvz8IHOQ",
+          "name": "Google Gemini(PaLM) Api account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "keep": "lastItems"
+      },
+      "type": "n8n-nodes-base.limit",
+      "typeVersion": 1,
+      "position": [
+        416,
+        0
+      ],
+      "id": "85e243ee-193c-4f2a-a948-1162c10c7e66",
+      "name": "Limit"
+    },
+    {
+      "parameters": {
+        "jsCode": "const rawText = $json.output || $json.text || $json.response?.text || '';\nconst jsonMatch = rawText.match(/\\{[\\s\\S]*\\}/);\n\nlet parsed = {\n  linkedin_post: rawText,\n  twitter_thread: rawText,\n  hashtags: '#News'\n};\n\nif (jsonMatch) {\n  try {\n    parsed = JSON.parse(jsonMatch[0]);\n  } catch (e) {\n    // fallback\n  }\n}\n\n// Safely pull original title from upstream node\nconst originalTitle = $('Get row(s) in sheet')?.item?.json?.['Original Title'] \n  || $('Get row(s) in sheet')?.item?.json?.title \n  || 'Latest News';\n\nreturn {\n  json: {\n    date: new Date().toLocaleDateString('en-US'),\n    original_title: originalTitle,\n    linkedin_post: parsed.linkedin_post,\n    twitter_thread: parsed.twitter_thread,\n    hashtags: parsed.hashtags,\n    status: 'Ready for Review'\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        976,
+        0
+      ],
+      "id": "b99db7bd-e047-448a-bab6-051c2bab63ea",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1BJ9i6rIidlOQMPhjAMdbVyAoRovgrrAnI632SHt5FzA",
+          "mode": "list",
+          "cachedResultName": "Social Drafts",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BJ9i6rIidlOQMPhjAMdbVyAoRovgrrAnI632SHt5FzA/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1BJ9i6rIidlOQMPhjAMdbVyAoRovgrrAnI632SHt5FzA/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Date": "={{ $json.date }}",
+            "Original Title": "={{ $json.original_title }}",
+            "LinkedIn Post": "={{ $json.linkedin_post }}",
+            "X/Twitter/Threads": "={{ $json.twitter_thread }}",
+            "Suggested Hashtags": "={{ $json.hashtags }}",
+            "Status": "={{ $json.status }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Date",
+              "displayName": "Date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Original Title",
+              "displayName": "Original Title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "LinkedIn Post",
+              "displayName": "LinkedIn Post",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "X/Twitter/Threads",
+              "displayName": "X/Twitter/Threads",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Suggested Hashtags",
+              "displayName": "Suggested Hashtags",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1184,
+        0
+      ],
+      "id": "745133a8-ce76-409e-9593-cc101f01ba1c",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "lB5bSbNAVEojQV5Q",
+          "name": "Google Sheets account 2"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "Limit",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Limit": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "64623962-8b90-48e6-b67b-dbe206c94173",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "d47817c96aac052ed41b97e2a2dc5de26e9e1a3574e54409c0794a096ee01ee2"
+  },
+  "nodeGroups": [],
+  "id": "6Onkkn3C4V1yAkVj",
+  "tags": []
+}
