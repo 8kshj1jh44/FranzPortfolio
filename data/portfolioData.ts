@@ -25,6 +25,7 @@ export interface AutomationWorkflow {
   flowNodes: string[];
   metricBadge: string;
   samplePayload: string;
+  screenshot?: string;
 }
 
 export const WEB_PROJECTS: WebProject[] = [
@@ -98,6 +99,7 @@ export const AUTOMATION_WORKFLOWS: AutomationWorkflow[] = [
   {
     id: "dental-chatbot-booking",
     title: "AI Dental Booking Chatbot",
+    screenshot: "/Dental Chatbot.png",
     category: "AI/LLM",
     description:
       "A Gemini-powered virtual receptionist that collects a patient's details, checks the clinic's Google Calendar for their preferred time, then books the slot, logs it to Google Sheets, and emails the dentist.",
@@ -118,6 +120,7 @@ export const AUTOMATION_WORKFLOWS: AutomationWorkflow[] = [
   {
     id: "content-auto-sync",
     title: "Automated Content Ingestion & AI Summarizer",
+    screenshot: "/AI Summarizer.png",
     category: "AI/LLM",
     description:
       "Polls RSS/Content sources, generates concise summaries via OpenAI node, and publishes structured drafts directly to the CMS.",
@@ -135,6 +138,7 @@ export const AUTOMATION_WORKFLOWS: AutomationWorkflow[] = [
   {
     id: "ai-social-media-repurposer",
     title: "AI Social Media Repurposer",
+    screenshot: "/AI Repurposer.png",
     category: "AI/LLM",
     description:
       "Pulls the latest ingested news articles from a Google Sheet, has a Gemini agent rewrite each story into a LinkedIn post and an X (Twitter) thread, then logs the ready-for-review drafts back to a Social Drafts sheet.",
@@ -154,6 +158,7 @@ export const AUTOMATION_WORKFLOWS: AutomationWorkflow[] = [
   {
     id: "dental-aftercare-reviews",
     title: "Daily Aftercare & Review Emails",
+    screenshot: "/Aftercare and Review.png",
     category: "CRM & Ops",
     description:
       "A daily cron pulls the clinic's Google Calendar events for the day and branches by procedure — sending post-extraction aftercare instructions, a review request after cleanings, and a general thank-you email. No human in the loop.",
@@ -173,6 +178,7 @@ export const AUTOMATION_WORKFLOWS: AutomationWorkflow[] = [
   {
     id: "24hr-appointment-reminder",
     title: "24-Hour Appointment Reminder",
+    screenshot: "/24 hr Reminder.png",
     category: "CRM & Ops",
     description:
       "A daily cron computes tomorrow's date, fetches upcoming appointments from Google Calendar, and emails each patient a friendly reminder the day before their visit.",

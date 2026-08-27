@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import {
   Webhook,
@@ -69,6 +70,7 @@ function FlowDiagram({ nodes }: { nodes: string[] }) {
 
 function WorkflowCard({ automation }: { automation: AutomationWorkflow }) {
   const [open, setOpen] = useState(false);
+  const [showImage, setShowImage] = useState(false);
   const reduceMotion = useReducedMotion();
 
   return (
@@ -104,6 +106,26 @@ function WorkflowCard({ automation }: { automation: AutomationWorkflow }) {
           </p>
           <FlowDiagram nodes={automation.flowNodes} />
         </div>
+
+        {automation.screenshot && (
+          <button
+            type="button"
+            onClick={() => setShowImage((v) => !v)}
+            aria-expanded={showImage}
+            className="mt-4 inline-flex items-center justify-between rounded-lg border border-white/[0.08] bg-surface-2 px-3.5 py-2.5 text-left text-sm text-ink-secondary transition-colors hover:border-coral/30 hover:text-ink"
+          >
+            <span className="inline-flex items-center gap-2">
+              <Workflow className="h-4 w-4 text-coral" />
+              View workflow
+            </span>
+            <ChevronDown
+              className={cn(
+                "h-4 w-4 transition-transform duration-300",
+                showImage && "rotate-180"
+              )}
+            />
+          </button>
+        )}
 
         <button
           type="button"
@@ -144,6 +166,29 @@ function WorkflowCard({ automation }: { automation: AutomationWorkflow }) {
             <pre className="overflow-x-auto p-5 font-mono text-xs leading-relaxed text-emerald-300/90">
               {automation.samplePayload}
             </pre>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence initial={false}>
+        {showImage && automation.screenshot && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            className="overflow-hidden border-t border-white/[0.06] bg-background"
+          >
+            <div className="relative aspect-[16/10] w-full bg-background">
+              <Image
+                src={automation.screenshot}
+                alt={`${automation.title} workflow`}
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                className="object-contain"
+                priority={false}
+              />
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
