@@ -16,6 +16,7 @@ const STATS = [
   { value: "5+", label: "Deployed Production Sites" },
   { value: "n8n", label: "Custom Automation Pipelines" },
   { value: "Appwrite + Supabase", label: "Backend as a Service" },
+  { value: "Vercel", label: "Edge Deployments" },
 ] as const;
 
 export default function Hero() {
@@ -120,7 +121,7 @@ export default function Hero() {
           initial={reduceMotion ? false : { opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.2, duration: 0.8 }}
-          className="mx-auto mt-14 grid max-w-xl grid-cols-1 gap-3 sm:grid-cols-3"
+          className="mx-auto mt-14 grid max-w-3xl grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4"
         >
           {STATS.map((stat) => (
             <div
