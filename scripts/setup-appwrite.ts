@@ -8,6 +8,8 @@ const AUTOMATIONS_COL =
   process.env.APPWRITE_COLLECTION_AUTOMATIONS_ID ?? "automations";
 const MESSAGES_COL =
   process.env.APPWRITE_COLLECTION_MESSAGES_ID ?? "contact_messages";
+const ANALYTICS_COL =
+  process.env.APPWRITE_COLLECTION_ANALYTICS_ID ?? "analytics";
 const BUCKET_ID = process.env.APPWRITE_STORAGE_BUCKET_ID ?? "portfolio_assets";
 
 const READ_WRITE = ["read(\"any\")", "create(\"any\")", "update(\"any\")", "delete(\"any\")"];
@@ -41,6 +43,12 @@ async function safe(label: string, fn: () => Promise<unknown>): Promise<void> {
 }
 
 async function ensureDatabase(db: Databases): Promise<void> {
+  const existing = await db.list();
+  const found = existing.databases.find((d) => d.$id === DATABASE_ID);
+  if (found) {
+    console.log(`  • Database "${DATABASE_ID}" (already exists)`);
+    return;
+  }
   await safe(`Create database "${DATABASE_ID}"`, () =>
     db.create(DATABASE_ID, "Portfolio")
   );
@@ -72,6 +80,16 @@ async function ensureCollections(db: Databases): Promise<void> {
       DATABASE_ID,
       MESSAGES_COL,
       "Contact Messages",
+      CREATE_ONLY,
+      false,
+      true
+    )
+  );
+  await safe(`Create collection "${ANALYTICS_COL}"`, () =>
+    db.createCollection(
+      DATABASE_ID,
+      ANALYTICS_COL,
+      "Analytics",
       CREATE_ONLY,
       false,
       true
@@ -155,9 +173,17 @@ async function ensureMessagesAttributes(db: Databases): Promise<void> {
       MESSAGES_COL,
       "status",
       ["unread", "processed"],
-      true,
-      "unread"
+      true
     )
+  );
+}
+
+async function ensureAnalyticsAttributes(db: Databases): Promise<void> {
+  await safe(`String attr "path" (analytics)`, () =>
+    db.createStringAttribute(DATABASE_ID, ANALYTICS_COL, "path", 255, true)
+  );
+  await safe(`Integer attr "count" (analytics)`, () =>
+    db.createIntegerAttribute(DATABASE_ID, ANALYTICS_COL, "count", true, undefined, undefined, 0)
   );
 }
 
@@ -179,6 +205,7 @@ async function main(): Promise<void> {
   await ensureProjectsAttributes(db);
   await ensureAutomationsAttributes(db);
   await ensureMessagesAttributes(db);
+  await ensureAnalyticsAttributes(db);
   await ensureBucket(storage);
 
   console.log("\n✓ Appwrite setup complete.\n");

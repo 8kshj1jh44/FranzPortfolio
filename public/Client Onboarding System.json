@@ -1,0 +1,309 @@
+{
+  "name": "Client Onboarding System",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "client-onbard",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "6efb4e12-1eb7-49c5-a686-426f6f2bb363",
+      "name": "Webhook",
+      "webhookId": "6221a4da-113f-4040-b52a-5209f48d1dcb"
+    },
+    {
+      "parameters": {
+        "resource": "folder",
+        "name": "= {{ $json.body.data.fields[0].value }} || {{ $json.body.data.fields[1].value }}- Client Hub",
+        "driveId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "My Drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "value": "1s-iXkbHdG2Me9_LGkzD9liRmRPW-kY35",
+          "mode": "list",
+          "cachedResultName": "Clients",
+          "cachedResultUrl": "https://drive.google.com/drive/folders/1s-iXkbHdG2Me9_LGkzD9liRmRPW-kY35"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        208,
+        0
+      ],
+      "id": "84181a14-d4b5-4438-b89f-6d63737546a9",
+      "name": "Create folder",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "HAizZbvHA5df3GkJ",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "folder",
+        "name": "01 - Raw Assests and Brand Kit",
+        "driveId": {
+          "__rl": true,
+          "value": "My Drive",
+          "mode": "list",
+          "cachedResultName": "My Drive",
+          "cachedResultUrl": "https://drive.google.com/drive/my-drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "value": "={{ $json.id }}",
+          "mode": "id"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        416,
+        0
+      ],
+      "id": "6ec7de4a-b0c3-4052-b47d-4332b900a840",
+      "name": "Create folder1",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "HAizZbvHA5df3GkJ",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1uwMtN4FSM_QjeFOOt1V4C_w8Yo6UL_okqsd7liDM3NE",
+          "mode": "list",
+          "cachedResultName": "Project Management Tracker",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1uwMtN4FSM_QjeFOOt1V4C_w8Yo6UL_okqsd7liDM3NE/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1uwMtN4FSM_QjeFOOt1V4C_w8Yo6UL_okqsd7liDM3NE/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Client Name": "={{ $('Webhook').item.json.body.data.fields[0].value }}",
+            "Company Name": "={{ $('Webhook').item.json.body.data.fields[1].value }}",
+            "Package Tier": "={{ $('Webhook').item.json.body.data.fields[3].options[0].text }}",
+            "Drive Link": "=https://drive.google.com/drive/folders/{{ $('Create folder').item.json.id }}",
+            "Onboarding Status": "Onboarding Sent"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Client Name",
+              "displayName": "Client Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Company Name",
+              "displayName": "Company Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Package Tier",
+              "displayName": "Package Tier",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Drive Link",
+              "displayName": "Drive Link",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Onboarding Status",
+              "displayName": "Onboarding Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        624,
+        0
+      ],
+      "id": "f663d11f-3788-4c2b-b649-17dc8fe8b641",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "lB5bSbNAVEojQV5Q",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('Webhook').item.json.body.data.fields[2].value }}",
+        "subject": "=Welcome to the team, {{ $('Webhook').item.json.body.data.fields[0].value }}!",
+        "emailType": "text",
+        "message": "=Hi {{ $('Webhook').item.json.body.data.fields[0].value }},\n\nWelcome aboard! We are excited to get started with {{ $('Webhook').item.json.body.data.fields[1].value }}. \nHere is your dedicated Google Drive workspace where you can upload assets:📁 https://drive.google.com/drive/folders/{{ $('Create folder1').item.json.id }} and Access Your Client Folder\n\nBest regards, Team",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        832,
+        0
+      ],
+      "id": "28473f4a-0ef5-44bb-91c2-ebc319ec174d",
+      "name": "Send a message",
+      "webhookId": "aab03e9e-a732-4a3f-9aaa-77909618f7bc",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "KcHbtfmYrllq8ywi",
+          "name": "Gmail account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "C0BTTB01Z6Y",
+          "mode": "list",
+          "cachedResultName": "all-franz"
+        },
+        "text": "=🚀 New Client Onboarded!  \n\n🏢 Company: {{ $('Webhook').item.json.body.data.fields[1].value }}\n👤 Client: {{ $('Webhook').item.json.body.data.fields[0].value }}\n📦 Package: {{ $('Webhook').item.json.body.data.fields[3].options[0].text }}\n📁 Drive Hub: https://drive.google.com/drive/folders/{{ $('Create folder').item.json.id }}",
+        "otherOptions": {}
+      },
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.5,
+      "position": [
+        1040,
+        0
+      ],
+      "id": "b655b7cc-3ca5-43ba-882c-ed9439b676b2",
+      "name": "Send a message1",
+      "webhookId": "6274ee44-6f23-4314-8ad6-baa5d384b20c",
+      "credentials": {
+        "slackApi": {
+          "id": "EikpXZxMVQpxj0Eg",
+          "name": "Slack account 2"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Create folder",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create folder": {
+      "main": [
+        [
+          {
+            "node": "Create folder1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create folder1": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a message": {
+      "main": [
+        [
+          {
+            "node": "Send a message1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "693dd267-b32e-43fe-b86f-aba064265633",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "d47817c96aac052ed41b97e2a2dc5de26e9e1a3574e54409c0794a096ee01ee2"
+  },
+  "nodeGroups": [],
+  "id": "8LC1iaAHjcrrUsmN",
+  "tags": []
+}

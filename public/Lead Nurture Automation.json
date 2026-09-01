@@ -1,0 +1,517 @@
+{
+  "name": "Lead Nurture Automation",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "lead-intake",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        -96
+      ],
+      "id": "4dad473e-ce12-4825-b9a9-54969fac83df",
+      "name": "Webhook",
+      "webhookId": "fded460d-5488-487f-8c5d-7b632576951f"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1jEvAA0P96R63A5KfDbxx4mFWTtgF6Vav6BswI_od5_M",
+          "mode": "list",
+          "cachedResultName": "Lead Nurture Automation",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1jEvAA0P96R63A5KfDbxx4mFWTtgF6Vav6BswI_od5_M/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1jEvAA0P96R63A5KfDbxx4mFWTtgF6Vav6BswI_od5_M/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Date Added": "={{ $json.body.createdAt }}",
+            "Email": "={{ $json.body.data.fields[1].value }}",
+            "Full Name": "={{ $json.body.data.fields[0].value }}",
+            "Phone": "={{ $json.body.data.fields[2].value }}",
+            "Interest": "={{ $json.body.data.fields[3].value }}",
+            "Status": "New Lead"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Date Added",
+              "displayName": "Date Added",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Full Name",
+              "displayName": "Full Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Phone",
+              "displayName": "Phone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Interest",
+              "displayName": "Interest",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        224,
+        -96
+      ],
+      "id": "43b72bac-de85-4f9d-8a70-929182c05f07",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "lB5bSbNAVEojQV5Q",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $json.Email }}",
+        "subject": "=Thanks for reaching out, {{ $json['Full Name'] }}",
+        "emailType": "text",
+        "message": "=Hi {{ $json['Full Name'] }},\n\nThanks for your interest in our {{ $json.Interest }} services. We received your inquiry and our team is already reviewing your details. In the meantime, feel free to reply directly to this email if you have any immediate questions.\n\nBest regards,\nThe Team",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        448,
+        -96
+      ],
+      "id": "1881f15c-6851-4843-993a-f23c7f8be1bc",
+      "name": "Send a message",
+      "webhookId": "454d1d26-c05c-4f18-8778-f8fa2b6448e3",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "KcHbtfmYrllq8ywi",
+          "name": "Gmail account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "C0BTTRE6TJA",
+          "mode": "list",
+          "cachedResultName": "leadscaptures"
+        },
+        "text": "=🔥 New Inbound Lead Captured! \n\nName: {{ $('Append row in sheet').item.json['Full Name'] }}\nEmail: {{ $('Append row in sheet').item.json.Email }}\nInterest: {{ $('Append row in sheet').item.json.Interest }}\n\nStatus: Welcome email dispatched automatically.",
+        "otherOptions": {}
+      },
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.5,
+      "position": [
+        672,
+        -96
+      ],
+      "id": "3590bad3-7720-4156-a311-684c1d3ca43e",
+      "name": "Send a message1",
+      "webhookId": "ee52667c-e3f5-4922-b56e-ab20fac69305",
+      "credentials": {
+        "slackApi": {
+          "id": "EikpXZxMVQpxj0Eg",
+          "name": "Slack account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1jEvAA0P96R63A5KfDbxx4mFWTtgF6Vav6BswI_od5_M",
+          "mode": "list",
+          "cachedResultName": "Lead Nurture Automation",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1jEvAA0P96R63A5KfDbxx4mFWTtgF6Vav6BswI_od5_M/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1jEvAA0P96R63A5KfDbxx4mFWTtgF6Vav6BswI_od5_M/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "=Email",
+              "lookupValue": "={{ $('Append row in sheet').item.json.Email }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1120,
+        -96
+      ],
+      "id": "5a54ffa5-ab34-42da-95ee-d002f9d15d5d",
+      "name": "Get row(s) in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "lB5bSbNAVEojQV5Q",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "amount": 10
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        896,
+        -96
+      ],
+      "id": "1b3f477e-54b3-4839-842a-4f9280a278cc",
+      "name": "Wait",
+      "webhookId": "ed855078-a141-4578-96db-9a78c0cb2dd4"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "a346cbf0-ca56-4a42-b1f0-d4062177f4f5",
+              "leftValue": "={{ $json.Status }}",
+              "rightValue": "New Lead",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1344,
+        -96
+      ],
+      "id": "19b150d0-4dc7-4955-83d8-1d533b7fd6f4",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $json.Email }}",
+        "subject": "=Quick question regarding about your {{ $json.Interest }} inquiry",
+        "emailType": "text",
+        "message": "=Hi {{ $json['Full Name'] }},\n\nFollowing up on my note from a couple of days ago regarding {{ $json.Interest }}. Did you get a chance to review our resources, or would you prefer a quick 10-minute discovery call this week?\n\nBest,\nThe Team",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        1568,
+        -96
+      ],
+      "id": "46b7a23f-1309-49c2-99c5-cc8dd8184a37",
+      "name": "Send a message2",
+      "webhookId": "196983a9-53b7-4dc7-a538-6a0aa7a05de3",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "KcHbtfmYrllq8ywi",
+          "name": "Gmail account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1jEvAA0P96R63A5KfDbxx4mFWTtgF6Vav6BswI_od5_M",
+          "mode": "list",
+          "cachedResultName": "Lead Nurture Automation",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1jEvAA0P96R63A5KfDbxx4mFWTtgF6Vav6BswI_od5_M/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1jEvAA0P96R63A5KfDbxx4mFWTtgF6Vav6BswI_od5_M/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Email": "={{ $('If').item.json.Email }}",
+            "Status": "Follow-Up 1 Sent"
+          },
+          "matchingColumns": [
+            "Email"
+          ],
+          "schema": [
+            {
+              "id": "Date Added",
+              "displayName": "Date Added",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Full Name",
+              "displayName": "Full Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Phone",
+              "displayName": "Phone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Interest",
+              "displayName": "Interest",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1792,
+        -96
+      ],
+      "id": "f4471a03-4079-46ed-b257-e504b829b130",
+      "name": "Update row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "lB5bSbNAVEojQV5Q",
+          "name": "Google Sheets account 2"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a message": {
+      "main": [
+        [
+          {
+            "node": "Send a message1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a message1": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Send a message2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a message2": {
+      "main": [
+        [
+          {
+            "node": "Update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "821d1a0b-e21b-4d4c-a988-dca97482c454",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "d47817c96aac052ed41b97e2a2dc5de26e9e1a3574e54409c0794a096ee01ee2"
+  },
+  "nodeGroups": [],
+  "id": "eb8xfcIWIgYA4T7d",
+  "tags": []
+}

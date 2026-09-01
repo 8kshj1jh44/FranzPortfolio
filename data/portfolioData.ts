@@ -193,6 +193,49 @@ export const AUTOMATION_WORKFLOWS: AutomationWorkflow[] = [
     samplePayload:
       '{\n  "tomorrow_date": "2026-09-10T16:00:00+08:00",\n  "summary": "Teeth Cleaning",\n  "start": { "dateTime": "2026-09-11T10:00:00+08:00" },\n  "recipient": "patient@example.com"\n}',
   },
+  {
+    id: "lead-nurture",
+    title: "Lead Nurture Automation",
+    screenshot: "/Lead Nurture.png",
+    category: "CRM & Ops",
+    description:
+      "A webhook captures every inbound lead, appends it to a Google Sheet, sends an instant welcome email, and pings Slack. After a set delay it checks the lead's status and fires a personalized follow-up email, keeping the funnel warm with no manual tracking.",
+    trigger: "Webhook / Lead Intake",
+    flowNodes: [
+      "Webhook Trigger",
+      "Append Lead to Sheet",
+      "Welcome Email (Gmail)",
+      "Slack Alert",
+      "Wait",
+      "Fetch Lead Status",
+      "Route by Status (If)",
+      "Follow-Up Email",
+      "Update Lead Status",
+    ],
+    metricBadge: "📨 Auto follow-ups",
+    samplePayload:
+      '{\n  "createdAt": "2026-08-30T09:12:00+08:00",\n  "data": { "fields": [{ "value": "Maria Santos" }, { "value": "maria@example.com" }, { "value": "09171234567" }, { "value": "Web Design" }] },\n  "status": "New Lead"\n}',
+  },
+  {
+    id: "client-onboarding",
+    title: "Client Onboarding System",
+    screenshot: "/Client Onboarding.png",
+    category: "CRM & Ops",
+    description:
+      "On a new-client webhook, this workflow builds a dedicated Google Drive hub with a brand-kit subfolder, logs the project to a tracking sheet, emails the welcome + Drive link, and notifies Slack — a zero-touch onboarding kickoff.",
+    trigger: "Webhook / New Client",
+    flowNodes: [
+      "Webhook Trigger",
+      "Create Drive Hub Folder",
+      "Create Brand Kit Subfolder",
+      "Append to Project Tracker",
+      "Welcome Email (Gmail)",
+      "Slack Alert",
+    ],
+    metricBadge: "🚀 Zero-touch onboarding",
+    samplePayload:
+      '{\n  "data": { "fields": [{ "value": "Maria Santos" }, { "value": "Acme Corp" }, { "value": "maria@example.com" }, { "options": [{ "text": "Growth" }] }] },\n  "drive_hub_id": "1AbCdEfGhIjKlMnOpQrStUvWxYz",\n  "status": "Onboarding Sent"\n}',
+  },
 ];
 
 export const AUTOMATION_FILTERS: Array<"All" | AutomationCategory> = [
