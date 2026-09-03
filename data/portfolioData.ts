@@ -186,51 +186,6 @@ export const AUTOMATION_WORKFLOWS: AutomationWorkflow[] = [
       '{\n  "summary": "Maria Santos - Teeth Cleaning",\n  "start": { "dateTime": "2026-09-10T10:00:00+08:00" },\n  "branch": "review"\n}',
   },
   {
-    id: "24hr-appointment-reminder",
-    title: "24-Hour Appointment Reminder",
-    screenshot: "/n8n/Zero-AI Atomated 24-Hour Reminder.png",
-    workflowFile: "/n8n/Zero-AI Automated 24-Hour Reminder.json",
-    githubUrl: "https://github.com/8kshj1jh44/Dental-Chatbot-n8n",
-    category: "CRM & Ops",
-    description:
-      "A daily cron computes tomorrow's date, fetches upcoming appointments from Google Calendar, and emails each patient a friendly reminder the day before their visit.",
-    trigger: "Daily Cron (08:00)",
-    flowNodes: [
-      "Schedule Trigger",
-      "Compute Tomorrow",
-      "Fetch Tomorrow's Events",
-      "Email Appointment Reminder",
-    ],
-    metricBadge: "📅 No-show reducer",
-    samplePayload:
-      '{\n  "tomorrow_date": "2026-09-10T16:00:00+08:00",\n  "summary": "Teeth Cleaning",\n  "start": { "dateTime": "2026-09-11T10:00:00+08:00" },\n  "recipient": "patient@example.com"\n}',
-  },
-  {
-    id: "lead-nurture",
-    title: "Lead Nurture Automation",
-    screenshot: "/n8n/Lead Nurture.png",
-    workflowFile: "/n8n/Lead Nurture Automation.json",
-    githubUrl: "https://github.com/8kshj1jh44/n8n-Projects",
-    category: "CRM & Ops",
-    description:
-      "A webhook captures every inbound lead, appends it to a Google Sheet, sends an instant welcome email, and pings Slack. After a set delay it checks the lead's status and fires a personalized follow-up email, keeping the funnel warm with no manual tracking.",
-    trigger: "Webhook / Lead Intake",
-    flowNodes: [
-      "Webhook Trigger",
-      "Append Lead to Sheet",
-      "Welcome Email (Gmail)",
-      "Slack Alert",
-      "Wait",
-      "Fetch Lead Status",
-      "Route by Status (If)",
-      "Follow-Up Email",
-      "Update Lead Status",
-    ],
-    metricBadge: "📨 Auto follow-ups",
-    samplePayload:
-      '{\n  "createdAt": "2026-08-30T09:12:00+08:00",\n  "data": { "fields": [{ "value": "Maria Santos" }, { "value": "maria@example.com" }, { "value": "09171234567" }, { "value": "Web Design" }] },\n  "status": "New Lead"\n}',
-  },
-  {
     id: "client-onboarding",
     title: "Client Onboarding System",
     screenshot: "/n8n/Client Onboarding.png",

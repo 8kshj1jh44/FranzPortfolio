@@ -16,7 +16,7 @@ const fade = (delay: number) => ({
 
 const STATS = [
   { value: "5+", label: "Deployed Production Sites" },
-  { value: "n8n", label: "Custom Automation Pipelines" },
+  { value: "6+", label: "Automation Pipelines Built" },
   { value: "Appwrite + Supabase", label: "Backend as a Service" },
   { value: "Vercel", label: "Edge Deployments" },
 ] as const;
