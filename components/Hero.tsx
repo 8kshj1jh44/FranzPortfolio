@@ -3,8 +3,10 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, Workflow, Sparkles } from "lucide-react";
 import BlurText from "@/components/BlurText";
+import ShapeGrid from "@/components/ShapeGrid";
 import { SOCIAL_ITEMS, SocialGlyph, isExternal } from "@/components/socials";
 import CVButton from "@/components/CVButton";
+import { navigateToHash } from "@/lib/utils";
 
 const fade = (delay: number) => ({
   initial: { opacity: 0, y: 24 },
@@ -22,11 +24,30 @@ const STATS = [
 export default function Hero() {
   const reduceMotion = useReducedMotion();
 
+  const handleNavigate = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    hash: string
+  ) => {
+    e.preventDefault();
+    navigateToHash(hash);
+  };
+
   return (
     <section
       id="top"
       className="relative flex min-h-[100dvh] items-center justify-center overflow-hidden"
     >
+      <div className="absolute inset-0">
+        <ShapeGrid
+          speed={0.35}
+          squareSize={44}
+          direction="diagonal"
+          borderColor="rgba(255,255,255,0.06)"
+          hoverFillColor="rgba(59,130,246,0.18)"
+          shape="hexagon"
+          hoverTrailAmount={6}
+        />
+      </div>
       <div className="pointer-events-none absolute inset-0 dot-grid opacity-60" />
       <div className="pointer-events-none absolute -top-40 left-1/2 h-[520px] w-[820px] -translate-x-1/2 rounded-full bg-accent/15 blur-[120px]" />
       <div className="pointer-events-none absolute bottom-0 right-0 h-[420px] w-[520px] translate-x-1/3 translate-y-1/3 rounded-full bg-coral/10 blur-[120px]" />
@@ -62,6 +83,7 @@ export default function Hero() {
         >
           <a
             href="#projects"
+            onClick={(e) => handleNavigate(e, "#projects")}
             className="group inline-flex w-full items-center justify-center gap-2 rounded-xl bg-accent px-6 py-3.5 text-sm font-medium text-white transition-all hover:bg-accent/90 active:scale-[0.98] sm:w-auto"
           >
             View Web Projects
@@ -69,6 +91,7 @@ export default function Hero() {
           </a>
           <a
             href="#automations"
+            onClick={(e) => handleNavigate(e, "#automations")}
             className="group inline-flex w-full items-center justify-center gap-2 rounded-xl border border-white/10 bg-surface px-6 py-3.5 text-sm font-medium text-ink transition-all hover:border-coral/40 hover:bg-surface-2 active:scale-[0.98] sm:w-auto"
           >
             <Workflow className="h-4 w-4 text-coral" />

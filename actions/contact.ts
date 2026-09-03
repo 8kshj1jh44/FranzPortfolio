@@ -20,6 +20,14 @@ export async function submitContactForm(
   _prevState: ContactFormState,
   formData: FormData
 ): Promise<ContactFormState> {
+  const website = formData.get("website");
+  if (typeof website === "string" && website.trim() !== "") {
+    return {
+      success: true,
+      message: "Message sent. I'll get back to you shortly.",
+    };
+  }
+
   const parsed = contactSchema.safeParse({
     name: formData.get("name"),
     email: formData.get("email"),
@@ -37,15 +45,13 @@ export async function submitContactForm(
   const data = parsed.data;
   const databaseId = process.env.APPWRITE_DATABASE_ID;
   const collectionId = process.env.APPWRITE_COLLECTION_MESSAGES_ID;
-  const webhookUrl = process.env.N8N_CONTACT_WEBHOOK_URL;
 
   if (!databaseId || !collectionId) {
     return { success: false, message: "The contact form is not configured yet." };
   }
 
-  let documentId: string;
   try {
-    const document = await adminDatabases().createDocument(
+    await adminDatabases().createDocument(
       databaseId,
       collectionId,
       ID.unique(),
@@ -57,7 +63,6 @@ export async function submitContactForm(
         status: "unread",
       }
     );
-    documentId = document.$id;
   } catch (error) {
     if (error instanceof AppwriteException) {
       console.error("Appwrite error persisting contact message:", error.message);
@@ -67,42 +72,8 @@ export async function submitContactForm(
     return { success: false, message: "Could not save your message. Please try again." };
   }
 
-  if (webhookUrl) {
-    void forwardToN8n(webhookUrl, data, documentId);
-  }
-
   return {
     success: true,
     message: "Message sent. I'll get back to you shortly.",
   };
-}
-
-async function forwardToN8n(
-  webhookUrl: string,
-  data: {
-    name: string;
-    email: string;
-    projectType: string;
-    message: string;
-  },
-  documentId: string
-): Promise<void> {
-  try {
-    await fetch(webhookUrl, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        event: "contact.message.created",
-        documentId,
-        contact: {
-          name: data.name,
-          email: data.email,
-          projectType: data.projectType,
-          message: data.message,
-        },
-      }),
-    });
-  } catch (error) {
-    console.error("Failed to forward contact message to n8n:", error);
-  }
 }

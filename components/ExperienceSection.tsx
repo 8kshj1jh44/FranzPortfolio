@@ -6,7 +6,7 @@ import {
   Calendar,
   GraduationCap,
   User,
-  ExternalLink,
+  Download,
 } from "lucide-react";
 import {
   RESUME_DATA,
@@ -14,6 +14,7 @@ import {
   type ExperienceItem,
 } from "@/data/resumeData";
 import CVButton from "@/components/CVButton";
+import ScrollFloat from "@/components/ScrollFloat";
 import { cn } from "@/lib/utils";
 
 const TYPE_TONE: Record<
@@ -122,9 +123,8 @@ function CertificationCard({ cert }: { cert: CertificationItem }) {
       <div className="group flex h-full flex-col rounded-card border border-white/[0.08] bg-surface p-3 transition-colors duration-300 hover:border-white/20">
         <a
           href={cert.pdfPath}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label={`Open ${cert.name} certificate`}
+          download
+          aria-label={`Download ${cert.name} certificate`}
           className="relative block h-48 w-full overflow-hidden rounded-lg border border-white/10 bg-surface-2"
         >
           <iframe
@@ -135,8 +135,8 @@ function CertificationCard({ cert }: { cert: CertificationItem }) {
           />
           <span className="pointer-events-none absolute inset-0 flex items-center justify-center bg-transparent transition-colors duration-300 group-hover:bg-background/50">
             <span className="inline-flex items-center gap-1.5 rounded-lg border border-white/10 bg-background/80 px-3 py-1.5 text-xs font-medium text-ink opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-              <ExternalLink className="h-3.5 w-3.5" />
-              View certificate
+              <Download className="h-3.5 w-3.5" />
+              Download certificate
             </span>
           </span>
         </a>
@@ -159,11 +159,10 @@ function CertificationCard({ cert }: { cert: CertificationItem }) {
           </h4>
           <a
             href={cert.pdfPath}
-            target="_blank"
-            rel="noopener noreferrer"
+            download
             className="mt-3 inline-flex items-center gap-1.5 text-xs font-medium text-accent transition-colors hover:text-accent/80"
           >
-            Open certificate <ExternalLink className="h-3 w-3" />
+            Download certificate <Download className="h-3 w-3" />
           </a>
         </div>
       </div>
@@ -188,9 +187,10 @@ export default function ExperienceSection() {
                 <User className="h-3.5 w-3.5 text-coral" />
                 {RESUME_DATA.name}
               </p>
-              <h2 className="text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
-                Experience &amp; Background
-              </h2>
+              <ScrollFloat
+                text="Experience & Background"
+                className="text-3xl font-semibold tracking-tight text-ink sm:text-4xl"
+              />
               <p className="mt-3 max-w-[55ch] text-base leading-relaxed text-ink-secondary">
                 {RESUME_DATA.summary}
               </p>

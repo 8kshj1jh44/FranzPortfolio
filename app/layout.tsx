@@ -14,10 +14,67 @@ const geistMono = localFont({
   weight: "100 900",
 });
 
+const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL || "https://franz-portfolio-psi.vercel.app";
+
+const TITLE =
+  "Franz Lyster — Full-Stack Developer & n8n Automation Specialist";
+const DESCRIPTION =
+  "Portfolio of Franz Lyster Tagalogon: production-ready full-stack web applications and end-to-end n8n automation pipelines.";
+
 export const metadata: Metadata = {
-  title: "Franz Lyster — Full-Stack Developer & n8n Automation Specialist",
-  description:
-    "Portfolio of Franz Lyster Tagalogon: production-ready full-stack web applications and end-to-end n8n automation pipelines.",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: TITLE,
+    template: "%s · Franz Lyster",
+  },
+  description: DESCRIPTION,
+  keywords: [
+    "full-stack developer",
+    "n8n",
+    "automation",
+    "webhooks",
+    "AI",
+    "Next.js",
+    "freelance",
+    "portfolio",
+  ],
+  authors: [{ name: "Franz Lyster Tagalogon", url: `${SITE_URL}` }],
+  creator: "Franz Lyster Tagalogon",
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "/",
+    siteName: "Franz Lyster",
+    title: TITLE,
+    description: DESCRIPTION,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: TITLE,
+    description: DESCRIPTION,
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+};
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Franz Lyster Tagalogon",
+  url: SITE_URL,
+  jobTitle: "Full-Stack Developer & Automation Engineer",
+  description: DESCRIPTION,
+  sameAs: [
+    "https://github.com/8kshj1jh44",
+    "https://www.linkedin.com/in/franz-lyster-tagalogon-2b7283217/",
+    "https://www.upwork.com/freelancers/~01b4e057e37d32e9fd",
+    "https://www.facebook.com/tagalogonXD/",
+  ],
+  knowsAbout: ["Web Development", "n8n Automation", "AI Pipelines", "Next.js"],
 };
 
 export default function RootLayout({
@@ -45,6 +102,10 @@ gtag('config', 'G-QTY3RTVPK1');`,
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         {children}
         <VisitTracker />
       </body>

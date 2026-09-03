@@ -1,0 +1,268 @@
+{
+  "name": "Complete Lead-to-Appointment System",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "appointment",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "aa56bb24-bc53-4b19-ab12-612d006abe63",
+      "name": "Webhook",
+      "webhookId": "e00ff171-416a-49c3-9d01-aa8b0687d0cf"
+    },
+    {
+      "parameters": {
+        "jsCode": "const data = $json.body?.payload || $json.payload || $json.body || $json;\nconst attendee = data.attendees?.[0] || {};\nconst responses = data.responses || {};\n\n// Helper to extract text from plain strings or Cal.com nested { value: \"...\" } objects\nfunction getResponseValue(...keys) {\n  for (const key of keys) {\n    if (responses[key] !== undefined && responses[key] !== null) {\n      if (typeof responses[key] === 'object') {\n        return responses[key].value || responses[key].label || \"\";\n      }\n      return responses[key];\n    }\n  }\n  return \"\";\n}\n\nconst companyVal = getResponseValue(\"company\", \"Company Name\", \"Company\");\nconst budgetVal = getResponseValue(\"budget\", \"Monthly Budget\", \"Budget\");\n\nconst startDate = new Date(data.startTime);\nconst formattedDate = !isNaN(startDate) ? startDate.toLocaleDateString('en-US', {\n  weekday: 'long',\n  year: 'numeric',\n  month: 'long',\n  day: 'numeric'\n}) : \"Date pending\";\n\nconst formattedTime = !isNaN(startDate) ? startDate.toLocaleTimeString('en-US', {\n  hour: '2-digit',\n  minute: '2-digit'\n}) : \"Time pending\";\n\nreturn [{\n  json: {\n    client_name: $input.first().json.body.payload.attendees[0].name || \"Valued Lead\",\n    client_email: $input.first().json.body.payload.attendees[0].email || \"\",\n    company: $input.first().json.body.payload.responses[\"Company-Name\"].value || \"Direct Inbound\",\n    budget: $input.first().json.body.payload.responses[\"Monthly-Budget\"].value || \"Not Specified\",\n    meeting_date: formattedDate,\n    meeting_time: formattedTime,\n    meeting_link: $input.first().json.body.payload.metadata.videoCallUrl || \"Google Meet link in calendar invite\",\n    raw_start: data.startTime,\n    raw_end: data.endTime,\n    pipeline_stage: \"Discovery Call Scheduled\"\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        224,
+        0
+      ],
+      "id": "dbf4f9f1-e7b0-4b88-8770-aa6451469359",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1NNQeSaSrpSLJVznJhwDo6xDAzvuq_t0O_USOztclFDg",
+          "mode": "list",
+          "cachedResultName": "Complete Lead-to-Appointment System",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1NNQeSaSrpSLJVznJhwDo6xDAzvuq_t0O_USOztclFDg/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1NNQeSaSrpSLJVznJhwDo6xDAzvuq_t0O_USOztclFDg/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Lead Name": "={{ $json.client_name }}",
+            "Lead Email": "={{ $json.client_email }}",
+            "Company": "={{ $json.company }}",
+            "Budget Tier": "={{ $json.budget }}",
+            "Appointment Date": "={{ $json.meeting_date }},{{ $json.meeting_time }}",
+            "Meeting Link": "={{ $json.meeting_link }}",
+            "Pipeline Stage": "={{ $json.pipeline_stage }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Lead Name",
+              "displayName": "Lead Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Lead Email",
+              "displayName": "Lead Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Company",
+              "displayName": "Company",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Budget Tier",
+              "displayName": "Budget Tier",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Appointment Date",
+              "displayName": "Appointment Date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Meeting Link",
+              "displayName": "Meeting Link",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Pipeline Stage",
+              "displayName": "Pipeline Stage",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        448,
+        0
+      ],
+      "id": "8e3dd19b-44dd-45cb-b7cb-cca34c5101bc",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "lB5bSbNAVEojQV5Q",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $json[\"Lead Email\"] }}",
+        "subject": "=Confirmed: Discovery Call on {{ $json[\"Appointment Date\"] }}",
+        "message": "=<p>Hi {{ $json['Lead Name'] }},</p>  <p>Your discovery call is locked in for <strong>{{ $json['Appointment Date'] }}</strong>.</p> <p><strong>Meeting Details:</strong></p> <ul>   <li>🔗 <strong>Video Room:</strong> <a href=\"{{ $json['Meeting Link'] }}\">Join Meeting</a></li>   <li>🎯 <strong>Agenda:</strong> Understanding your workflow bottlenecks, scope review, and automation roadmap.</li> </ul>  <p>If you have any initial workflow files or architecture diagrams, feel free to reply directly to this email prior to our call.</p> \n\n<p>Looking forward to speaking with you!<br>Best regards,<br>The Team</p>",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        672,
+        0
+      ],
+      "id": "46120e11-11cd-41e0-a1a7-89edd68df6f0",
+      "name": "Send a message",
+      "webhookId": "6292cb3b-0b77-4462-b69a-ba5831d5cc84",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "KcHbtfmYrllq8ywi",
+          "name": "Gmail account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "C0BTTB01Z6Y",
+          "mode": "list",
+          "cachedResultName": "all-franz"
+        },
+        "text": "=📅 *NEW APPOINTMENT SCHEDULED!*\n\n👤 *Lead:* {{ $('Append row in sheet').item.json['Lead Name'] }} {{ $('Append row in sheet').item.json.Company }}\n📧 *Email:* {{ $('Append row in sheet').item.json['Lead Email'] }}\n💰 *Budget:* {{ $('Append row in sheet').item.json['Budget Tier'] }}\n⏰ *When:* {{ $('Append row in sheet').item.json['Appointment Date'] }}\n🔗 *Link:* {{ $('Append row in sheet').item.json['Meeting Link'] }}\n\n⚡ *Pipeline Stage:* Discovery Call Scheduled",
+        "otherOptions": {}
+      },
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.5,
+      "position": [
+        896,
+        0
+      ],
+      "id": "4e35b70d-8ee9-4bb8-8a1f-06e41d859c85",
+      "name": "Send a message1",
+      "webhookId": "36748d8c-6d6f-4ac0-91a1-84cca9428d5b",
+      "credentials": {
+        "slackApi": {
+          "id": "EikpXZxMVQpxj0Eg",
+          "name": "Slack account 2"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a message": {
+      "main": [
+        [
+          {
+            "node": "Send a message1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "9538ac5b-d428-442a-9b58-d3eeab0232b9",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "d47817c96aac052ed41b97e2a2dc5de26e9e1a3574e54409c0794a096ee01ee2"
+  },
+  "nodeGroups": [],
+  "id": "ruGUv3mUo1FXdM79",
+  "tags": []
+}

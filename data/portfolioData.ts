@@ -26,6 +26,8 @@ export interface AutomationWorkflow {
   metricBadge: string;
   samplePayload: string;
   screenshot?: string;
+  workflowFile?: string;
+  githubUrl?: string;
 }
 
 export const WEB_PROJECTS: WebProject[] = [
@@ -36,7 +38,7 @@ export const WEB_PROJECTS: WebProject[] = [
     description:
       "Specialty coffee shop storefront built to showcase the menu, highlight signature drinks, and guide customers through a smooth ordering and checkout flow.",
     liveUrl: "https://takers-daily.vercel.app/",
-    githubUrl: "https://github.com/",
+    githubUrl: "https://github.com/8kshj1jh44/TakersDaily",
     techStack: ["Next.js", "Tailwind CSS", "TypeScript", "E-Commerce"],
     image: screenshotOf("https://takers-daily.vercel.app/"),
     highlights: [
@@ -52,7 +54,7 @@ export const WEB_PROJECTS: WebProject[] = [
     description:
       "Specialty e-commerce storefront tailored for local product showcase, catalog management, and seamless buyer UX.",
     liveUrl: "https://oroq-coco-shop.vercel.app/",
-    githubUrl: "https://github.com/",
+    githubUrl: "https://github.com/8kshj1jh44/oroq-coco-shop",
     techStack: ["React", "Tailwind CSS", "TypeScript", "E-Commerce"],
     image: screenshotOf("https://oroq-coco-shop.vercel.app/"),
     highlights: [
@@ -68,7 +70,7 @@ export const WEB_PROJECTS: WebProject[] = [
     description:
       "Visually expressive portfolio showcasing creative front-end styling, micro-interactions, and modern design aesthetics.",
     liveUrl: "https://pixel-vibe-portfolio.vercel.app/",
-    githubUrl: "https://github.com/",
+    githubUrl: "https://github.com/8kshj1jh44/pixel-vibe-portfolio",
     techStack: ["Next.js", "Framer Motion", "Tailwind CSS", "TypeScript"],
     image: screenshotOf("https://pixel-vibe-portfolio.vercel.app/"),
     highlights: [
@@ -84,7 +86,7 @@ export const WEB_PROJECTS: WebProject[] = [
     description:
       "Curated regional discovery platform connecting visitors to local attractions, cultural landmarks, and experiences.",
     liveUrl: "https://discover-oroq.vercel.app/",
-    githubUrl: "https://github.com/",
+    githubUrl: "https://github.com/8kshj1jh44/TouristSpotsOroq",
     techStack: ["Next.js", "Tailwind CSS", "TypeScript", "Location Feeds"],
     image: screenshotOf("https://discover-oroq.vercel.app/"),
     highlights: [
@@ -99,7 +101,9 @@ export const AUTOMATION_WORKFLOWS: AutomationWorkflow[] = [
   {
     id: "dental-chatbot-booking",
     title: "AI Dental Booking Chatbot",
-    screenshot: "/Dental Chatbot.png",
+    screenshot: "/n8n/Dental Chatbot.png",
+    workflowFile: "/n8n/Dental Chatbot Remade.json",
+    githubUrl: "https://github.com/8kshj1jh44/Dental-Chatbot-n8n",
     category: "AI/LLM",
     description:
       "A Gemini-powered virtual receptionist that collects a patient's details, checks the clinic's Google Calendar for their preferred time, then books the slot, logs it to Google Sheets, and emails the dentist.",
@@ -120,7 +124,9 @@ export const AUTOMATION_WORKFLOWS: AutomationWorkflow[] = [
   {
     id: "content-auto-sync",
     title: "Automated Content Ingestion & AI Summarizer",
-    screenshot: "/AI Summarizer.png",
+    screenshot: "/n8n/AI Summarizer.png",
+    workflowFile: "/n8n/ABS-CBN Automated Content Ingestion & AI Summarizer.json",
+    githubUrl: "https://github.com/8kshj1jh44/n8n-Projects",
     category: "AI/LLM",
     description:
       "Polls RSS/Content sources, generates concise summaries via OpenAI node, and publishes structured drafts directly to the CMS.",
@@ -138,7 +144,9 @@ export const AUTOMATION_WORKFLOWS: AutomationWorkflow[] = [
   {
     id: "ai-social-media-repurposer",
     title: "AI Social Media Repurposer",
-    screenshot: "/AI Repurposer.png",
+    screenshot: "/n8n/AI Social Media Repurposer.png",
+    workflowFile: "/n8n/AI Social Media Repurposer.json",
+    githubUrl: "https://github.com/8kshj1jh44/n8n-Projects",
     category: "AI/LLM",
     description:
       "Pulls the latest ingested news articles from a Google Sheet, has a Gemini agent rewrite each story into a LinkedIn post and an X (Twitter) thread, then logs the ready-for-review drafts back to a Social Drafts sheet.",
@@ -158,7 +166,9 @@ export const AUTOMATION_WORKFLOWS: AutomationWorkflow[] = [
   {
     id: "dental-aftercare-reviews",
     title: "Daily Aftercare & Review Emails",
-    screenshot: "/Aftercare and Review.png",
+    screenshot: "/n8n/Dental - Daily Aftercare & Reviews.png",
+    workflowFile: "/n8n/Dental - Daily Aftercare & Reviews.json",
+    githubUrl: "https://github.com/8kshj1jh44/Dental-Chatbot-n8n",
     category: "CRM & Ops",
     description:
       "A daily cron pulls the clinic's Google Calendar events for the day and branches by procedure — sending post-extraction aftercare instructions, a review request after cleanings, and a general thank-you email. No human in the loop.",
@@ -178,7 +188,9 @@ export const AUTOMATION_WORKFLOWS: AutomationWorkflow[] = [
   {
     id: "24hr-appointment-reminder",
     title: "24-Hour Appointment Reminder",
-    screenshot: "/24 hr Reminder.png",
+    screenshot: "/n8n/Zero-AI Atomated 24-Hour Reminder.png",
+    workflowFile: "/n8n/Zero-AI Automated 24-Hour Reminder.json",
+    githubUrl: "https://github.com/8kshj1jh44/Dental-Chatbot-n8n",
     category: "CRM & Ops",
     description:
       "A daily cron computes tomorrow's date, fetches upcoming appointments from Google Calendar, and emails each patient a friendly reminder the day before their visit.",
@@ -196,7 +208,9 @@ export const AUTOMATION_WORKFLOWS: AutomationWorkflow[] = [
   {
     id: "lead-nurture",
     title: "Lead Nurture Automation",
-    screenshot: "/Lead Nurture.png",
+    screenshot: "/n8n/Lead Nurture.png",
+    workflowFile: "/n8n/Lead Nurture Automation.json",
+    githubUrl: "https://github.com/8kshj1jh44/n8n-Projects",
     category: "CRM & Ops",
     description:
       "A webhook captures every inbound lead, appends it to a Google Sheet, sends an instant welcome email, and pings Slack. After a set delay it checks the lead's status and fires a personalized follow-up email, keeping the funnel warm with no manual tracking.",
@@ -219,7 +233,9 @@ export const AUTOMATION_WORKFLOWS: AutomationWorkflow[] = [
   {
     id: "client-onboarding",
     title: "Client Onboarding System",
-    screenshot: "/Client Onboarding.png",
+    screenshot: "/n8n/Client Onboarding.png",
+    workflowFile: "/n8n/Client Onboarding System.json",
+    githubUrl: "https://github.com/8kshj1jh44/n8n-Projects",
     category: "CRM & Ops",
     description:
       "On a new-client webhook, this workflow builds a dedicated Google Drive hub with a brand-kit subfolder, logs the project to a tracking sheet, emails the welcome + Drive link, and notifies Slack — a zero-touch onboarding kickoff.",
@@ -235,6 +251,27 @@ export const AUTOMATION_WORKFLOWS: AutomationWorkflow[] = [
     metricBadge: "🚀 Zero-touch onboarding",
     samplePayload:
       '{\n  "data": { "fields": [{ "value": "Maria Santos" }, { "value": "Acme Corp" }, { "value": "maria@example.com" }, { "options": [{ "text": "Growth" }] }] },\n  "drive_hub_id": "1AbCdEfGhIjKlMnOpQrStUvWxYz",\n  "status": "Onboarding Sent"\n}',
+  },
+  {
+    id: "lead-to-appointment",
+    title: "Complete Lead-to-Appointment System",
+    screenshot: "/n8n/Complete Lead-to-Appointment System.png",
+    workflowFile: "/n8n/Complete Lead-to-Appointment System.json",
+    githubUrl: "https://github.com/8kshj1jh44/n8n-Projects",
+    category: "CRM & Ops",
+    description:
+      "A Cal.com webhook fires the moment a discovery call is booked, a Code node normalizes the lead's name, company, and budget tier, then the lead is appended to a Google Sheet, a confirmation email with the meeting link is sent, and the team is alerted in Slack — the full inbound funnel handled with zero manual entry.",
+    trigger: "Webhook / Call Booked",
+    flowNodes: [
+      "Webhook Trigger",
+      "Parse Lead Details (Code)",
+      "Append to Google Sheets",
+      "Send Confirmation Email (Gmail)",
+      "Slack Alert",
+    ],
+    metricBadge: "📅 Full funnel, zero-touch",
+    samplePayload:
+      '{\n  "client_name": "Maria Santos",\n  "client_email": "maria@example.com",\n  "company": "Acme Corp",\n  "budget": "$1,000 - $2,500/mo",\n  "meeting_date": "Thursday, September 10, 2026",\n  "meeting_time": "10:00 AM",\n  "meeting_link": "https://meet.google.com/abc-defg-hij",\n  "pipeline_stage": "Discovery Call Scheduled"\n}',
   },
 ];
 

@@ -5,8 +5,8 @@ import { motion, useReducedMotion } from "framer-motion";
 import { Check, ExternalLink, ArrowUpRight, Lock } from "lucide-react";
 import { GitHubLogoIcon } from "@radix-ui/react-icons";
 import { type WebProject } from "@/data/portfolioData";
-import { SOCIAL_LINKS } from "@/data/portfolioData";
 import { cn } from "@/lib/utils";
+import ScrollFloat from "@/components/ScrollFloat";
 
 const THUMB_TONES: Record<number, string> = {
   0: "from-accent/35 via-accent/10 to-transparent",
@@ -147,7 +147,7 @@ function ProjectCard({ project, index }: { project: WebProject; index: number })
             <ExternalLink className="h-4 w-4" /> Live Site
           </a>
           <a
-            href={SOCIAL_LINKS.github}
+            href={project.githubUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex flex-1 items-center justify-center gap-2 rounded-lg border border-white/10 bg-surface-2 px-4 py-2.5 text-sm font-medium text-ink transition-all hover:border-white/20 active:scale-[0.98]"
@@ -162,12 +162,18 @@ function ProjectCard({ project, index }: { project: WebProject; index: number })
 
 export default function WebProjects({ projects }: { projects: WebProject[] }) {
   return (
-    <div>
-      <div className="mb-14 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+    <div className="relative">
+      <div
+        className="pointer-events-none absolute inset-0 dot-grid opacity-30"
+        aria-hidden
+      />
+      <div className="relative">
+        <div className="mb-14 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <h2 className="text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
-            Web Projects
-          </h2>
+          <ScrollFloat
+            text="Web Projects"
+            className="text-3xl font-semibold tracking-tight text-ink sm:text-4xl"
+          />
           <p className="mt-3 max-w-[55ch] text-base leading-relaxed text-ink-secondary">
             5+ live products in production, each built end-to-end and
             deployed to Vercel.
@@ -182,6 +188,7 @@ export default function WebProjects({ projects }: { projects: WebProject[] }) {
         {projects.map((project, index) => (
           <ProjectCard key={project.id} project={project} index={index} />
         ))}
+      </div>
       </div>
     </div>
   );

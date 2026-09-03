@@ -2,10 +2,11 @@
 
 import { useEffect, useState } from "react";
 import { useFormState } from "react-dom";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Send, Loader2, Mail, MapPin, CheckCircle2, AlertCircle, ArrowUpRight } from "lucide-react";
 import { submitContactForm, type ContactFormState } from "@/actions/contact";
 import { SOCIAL_LINKS } from "@/data/portfolioData";
+import ShapeGrid from "@/components/ShapeGrid";
 import { cn } from "@/lib/utils";
 
 const PROJECT_TYPES = ["Web App", "n8n Automation", "Full Stack"] as const;
@@ -24,6 +25,7 @@ export default function Contact() {
     INITIAL_STATE
   );
   const [toast, setToast] = useState<Toast | null>(null);
+  const reduceMotion = useReducedMotion();
 
   useEffect(() => {
     if (!state.message) return;
@@ -40,7 +42,22 @@ export default function Contact() {
 
   return (
     <section id="contact" className="relative scroll-mt-20 py-24 sm:py-32">
-      <div className="mx-auto max-w-6xl px-5 sm:px-8">
+      <div className="absolute inset-0">
+        <ShapeGrid
+          speed={0.35}
+          squareSize={44}
+          direction="diagonal"
+          borderColor="rgba(255,255,255,0.05)"
+          hoverFillColor="rgba(52,211,153,0.16)"
+          shape="hexagon"
+          hoverTrailAmount={6}
+        />
+      </div>
+      <div
+        className="pointer-events-none absolute inset-0 dot-grid opacity-30"
+        aria-hidden
+      />
+      <div className="relative mx-auto max-w-6xl px-5 sm:px-8">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-2">
           <div>
             <h2 className="text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
@@ -90,6 +107,14 @@ export default function Contact() {
             action={formAction}
             className="rounded-card border border-white/[0.08] bg-surface p-6 sm:p-8"
           >
+            <input
+              type="text"
+              name="website"
+              tabIndex={-1}
+              autoComplete="off"
+              aria-hidden="true"
+              className="absolute -left-[9999px] h-0 w-0 opacity-0"
+            />
             <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
               <div className="space-y-2">
                 <label
@@ -184,9 +209,9 @@ export default function Contact() {
       <AnimatePresence>
         {toast && (
           <motion.div
-            initial={{ opacity: 0, y: 24, scale: 0.96 }}
+            initial={reduceMotion ? false : { opacity: 0, y: 24, scale: 0.96 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 12, scale: 0.98 }}
+            exit={reduceMotion ? undefined : { opacity: 0, y: 12, scale: 0.98 }}
             transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
             role="status"
             aria-live="polite"

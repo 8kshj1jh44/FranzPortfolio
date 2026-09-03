@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { GitHubLogoIcon } from "@radix-ui/react-icons";
 import {
   Webhook,
   Database,
@@ -17,10 +18,12 @@ import {
   Workflow,
   CalendarClock,
   Table,
+  Download,
   type LucideIcon,
 } from "lucide-react";
 import { type AutomationWorkflow } from "@/data/portfolioData";
 import { cn } from "@/lib/utils";
+import ScrollFloat from "@/components/ScrollFloat";
 
 const FILTERS = [
   { label: "All", value: "All" },
@@ -144,6 +147,30 @@ function WorkflowCard({ automation }: { automation: AutomationWorkflow }) {
             )}
           />
         </button>
+
+        <div className="mt-4 grid grid-cols-1 gap-2 sm:grid-cols-2">
+          {automation.githubUrl && (
+            <a
+              href={automation.githubUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 rounded-lg border border-white/10 bg-surface px-3.5 py-2.5 text-sm text-ink-secondary transition-colors hover:border-accent/40 hover:text-ink"
+            >
+              <GitHubLogoIcon className="h-4 w-4 text-ink-secondary" />
+              View on GitHub
+            </a>
+          )}
+          {automation.workflowFile && (
+            <a
+              href={automation.workflowFile}
+              download
+              className="inline-flex items-center justify-center gap-2 rounded-lg border border-white/10 bg-surface px-3.5 py-2.5 text-sm text-ink-secondary transition-colors hover:border-coral/40 hover:text-ink"
+            >
+              <Download className="h-4 w-4 text-coral" />
+              Download .json
+            </a>
+          )}
+        </div>
       </div>
 
       <AnimatePresence initial={false}>
@@ -217,9 +244,10 @@ export default function AutomationShowcase({
       />
       <div className="relative">
         <div className="mb-10 max-w-2xl">
-          <h2 className="text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
-            Automation Workflows
-          </h2>
+          <ScrollFloat
+            text="Automation Workflows"
+            className="text-3xl font-semibold tracking-tight text-ink sm:text-4xl"
+          />
           <p className="mt-3 max-w-[55ch] text-base leading-relaxed text-ink-secondary">
             Event-driven n8n pipelines that connect webhooks, AI, and Appwrite
             to move work without a human in the loop.
