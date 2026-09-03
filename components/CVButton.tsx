@@ -82,7 +82,7 @@ export default function CVButton({
         <a
           role="menuitem"
           href={RESUME_PATH}
-          download="Franz_Lyster_Tagalogon_Resume.pdf"
+          download="Franz_Lyster_Tagalogon_CV.pdf"
           onClick={() => setOpen(false)}
           className="flex items-center gap-2.5 border-t border-white/[0.06] px-4 py-3 text-sm text-ink transition-colors hover:bg-white/[0.05]"
         >

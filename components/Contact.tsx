@@ -6,7 +6,7 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Send, Loader2, Mail, MapPin, CheckCircle2, AlertCircle, ArrowUpRight } from "lucide-react";
 import { submitContactForm, type ContactFormState } from "@/actions/contact";
 import { SOCIAL_LINKS } from "@/data/portfolioData";
-import ShapeGrid from "@/components/ShapeGrid";
+
 import { cn } from "@/lib/utils";
 
 const PROJECT_TYPES = ["Web App", "n8n Automation", "Full Stack"] as const;
@@ -42,17 +42,6 @@ export default function Contact() {
 
   return (
     <section id="contact" className="relative scroll-mt-20 py-24 sm:py-32">
-      <div className="absolute inset-0">
-        <ShapeGrid
-          speed={0.35}
-          squareSize={44}
-          direction="diagonal"
-          borderColor="rgba(255,255,255,0.05)"
-          hoverFillColor="rgba(52,211,153,0.16)"
-          shape="hexagon"
-          hoverTrailAmount={6}
-        />
-      </div>
       <div
         className="pointer-events-none absolute inset-0 dot-grid opacity-30"
         aria-hidden

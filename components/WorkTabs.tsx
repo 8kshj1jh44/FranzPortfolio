@@ -6,7 +6,7 @@ import { LayoutGrid, Workflow, User } from "lucide-react";
 import WebProjects from "@/components/WebProjects";
 import AutomationShowcase from "@/components/AutomationShowcase";
 import ExperienceSection from "@/components/ExperienceSection";
-import ShapeGrid from "@/components/ShapeGrid";
+
 import { WEB_PROJECTS, AUTOMATION_WORKFLOWS } from "@/data/portfolioData";
 import { cn } from "@/lib/utils";
 
@@ -50,17 +50,6 @@ export default function WorkTabs() {
 
   return (
     <section id="work" className="relative scroll-mt-20 py-24 sm:py-32">
-      <div className="absolute inset-0">
-        <ShapeGrid
-          speed={0.35}
-          squareSize={44}
-          direction="diagonal"
-          borderColor="rgba(255,255,255,0.05)"
-          hoverFillColor="rgba(251,113,133,0.16)"
-          shape="hexagon"
-          hoverTrailAmount={6}
-        />
-      </div>
       <div
         className="pointer-events-none absolute inset-0 dot-grid opacity-30"
         aria-hidden

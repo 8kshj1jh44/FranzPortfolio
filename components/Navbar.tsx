@@ -1,10 +1,9 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { Menu, X, ArrowUpRight } from "lucide-react";
 import { SOCIAL_ITEMS, SocialGlyph } from "@/components/socials";
 import CVButton from "@/components/CVButton";
-import GooeyNav, { type GooeyNavHandle } from "@/components/GooeyNav";
 import { cn, navigateToHash } from "@/lib/utils";
 
 const NAV_LINKS = [
@@ -22,7 +21,6 @@ const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) =>
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  const gooeyRef = useRef<GooeyNavHandle>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -43,7 +41,10 @@ export default function Navbar() {
       <nav className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 sm:px-8">
         <a
           href="#top"
-          onClick={() => gooeyRef.current?.deactivate()}
+          onClick={(e) => {
+            e.preventDefault();
+            navigateToHash("#top");
+          }}
           className="group flex items-center gap-3"
         >
           <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-accent to-coral font-mono text-sm font-bold text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.25)]">
@@ -54,13 +55,17 @@ export default function Navbar() {
           </span>
         </a>
 
-        <div className="hidden md:block">
-          <GooeyNav
-            ref={gooeyRef}
-            items={NAV_LINKS.map((l) => ({ label: l.label, href: l.href }))}
-            onItemClick={(_i, item) => navigateToHash(item.href)}
-            initialActiveIndex={0}
-          />
+        <div className="hidden items-center gap-1 md:flex">
+          {NAV_LINKS.map((link) => (
+            <a
+              key={link.href}
+              href={link.href}
+              onClick={(e) => handleNavClick(e, link.href)}
+              className="rounded-lg px-3 py-2 text-sm text-ink-secondary transition-colors hover:bg-white/[0.05] hover:text-ink"
+            >
+              {link.label}
+            </a>
+          ))}
         </div>
 
         <div className="hidden items-center gap-2 md:flex">

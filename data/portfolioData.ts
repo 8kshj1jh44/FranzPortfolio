@@ -244,4 +244,4 @@ export const SOCIAL_LINKS = {
   email: "mailto:franzlyster@gmail.com",
 };
 
-export const RESUME_PATH = "/Franz_Lyster_Tagalogon_ATS_Resume.pdf";
+export const RESUME_PATH = "/CV.pdf";
