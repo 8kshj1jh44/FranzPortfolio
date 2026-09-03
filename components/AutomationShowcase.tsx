@@ -19,6 +19,7 @@ import {
   CalendarClock,
   Table,
   Download,
+  ArrowRight,
   type LucideIcon,
 } from "lucide-react";
 import { type AutomationWorkflow } from "@/data/portfolioData";
@@ -102,6 +103,14 @@ function WorkflowCard({ automation }: { automation: AutomationWorkflow }) {
         <p className="mt-2 text-sm leading-relaxed text-ink-secondary">
           {automation.description}
         </p>
+
+        <a
+          href={`/automations/${automation.id}`}
+          className="group/case mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-coral transition-colors hover:text-coral/80"
+        >
+          Read case study
+          <ArrowRight className="h-4 w-4 transition-transform group-hover/case:translate-x-0.5" />
+        </a>
 
         <div className="mt-5 rounded-xl border border-white/[0.06] bg-background/50 p-3.5">
           <p className="mb-2.5 font-mono text-[10px] uppercase tracking-[0.18em] text-ink-muted">

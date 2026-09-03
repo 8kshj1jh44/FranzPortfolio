@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
-import { Check, ExternalLink, ArrowUpRight, Lock } from "lucide-react";
+import { Check, ExternalLink, ArrowUpRight, ArrowRight, Lock } from "lucide-react";
 import { GitHubLogoIcon } from "@radix-ui/react-icons";
 import { type WebProject } from "@/data/portfolioData";
 import { cn } from "@/lib/utils";
@@ -136,6 +136,14 @@ function ProjectCard({ project, index }: { project: WebProject; index: number })
             </li>
           ))}
         </ul>
+
+        <a
+          href={`/projects/${project.id}`}
+          className="group/case mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-accent transition-colors hover:text-accent/80"
+        >
+          Read case study
+          <ArrowRight className="h-4 w-4 transition-transform group-hover/case:translate-x-0.5" />
+        </a>
 
         <div className="mt-6 flex items-center gap-3 pt-1">
           <a
