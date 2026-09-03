@@ -124,7 +124,7 @@ export const AUTOMATION_WORKFLOWS: AutomationWorkflow[] = [
   {
     id: "content-auto-sync",
     title: "Automated Content Ingestion & AI Summarizer",
-    screenshot: "/n8n/AI Summarizer.png",
+    screenshot: "/n8n/ABS-CBN Automated Content Ingestion.png",
     workflowFile: "/n8n/ABS-CBN Automated Content Ingestion & AI Summarizer.json",
     githubUrl: "https://github.com/8kshj1jh44/n8n-Projects",
     category: "AI/LLM",
@@ -140,28 +140,6 @@ export const AUTOMATION_WORKFLOWS: AutomationWorkflow[] = [
     metricBadge: "⏱️ Saves 8 hrs/week",
     samplePayload:
       '{\n  "task": "summarize_draft",\n  "tokens": 420,\n  "status": "published"\n}',
-  },
-  {
-    id: "ai-social-media-repurposer",
-    title: "AI Social Media Repurposer",
-    screenshot: "/n8n/AI Social Media Repurposer.png",
-    workflowFile: "/n8n/AI Social Media Repurposer.json",
-    githubUrl: "https://github.com/8kshj1jh44/n8n-Projects",
-    category: "AI/LLM",
-    description:
-      "Pulls the latest ingested news articles from a Google Sheet, has a Gemini agent rewrite each story into a LinkedIn post and an X (Twitter) thread, then logs the ready-for-review drafts back to a Social Drafts sheet.",
-    trigger: "Manual Trigger / Sheet Read",
-    flowNodes: [
-      "Manual Trigger",
-      "Get Rows (Sheet)",
-      "Limit",
-      "AI Agent (Gemini)",
-      "Parse JSON Drafts",
-      "Append to Social Drafts",
-    ],
-    metricBadge: "📱 2 platforms per run",
-    samplePayload:
-      '{\n  "date": "8/26/2026",\n  "original_title": "Latest News",\n  "linkedin_post": "Hook...\\n\\nKey analysis...",\n  "twitter_thread": "Tweet 1: ...\\n\\nTweet 2: ...",\n  "hashtags": "#Tech #News",\n  "status": "Ready for Review"\n}',
   },
   {
     id: "dental-aftercare-reviews",
