@@ -107,6 +107,24 @@ export default function ProjectDetailPage({ params }: Props) {
           {project.description}
         </p>
 
+        {project.metrics && project.metrics.length > 0 && (
+          <div className="mt-8 grid grid-cols-1 gap-3 rounded-card border border-white/[0.08] bg-surface p-6 sm:grid-cols-3">
+            {project.metrics.map((metric) => (
+              <div
+                key={metric.label}
+                className="flex flex-col items-center justify-center gap-1 rounded-lg border border-white/[0.06] bg-background/50 px-4 py-5 text-center"
+              >
+                <span className="text-2xl font-semibold tracking-tight text-ink">
+                  {metric.value}
+                </span>
+                <span className="font-mono text-xs uppercase tracking-[0.14em] text-ink-muted">
+                  {metric.label}
+                </span>
+              </div>
+            ))}
+          </div>
+        )}
+
         <div className="mt-8 overflow-hidden rounded-card border border-white/[0.08] bg-surface">
           {project.image && (
             <div className="relative aspect-[16/9] w-full overflow-hidden border-b border-white/[0.06]">

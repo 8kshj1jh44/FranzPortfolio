@@ -33,13 +33,18 @@ Dark theme. Tokens in `tailwind.config.ts`: `background #0a0a0c`, `surface`, `su
 - ShapeGrid canvas backgrounds and GooeyNav removed from Hero/WorkTabs/Contact/Navbar (plain nav links instead). Done in `eda640f`.
 - **AI Social Media Repurposer workflow dropped** from AUTOMATION_WORKFLOWS (was trimmed previously too). `cafbb0e`.
 - Automation screenshots fixed so each workflow points to its own PNG that actually exists and is decodable (the old `ABS-CBN.png` was corrupt; `AI Summarizer.png` referenced a missing file). `cafbb0e`. **Lesson: always verify the referenced screenshot file exists AND decodes (System.Drawing) before wiring it up.**
+- **Sales-page sections** added to homepage: `components/StatsBar.tsx` (PROOF_STATS strip), `components/Services.tsx` (SERVICES offer cards w/ starting price), `components/Process.tsx` (PROCESS_STEPS 4-step). Data in `data/portfolioData.ts`. Homepage order is now Hero → StatsBar → Services → Process → WorkTabs → Testimonials → Contact.
+- **Client Testimonials section** added to homepage: `components/Testimonials.tsx` + `TESTIMONIALS` in `data/portfolioData.ts`, grouped by niche (`Web Development` / `Automation`), 3 placeholders each — replace with real client quotes. Not yet committed.
+- **FAQ + CTA sections** added to homepage: `components/FAQ.tsx` (FAQS accordion, first item open by default) and `components/CTA.tsx` (CTA_BANNER risk-reversal banner w/ guarantees). Homepage order: Hero → StatsBar → Services → Process → WorkTabs → Testimonials → FAQ → CTA → Contact.
+- **CTA banner removed** — it duplicated the Contact ask. Guarantees (free discovery call / revisions included / support after launch) from `CTA_BANNER.guarantees` were folded into the Contact heading; `components/CTA.tsx` deleted. Homepage order is now Hero → StatsBar → Services → Process → WorkTabs → Testimonials → FAQ → Contact.
 
 ## Outstanding / deferred (user explicitly skipped these)
 - Certificates badges strip (Azure AI, Google Cybersecurity, NC, THM PDFs already in `public/`) — was proposed, user dropped it.
 - Blog (repo markdown) — user dropped it.
 - Analytics link in Footer — user dropped it.
 - FAQ JSON-LD on homepage — user dropped it.
-- Homepage still shows "5+ live sites" hero stat and 6 automation count — verify counts match current data (now 4 web projects, 5 automations).
+- **Case-study metrics + ROI badges**: added optional `metrics` (`{value,label}[]`) to `WebProject` (placeholder results per project, rendered as a stat strip on `/projects/[id]`), and restyled the automation card `metricBadge` into a prominent emerald ROI chip (TrendingUp icon) in `AutomationShowcase.tsx`. Replace placeholder metrics with real numbers. Not yet committed.
+- **Automation GIFs**: added optional `gif` field to `AutomationWorkflow` and wired `AutomationShowcase` to prefer the GIF ("View demo" button) with fallback to `screenshot` on error. Animated pan/zoom GIFs were generated from the static PNGs with ffmpeg (`C:\Users\Franz\AppData\Local\Microsoft\WinGet\Packages\Gyan.FFmpeg...\bin\ffmpeg.exe`, 640px wide, ~4.7s, 12fps, palette dither). To regenerate: zoompan filter `zoompan=z='min(zoom+0.0020,1.25)':d=120:...s=<w>x<h>,fps=12` + palettegen/paletteuse. Not yet committed.
 
 ## Gotchas
 - `robots.ts` disallows `/analytics` and `/api` (intentional — analytics is private).

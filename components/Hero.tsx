@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import { ArrowRight, Workflow, Sparkles } from "lucide-react";
+import { ArrowRight, Workflow } from "lucide-react";
 import BlurText from "@/components/BlurText";
 import { SOCIAL_ITEMS, SocialGlyph, isExternal } from "@/components/socials";
 import CVButton from "@/components/CVButton";
@@ -12,13 +12,6 @@ const fade = (delay: number) => ({
   animate: { opacity: 1, y: 0 },
   transition: { delay, duration: 0.6, ease: [0.16, 1, 0.3, 1] as const },
 });
-
-const STATS = [
-  { value: "5+", label: "Deployed Production Sites" },
-  { value: "6+", label: "Automation Pipelines Built" },
-  { value: "Appwrite + Supabase", label: "Backend as a Service" },
-  { value: "Vercel", label: "Edge Deployments" },
-] as const;
 
 export default function Hero() {
   const reduceMotion = useReducedMotion();
@@ -41,14 +34,6 @@ export default function Hero() {
       <div className="pointer-events-none absolute bottom-0 right-0 h-[420px] w-[520px] translate-x-1/3 translate-y-1/3 rounded-full bg-coral/10 blur-[120px]" />
 
       <div className="relative mx-auto w-full max-w-4xl px-5 pt-24 pb-20 text-center sm:px-8">
-        <motion.div
-          {...fade(0.05)}
-          className="mb-7 inline-flex items-center gap-2 rounded-full border border-white/10 bg-surface px-4 py-1.5 text-xs text-ink-secondary"
-        >
-          <Sparkles className="h-3.5 w-3.5 text-coral" />
-          <span className="font-mono">Open for new projects</span>
-        </motion.div>
-
         <BlurText
           text="Full Stack Developer and AI Specialist"
           delay={0.05}
@@ -126,23 +111,6 @@ export default function Hero() {
             label="Check My CV"
             className="mt-6 inline-flex"
           />
-        </motion.div>
-
-        <motion.div
-          initial={reduceMotion ? false : { opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.2, duration: 0.8 }}
-          className="mx-auto mt-14 grid max-w-3xl grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4"
-        >
-          {STATS.map((stat) => (
-            <div
-              key={stat.label}
-              className="rounded-xl border border-white/[0.07] bg-surface/60 px-4 py-3"
-            >
-              <p className="font-mono text-lg font-semibold text-ink">{stat.value}</p>
-              <p className="mt-0.5 text-xs text-ink-muted">{stat.label}</p>
-            </div>
-          ))}
         </motion.div>
       </div>
     </section>

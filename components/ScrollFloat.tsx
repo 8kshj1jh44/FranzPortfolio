@@ -21,8 +21,8 @@ export default function ScrollFloat({
   className = "",
   animationDuration = 1,
   ease = "back.inOut(2)",
-  scrollStart = "center bottom+=50%",
-  scrollEnd = "bottom bottom-=40%",
+  scrollStart = "top bottom-=10%",
+  scrollEnd = "top 25%",
   stagger = 0.03,
 }: ScrollFloatProps) {
   const containerRef = useRef<HTMLHeadingElement>(null);

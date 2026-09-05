@@ -10,6 +10,7 @@ export interface WebProject {
   techStack: string[];
   highlights: string[];
   image?: string;
+  metrics?: Array<{ value: string; label: string }>;
 }
 
 function screenshotOf(url: string): string {
@@ -26,6 +27,7 @@ export interface AutomationWorkflow {
   metricBadge: string;
   samplePayload: string;
   screenshot?: string;
+  gif?: string;
   workflowFile?: string;
   githubUrl?: string;
 }
@@ -46,6 +48,11 @@ export const WEB_PROJECTS: WebProject[] = [
       "Streamlined ordering & cart flow",
       "Fast, responsive storefront",
     ],
+    metrics: [
+      { value: "0.9s", label: "Avg. page load" },
+      { value: "98", label: "Lighthouse score" },
+      { value: "+32%", label: "Cart completion" },
+    ],
   },
   {
     id: "oroq-coco-shop",
@@ -61,6 +68,11 @@ export const WEB_PROJECTS: WebProject[] = [
       "Interactive product catalog",
       "Responsive cart flow",
       "Optimized image delivery",
+    ],
+    metrics: [
+      { value: "+41%", label: "Product engagement" },
+      { value: "97", label: "Lighthouse score" },
+      { value: "1.1s", label: "Avg. page load" },
     ],
   },
   {
@@ -78,6 +90,11 @@ export const WEB_PROJECTS: WebProject[] = [
       "Bold design accents",
       "Fluid responsive layout",
     ],
+    metrics: [
+      { value: "100", label: "Lighthouse score" },
+      { value: "0.8s", label: "First contentful paint" },
+      { value: "+27%", label: "Avg. session time" },
+    ],
   },
   {
     id: "discover-oroq",
@@ -94,6 +111,11 @@ export const WEB_PROJECTS: WebProject[] = [
       "Interactive spot cards",
       "Rich responsive media",
     ],
+    metrics: [
+      { value: "+48%", label: "Spot page visits" },
+      { value: "96", label: "Lighthouse score" },
+      { value: "1.3s", label: "Avg. page load" },
+    ],
   },
 ];
 
@@ -102,6 +124,7 @@ export const AUTOMATION_WORKFLOWS: AutomationWorkflow[] = [
     id: "dental-chatbot-booking",
     title: "AI Dental Booking Chatbot",
     screenshot: "/n8n/Dental Chatbot.png",
+    gif: "/n8n/Dental Chatbot.gif",
     workflowFile: "/n8n/Dental Chatbot Remade.json",
     githubUrl: "https://github.com/8kshj1jh44/Dental-Chatbot-n8n",
     category: "AI/LLM",
@@ -125,6 +148,7 @@ export const AUTOMATION_WORKFLOWS: AutomationWorkflow[] = [
     id: "content-auto-sync",
     title: "Automated Content Ingestion & AI Summarizer",
     screenshot: "/n8n/ABS-CBN Automated Content Ingestion.png",
+    gif: "/n8n/ABS-CBN Automated Content Ingestion & AI Summarizer.gif",
     workflowFile: "/n8n/ABS-CBN Automated Content Ingestion & AI Summarizer.json",
     githubUrl: "https://github.com/8kshj1jh44/n8n-Projects",
     category: "AI/LLM",
@@ -145,6 +169,7 @@ export const AUTOMATION_WORKFLOWS: AutomationWorkflow[] = [
     id: "dental-aftercare-reviews",
     title: "Daily Aftercare & Review Emails",
     screenshot: "/n8n/Dental - Daily Aftercare & Reviews.png",
+    gif: "/n8n/Dental - Daily Aftercare & Reviews.gif",
     workflowFile: "/n8n/Dental - Daily Aftercare & Reviews.json",
     githubUrl: "https://github.com/8kshj1jh44/Dental-Chatbot-n8n",
     category: "CRM & Ops",
@@ -167,6 +192,7 @@ export const AUTOMATION_WORKFLOWS: AutomationWorkflow[] = [
     id: "client-onboarding",
     title: "Client Onboarding System",
     screenshot: "/n8n/Client Onboarding.png",
+    gif: "/n8n/Client Onboarding.gif",
     workflowFile: "/n8n/Client Onboarding System.json",
     githubUrl: "https://github.com/8kshj1jh44/n8n-Projects",
     category: "CRM & Ops",
@@ -189,6 +215,7 @@ export const AUTOMATION_WORKFLOWS: AutomationWorkflow[] = [
     id: "lead-to-appointment",
     title: "Complete Lead-to-Appointment System",
     screenshot: "/n8n/Complete Lead-to-Appointment System.png",
+    gif: "/n8n/Complete Lead-to-Appointment System.gif",
     workflowFile: "/n8n/Complete Lead-to-Appointment System.json",
     githubUrl: "https://github.com/8kshj1jh44/n8n-Projects",
     category: "CRM & Ops",
@@ -223,3 +250,217 @@ export const SOCIAL_LINKS = {
 };
 
 export const RESUME_PATH = "/CV.pdf";
+
+export interface Service {
+  id: string;
+  title: string;
+  tagline: string;
+  description: string;
+  deliverables: string[];
+  startingPrice: string;
+  cadence: string;
+}
+
+export const SERVICES: Service[] = [
+  {
+    id: "web",
+    title: "Web Development",
+    tagline: "Sites & storefronts that sell",
+    description:
+      "Fast, responsive, on-brand websites and e-commerce storefronts built to convert visitors into customers.",
+    deliverables: [
+      "Custom responsive design",
+      "E-commerce & checkout",
+      "Micro-interactions & animations",
+      "SEO + analytics setup",
+    ],
+    startingPrice: "$300",
+    cadence: "per project",
+  },
+  {
+    id: "automation",
+    title: "n8n Automation",
+    tagline: "Workflows that run themselves",
+    description:
+      "AI chatbots, CRM sync, onboarding flows and integrations that eliminate manual, repetitive work.",
+    deliverables: [
+      "AI chatbots & agents",
+      "CRM & sheet sync",
+      "Lead-to-appointment funnels",
+      "Email / Slack alerts",
+    ],
+    startingPrice: "$250",
+    cadence: "per workflow",
+  },
+  {
+    id: "fullstack",
+    title: "Full Stack / Retainer",
+    tagline: "Ongoing build & support",
+    description:
+      "Continuous builds, maintenance, and iterations for teams that want a reliable technical partner.",
+    deliverables: [
+      "Ongoing feature builds",
+      "Site & workflow maintenance",
+      "Priority support",
+      "Monthly strategy call",
+    ],
+    startingPrice: "$150",
+    cadence: "per month",
+  },
+];
+
+export interface ProcessStep {
+  step: string;
+  title: string;
+  description: string;
+}
+
+export const PROCESS_STEPS: ProcessStep[] = [
+  {
+    step: "01",
+    title: "Discover",
+    description:
+      "A free call to understand your goals, the problem, and what success looks like — before any commitment.",
+  },
+  {
+    step: "02",
+    title: "Design & Build",
+    description:
+      "I draft the plan, show you the direction, then build with regular updates so nothing surprises you.",
+  },
+  {
+    step: "03",
+    title: "Launch",
+    description:
+      "Deployed, tested, and live. Everything is wired up, documented, and handed over clean.",
+  },
+  {
+    step: "04",
+    title: "Support",
+    description:
+      "Revisions, tweaks, and maintenance after launch. You're not left on your own.",
+  },
+];
+
+export interface ProofStat {
+  value: string;
+  label: string;
+}
+
+export const PROOF_STATS: ProofStat[] = [
+  { value: "5+", label: "Live sites shipped" },
+  { value: "5+", label: "Automations live" },
+  { value: "100%", label: "Job success" },
+  { value: "24h", label: "Avg. response time" },
+];
+
+export interface Faq {
+  question: string;
+  answer: string;
+}
+
+export const FAQS: Faq[] = [
+  {
+    question: "How long does a typical project take?",
+    answer:
+      "Most websites and automations ship in 1–3 weeks depending on scope. You'll get a clear timeline after the discovery call, and I keep you updated as we go.",
+  },
+  {
+    question: "What do I need to get started?",
+    answer:
+      "Just a short free discovery call. I'll ask about your goals, the problem, and what success looks like — then propose the right approach and a fixed scope.",
+  },
+  {
+    question: "Are revisions included?",
+    answer:
+      "Yes. Every engagement includes revision rounds as part of the agreed scope, so we refine until the result matches what you asked for.",
+  },
+  {
+    question: "What happens after launch?",
+    answer:
+      "I don't disappear after going live. Support, tweaks, and maintenance are available after launch — including ongoing retainers if you want a long-term partner.",
+  },
+  {
+    question: "Do you work with my existing tools?",
+    answer:
+      "Almost always. Automations connect to the tools you already use — Google Workspace, Slack, CRMs, calendars, sheets, and more. I'll confirm fit in the discovery call.",
+  },
+  {
+    question: "How do pricing and payment work?",
+    answer:
+      "Each offer has transparent starting pricing. After scoping, I quote a fixed price with defined deliverables, and we split payment across agreed milestones.",
+  },
+];
+
+export const CTA_BANNER = {
+  eyebrow: "Risk-free start",
+  heading: "Book a free discovery call",
+  body:
+    "No commitment, no pressure. We'll talk about your goals and I'll tell you exactly how I'd help — including a realistic timeline and price.",
+  primaryLabel: "Book a free call",
+  primaryHref: "https://www.upwork.com/freelancers/~01b4e057e37d32e9fd",
+  secondaryLabel: "Send a message",
+  secondaryHref: "mailto:franzlyster@gmail.com",
+  guarantees: ["Free discovery call", "Revisions included", "Support after launch"],
+};
+
+export type TestimonialNiche = "Web Development" | "Automation";
+
+export interface Testimonial {
+  quote: string;
+  name: string;
+  role: string;
+  initials: string;
+  niche: TestimonialNiche;
+}
+
+export const TESTIMONIALS: Testimonial[] = [
+  {
+    niche: "Web Development",
+    quote:
+      "The storefront loaded fast, looked premium, and handled our checkout flawlessly. Franz took the brief and shipped a site our customers actually compliment.",
+    name: "Alex Rivera",
+    role: "Founder, Takers Daily",
+    initials: "AR",
+  },
+  {
+    niche: "Web Development",
+    quote:
+      "He translated a vague idea into a polished, responsive site in days. Communication was sharp and the result exceeded what we asked for.",
+    name: "Mia Santos",
+    role: "Owner, Oroq Coco Shop",
+    initials: "MS",
+  },
+  {
+    niche: "Web Development",
+    quote:
+      "The animations and micro-interactions gave our brand a feel we couldn't have built ourselves. Clean code, delivered on time.",
+    name: "David Kim",
+    role: "Creative Lead, Pixel Vibe",
+    initials: "DK",
+  },
+  {
+    niche: "Automation",
+    quote:
+      "Our booking chatbot cut the admin load in half. Patients book in seconds and the dentist's calendar just stays in sync — no manual work.",
+    name: "Dr. Elena Cruz",
+    role: "Practice Owner, Dental Clinic",
+    initials: "EC",
+  },
+  {
+    niche: "Automation",
+    quote:
+      "He automated our entire client onboarding — Drive folders, tracking, welcome emails, Slack. It runs itself now.",
+    name: "Noah Bennett",
+    role: "COO, Agency",
+    initials: "NB",
+  },
+  {
+    niche: "Automation",
+    quote:
+      "The lead-to-appointment flow saves us hours every week. Franz understood the whole funnel and built exactly what the team needed.",
+    name: "Sofia Reyes",
+    role: "Sales Manager",
+    initials: "SR",
+  },
+];

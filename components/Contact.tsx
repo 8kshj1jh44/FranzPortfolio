@@ -3,9 +3,9 @@
 import { useEffect, useState } from "react";
 import { useFormState } from "react-dom";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { Send, Loader2, Mail, MapPin, CheckCircle2, AlertCircle, ArrowUpRight } from "lucide-react";
+import { Send, Loader2, Mail, MapPin, CheckCircle2, AlertCircle, ArrowUpRight, ShieldCheck } from "lucide-react";
 import { submitContactForm, type ContactFormState } from "@/actions/contact";
-import { SOCIAL_LINKS } from "@/data/portfolioData";
+import { CTA_BANNER, SOCIAL_LINKS } from "@/data/portfolioData";
 
 import { cn } from "@/lib/utils";
 
@@ -56,6 +56,18 @@ export default function Contact() {
               Tell me about the product, the workflow, or the problem you&apos;re
               trying to automate. I&apos;ll reply within one business day.
             </p>
+
+            <ul className="mt-5 flex flex-wrap gap-x-6 gap-y-2">
+              {CTA_BANNER.guarantees.map((item) => (
+                <li
+                  key={item}
+                  className="flex items-center gap-1.5 text-xs text-ink-muted"
+                >
+                  <ShieldCheck className="h-3.5 w-3.5 text-emerald-400" />
+                  {item}
+                </li>
+              ))}
+            </ul>
 
             <div className="mt-10 space-y-4">
               <a

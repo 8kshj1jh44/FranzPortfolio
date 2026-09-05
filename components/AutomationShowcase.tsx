@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { GitHubLogoIcon } from "@radix-ui/react-icons";
 import {
@@ -16,6 +15,7 @@ import {
   Braces,
   Zap,
   Workflow,
+  TrendingUp,
   CalendarClock,
   Table,
   Download,
@@ -75,7 +75,12 @@ function FlowDiagram({ nodes }: { nodes: string[] }) {
 function WorkflowCard({ automation }: { automation: AutomationWorkflow }) {
   const [open, setOpen] = useState(false);
   const [showImage, setShowImage] = useState(false);
+  const [gifFailed, setGifFailed] = useState(false);
   const reduceMotion = useReducedMotion();
+
+  const hasMedia = !!automation.gif || !!automation.screenshot;
+  const mediaSrc =
+    !gifFailed && automation.gif ? automation.gif : automation.screenshot ?? "";
 
   return (
     <motion.article
@@ -92,7 +97,8 @@ function WorkflowCard({ automation }: { automation: AutomationWorkflow }) {
             <Zap className="h-3 w-3" />
             {automation.trigger}
           </span>
-          <span className="rounded-full bg-surface-2 px-3 py-1 text-xs font-medium text-ink">
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/25 bg-emerald-500/10 px-3 py-1 font-mono text-[11px] text-emerald-300">
+            <TrendingUp className="h-3 w-3" />
             {automation.metricBadge}
           </span>
         </div>
@@ -119,7 +125,7 @@ function WorkflowCard({ automation }: { automation: AutomationWorkflow }) {
           <FlowDiagram nodes={automation.flowNodes} />
         </div>
 
-        {automation.screenshot && (
+        {hasMedia && (
           <button
             type="button"
             onClick={() => setShowImage((v) => !v)}
@@ -128,7 +134,7 @@ function WorkflowCard({ automation }: { automation: AutomationWorkflow }) {
           >
             <span className="inline-flex items-center gap-2">
               <Workflow className="h-4 w-4 text-coral" />
-              View workflow
+              {automation.gif ? "View demo" : "View workflow"}
             </span>
             <ChevronDown
               className={cn(
@@ -207,7 +213,7 @@ function WorkflowCard({ automation }: { automation: AutomationWorkflow }) {
       </AnimatePresence>
 
       <AnimatePresence initial={false}>
-        {showImage && automation.screenshot && (
+        {showImage && hasMedia && (
           <motion.div
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
@@ -216,13 +222,12 @@ function WorkflowCard({ automation }: { automation: AutomationWorkflow }) {
             className="overflow-hidden border-t border-white/[0.06] bg-background"
           >
             <div className="relative aspect-[16/10] w-full bg-background">
-              <Image
-                src={automation.screenshot}
-                alt={`${automation.title} workflow`}
-                fill
-                sizes="(max-width: 768px) 100vw, 50vw"
-                className="object-contain"
-                priority={false}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={mediaSrc}
+                alt={`${automation.title} demo`}
+                onError={() => setGifFailed(true)}
+                className="h-full w-full object-contain"
               />
             </div>
           </motion.div>
