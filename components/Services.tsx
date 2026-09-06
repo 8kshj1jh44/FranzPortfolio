@@ -52,8 +52,8 @@ export default function Services() {
             className="text-3xl font-semibold tracking-tight text-ink sm:text-4xl"
           />
           <p className="mt-3 max-w-[55ch] text-base leading-relaxed text-ink-secondary">
-            Clear offers with defined deliverables and transparent pricing.
-            Every engagement starts with a free discovery call.
+            Every offer is scoped around your goals — no one-size-fits-all
+            packages. Let&apos;s talk about what you need on a free discovery call.
           </p>
         </Reveal>
 
@@ -90,18 +90,6 @@ export default function Services() {
                       </li>
                     ))}
                   </ul>
-
-                  <div className="mt-6 flex items-end justify-between border-t border-white/[0.07] pt-5">
-                    <div>
-                      <p className="text-2xl font-semibold tracking-tight text-ink">
-                        {service.startingPrice}
-                      </p>
-                      <p className="font-mono text-[11px] text-ink-muted">
-                        {service.cadence}
-                      </p>
-                    </div>
-                    <span className="text-xs text-ink-muted">Starting</span>
-                  </div>
                 </div>
               </Reveal>
             );

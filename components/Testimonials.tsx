@@ -75,22 +75,24 @@ export default function Testimonials() {
           </div>
         </Reveal>
 
-        {NICHES.map((niche) => {
+        {NICHES.filter((niche) =>
+          TESTIMONIALS.some((t) => t.niche === niche.key)
+        ).map((niche) => {
           const items = TESTIMONIALS.filter((t) => t.niche === niche.key);
           const Icon = niche.icon;
           return (
             <div key={niche.key} className="mt-16">
               <Reveal>
-                <h3 className="inline-flex items-center gap-2 text-xl font-semibold tracking-tight text-ink">
+                <h3 className="flex w-full items-center justify-center gap-2 text-center text-xl font-semibold tracking-tight text-ink">
                   <span className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 bg-surface text-accent">
                     <Icon className="h-4 w-4" />
                   </span>
                   {niche.label}
                 </h3>
               </Reveal>
-              <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+              <div className="mt-8 mx-auto flex max-w-3xl flex-wrap justify-center gap-6">
                 {items.map((item, index) => (
-                  <Reveal key={item.name} delay={index * 0.06} className="h-full">
+                  <Reveal key={item.name} delay={index * 0.06} className="w-full sm:w-[calc(50%-0.75rem)]">
                     <figure className="group flex h-full flex-col rounded-card border border-white/[0.08] bg-surface p-6 transition-colors duration-300 hover:border-accent/30">
                       <Quote className="h-6 w-6 text-accent/40" />
                       <blockquote className="mt-4 flex-1 text-sm leading-relaxed text-ink-secondary">

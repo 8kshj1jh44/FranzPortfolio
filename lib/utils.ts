@@ -15,7 +15,10 @@ export function scrollToHash(hash: string) {
 
   // Tab sections (#projects/#automations/#experience) live inside #work
   const el = target ?? document.getElementById("work");
-  el?.scrollIntoView({ behavior, block: "start" });
+  if (!el) return;
+
+  const top = el.getBoundingClientRect().top + window.scrollY;
+  window.scrollTo({ top, behavior });
 }
 
 export function navigateToHash(hash: string) {

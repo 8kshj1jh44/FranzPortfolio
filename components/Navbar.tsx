@@ -79,12 +79,12 @@ export default function Navbar() {
           </span>
           <CVButton variant="compact" />
           <a
-            href={SOCIAL_ITEMS.find((s) => s.key === "upwork")?.href}
+            href="https://cal.com/franzlysert/callwfranz"
             target="_blank"
             rel="noopener noreferrer"
             className="group inline-flex items-center gap-1.5 rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white transition-all hover:bg-accent/90 active:scale-[0.98]"
           >
-            Hire on Upwork
+            Book a Free Call
             <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </a>
         </div>
@@ -125,13 +125,13 @@ export default function Navbar() {
             className="mt-2 flex w-full"
           />
           <a
-            href={SOCIAL_ITEMS.find((s) => s.key === "upwork")?.href}
+            href="https://cal.com/franzlysert/callwfranz"
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => setOpen(false)}
             className="mt-2 flex items-center justify-center gap-1.5 rounded-lg bg-accent px-4 py-3 text-sm font-medium text-white"
           >
-            Hire on Upwork <ArrowUpRight className="h-4 w-4" />
+            Book a Free Call <ArrowUpRight className="h-4 w-4" />
           </a>
         </div>
       </div>

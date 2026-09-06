@@ -1,14 +1,14 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 import { LayoutGrid, Workflow, User } from "lucide-react";
 import WebProjects from "@/components/WebProjects";
 import AutomationShowcase from "@/components/AutomationShowcase";
 import ExperienceSection from "@/components/ExperienceSection";
 
 import { WEB_PROJECTS, AUTOMATION_WORKFLOWS } from "@/data/portfolioData";
-import { cn } from "@/lib/utils";
+import { cn, scrollToHash } from "@/lib/utils";
 
 type TabKey = "projects" | "automations" | "experience";
 
@@ -41,12 +41,21 @@ export default function WorkTabs() {
     typeof window === "undefined" ? "projects" : tabFromHash()
   );
   const reduceMotion = useReducedMotion();
+  const skipFirstScroll = useRef(true);
 
   useEffect(() => {
     const onHashChange = () => setActive(tabFromHash());
     window.addEventListener("hashchange", onHashChange);
     return () => window.removeEventListener("hashchange", onHashChange);
   }, []);
+
+  useEffect(() => {
+    if (skipFirstScroll.current) {
+      skipFirstScroll.current = false;
+      return;
+    }
+    scrollToHash("#work");
+  }, [active]);
 
   return (
     <section id="work" className="relative scroll-mt-20 py-24 sm:py-32">
@@ -78,17 +87,14 @@ export default function WorkTabs() {
           })}
         </div>
 
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={active}
-            initial={reduceMotion ? false : { opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={reduceMotion ? undefined : { opacity: 0, y: -12 }}
-            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-          >
-            {PANELS[active]}
-          </motion.div>
-        </AnimatePresence>
+        <motion.div
+          key={active}
+          initial={reduceMotion ? false : { opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+        >
+          {PANELS[active]}
+        </motion.div>
       </div>
     </section>
   );

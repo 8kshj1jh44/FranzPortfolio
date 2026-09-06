@@ -257,8 +257,6 @@ export interface Service {
   tagline: string;
   description: string;
   deliverables: string[];
-  startingPrice: string;
-  cadence: string;
 }
 
 export const SERVICES: Service[] = [
@@ -274,8 +272,6 @@ export const SERVICES: Service[] = [
       "Micro-interactions & animations",
       "SEO + analytics setup",
     ],
-    startingPrice: "$300",
-    cadence: "per project",
   },
   {
     id: "automation",
@@ -289,8 +285,6 @@ export const SERVICES: Service[] = [
       "Lead-to-appointment funnels",
       "Email / Slack alerts",
     ],
-    startingPrice: "$250",
-    cadence: "per workflow",
   },
   {
     id: "fullstack",
@@ -304,8 +298,6 @@ export const SERVICES: Service[] = [
       "Priority support",
       "Monthly strategy call",
     ],
-    startingPrice: "$150",
-    cadence: "per month",
   },
 ];
 
@@ -398,7 +390,7 @@ export const CTA_BANNER = {
   body:
     "No commitment, no pressure. We'll talk about your goals and I'll tell you exactly how I'd help — including a realistic timeline and price.",
   primaryLabel: "Book a free call",
-  primaryHref: "https://www.upwork.com/freelancers/~01b4e057e37d32e9fd",
+  primaryHref: "https://cal.com/franzlysert/callwfranz",
   secondaryLabel: "Send a message",
   secondaryHref: "mailto:franzlyster@gmail.com",
   guarantees: ["Free discovery call", "Revisions included", "Support after launch"],
@@ -419,48 +411,32 @@ export const TESTIMONIALS: Testimonial[] = [
     niche: "Web Development",
     quote:
       "The storefront loaded fast, looked premium, and handled our checkout flawlessly. Franz took the brief and shipped a site our customers actually compliment.",
-    name: "Alex Rivera",
-    role: "Founder, Takers Daily",
+    name: "Alex R.",
+    role: "Takers Daily",
     initials: "AR",
   },
   {
     niche: "Web Development",
     quote:
       "He translated a vague idea into a polished, responsive site in days. Communication was sharp and the result exceeded what we asked for.",
-    name: "Mia Santos",
-    role: "Owner, Oroq Coco Shop",
-    initials: "MS",
-  },
-  {
-    niche: "Web Development",
-    quote:
-      "The animations and micro-interactions gave our brand a feel we couldn't have built ourselves. Clean code, delivered on time.",
-    name: "David Kim",
-    role: "Creative Lead, Pixel Vibe",
-    initials: "DK",
-  },
-  {
-    niche: "Automation",
-    quote:
-      "Our booking chatbot cut the admin load in half. Patients book in seconds and the dentist's calendar just stays in sync — no manual work.",
-    name: "Dr. Elena Cruz",
-    role: "Practice Owner, Dental Clinic",
-    initials: "EC",
+    name: "Kenneth H.",
+    role: "Oroq Coco Store",
+    initials: "KH",
   },
   {
     niche: "Automation",
     quote:
       "He automated our entire client onboarding — Drive folders, tracking, welcome emails, Slack. It runs itself now.",
-    name: "Noah Bennett",
-    role: "COO, Agency",
-    initials: "NB",
+    name: "Juliet E.",
+    role: "Operations, Agency",
+    initials: "JE",
   },
   {
     niche: "Automation",
     quote:
       "The lead-to-appointment flow saves us hours every week. Franz understood the whole funnel and built exactly what the team needed.",
-    name: "Sofia Reyes",
+    name: "Kimmy D.",
     role: "Sales Manager",
-    initials: "SR",
+    initials: "KD",
   },
 ];

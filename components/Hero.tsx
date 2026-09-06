@@ -55,12 +55,20 @@ export default function Hero() {
           className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row"
         >
           <a
-            href="#projects"
-            onClick={(e) => handleNavigate(e, "#projects")}
+            href="https://cal.com/franzlysert/callwfranz"
+            target="_blank"
+            rel="noopener noreferrer"
             className="group inline-flex w-full items-center justify-center gap-2 rounded-xl bg-accent px-6 py-3.5 text-sm font-medium text-white transition-all hover:bg-accent/90 active:scale-[0.98] sm:w-auto"
           >
-            View Web Projects
+            Book a Free Discovery Call
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+          </a>
+          <a
+            href="#projects"
+            onClick={(e) => handleNavigate(e, "#projects")}
+            className="group inline-flex w-full items-center justify-center gap-2 rounded-xl border border-white/10 bg-surface px-6 py-3.5 text-sm font-medium text-ink transition-all hover:border-coral/40 hover:bg-surface-2 active:scale-[0.98] sm:w-auto"
+          >
+            View Web Projects
           </a>
           <a
             href="#automations"
