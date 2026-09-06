@@ -26,25 +26,32 @@ Repo: https://github.com/8kshj1jh44/FranzPortfolio
 Dark theme. Tokens in `tailwind.config.ts`: `background #0a0a0c`, `surface`, `surface-2`, `ink`/`ink-secondary`/`ink-muted`, `accent #3b82f6`, `coral #ff6d5a`. Rounded `rounded-card` (1rem). Geist fonts via `next/font/local`. Custom utilities in `app/globals.css`: `.glass`, `.dot-grid`, `.hairline-top`.
 
 ## Current state (session handoff — Sep 2026)
+
+### Latest session — committed `48c722a` (pushed)
+- **Primary CTA is now the discovery call**: `https://cal.com/franzlysert/callwfranz` wired into Hero primary button, Navbar (desktop + mobile), and `CTA_BANNER.primaryHref` (`data/portfolioData.ts`). Contact form + "Hire me on Upwork" remain as fallbacks in Contact.
+- **Testimonials trimmed to 2 per niche** in `TESTIMONIALS`: Web Dev = Alex R. (Takers Daily), Kenneth H. (Oroq Coco Store); Automation = Juliet E. (Operations, Agency), Kimmy D. (Sales Manager). Cards are centered (`flex max-w-3xl justify-center`); empty niches are filtered out in `Testimonials.tsx`.
+- **Service prices removed**: `startingPrice`/`cadence` fields deleted from `Service`/`SERVICES`; Services cards no longer show pricing (copy now steers to the discovery call).
+- **Anchor scroll fixes** (`lib/utils.ts`, `components/WorkTabs.tsx`): `scrollToHash` now uses precise `window.scrollTo(el.top + scrollY)` instead of `scrollIntoView`; removed `AnimatePresence mode="wait"` (was causing a page-height clamp on tab switch that landed on Education); tab switches scroll to `#work` top.
+- **n8n archive**: unreferenced workflow files (Zero-AI Reminder, Lead Nurture, AI Social Media Repurposer PNG/JSON) moved to `public/n8n/archive/`. Live workflows still reference files directly in `public/n8n/`.
+
+### Prior state
 - Header is **static** (scrolls away, no fixed/glass). Done in commit `607f6c0`.
 - Web + automation **detail pages** live with per-page metadata, breadcrumb JSON-LD, sitemap entries, "Read case study" links on cards. Done in `607f6c0`.
 - Custom **404** and **favicon** added. Done in `607f6c0`.
 - CV swapped to `public/CV.pdf` (converted from `public/CV.docx`); `RESUME_PATH = "/CV.pdf"` in `data/portfolioData.ts`. Done in `eda640f`.
 - ShapeGrid canvas backgrounds and GooeyNav removed from Hero/WorkTabs/Contact/Navbar (plain nav links instead). Done in `eda640f`.
 - **AI Social Media Repurposer workflow dropped** from AUTOMATION_WORKFLOWS (was trimmed previously too). `cafbb0e`.
-- Automation screenshots fixed so each workflow points to its own PNG that actually exists and is decodable (the old `ABS-CBN.png` was corrupt; `AI Summarizer.png` referenced a missing file). `cafbb0e`. **Lesson: always verify the referenced screenshot file exists AND decodes (System.Drawing) before wiring it up.**
-- **Sales-page sections** added to homepage: `components/StatsBar.tsx` (PROOF_STATS strip), `components/Services.tsx` (SERVICES offer cards w/ starting price), `components/Process.tsx` (PROCESS_STEPS 4-step). Data in `data/portfolioData.ts`. Homepage order is now Hero → StatsBar → Services → Process → WorkTabs → Testimonials → Contact.
-- **Client Testimonials section** added to homepage: `components/Testimonials.tsx` + `TESTIMONIALS` in `data/portfolioData.ts`, grouped by niche (`Web Development` / `Automation`), 3 placeholders each — replace with real client quotes. Not yet committed.
-- **FAQ + CTA sections** added to homepage: `components/FAQ.tsx` (FAQS accordion, first item open by default) and `components/CTA.tsx` (CTA_BANNER risk-reversal banner w/ guarantees). Homepage order: Hero → StatsBar → Services → Process → WorkTabs → Testimonials → FAQ → CTA → Contact.
-- **CTA banner removed** — it duplicated the Contact ask. Guarantees (free discovery call / revisions included / support after launch) from `CTA_BANNER.guarantees` were folded into the Contact heading; `components/CTA.tsx` deleted. Homepage order is now Hero → StatsBar → Services → Process → WorkTabs → Testimonials → FAQ → Contact.
+- Automation screenshots fixed so each workflow points to its own PNG that actually exists and is decodable. `cafbb0e`. **Lesson: always verify the referenced screenshot file exists AND decodes before wiring it up.**
+- Homepage order: Hero → StatsBar → Services → Process → WorkTabs → Testimonials → FAQ → Contact.
 
 ## Outstanding / deferred (user explicitly skipped these)
 - Certificates badges strip (Azure AI, Google Cybersecurity, NC, THM PDFs already in `public/`) — was proposed, user dropped it.
 - Blog (repo markdown) — user dropped it.
 - Analytics link in Footer — user dropped it.
 - FAQ JSON-LD on homepage — user dropped it.
-- **Case-study metrics + ROI badges**: added optional `metrics` (`{value,label}[]`) to `WebProject` (placeholder results per project, rendered as a stat strip on `/projects/[id]`), and restyled the automation card `metricBadge` into a prominent emerald ROI chip (TrendingUp icon) in `AutomationShowcase.tsx`. Replace placeholder metrics with real numbers. Not yet committed.
-- **Automation GIFs**: added optional `gif` field to `AutomationWorkflow` and wired `AutomationShowcase` to prefer the GIF ("View demo" button) with fallback to `screenshot` on error. Animated pan/zoom GIFs were generated from the static PNGs with ffmpeg (`C:\Users\Franz\AppData\Local\Microsoft\WinGet\Packages\Gyan.FFmpeg...\bin\ffmpeg.exe`, 640px wide, ~4.7s, 12fps, palette dither). To regenerate: zoompan filter `zoompan=z='min(zoom+0.0020,1.25)':d=120:...s=<w>x<h>,fps=12` + palettegen/paletteuse. Not yet committed.
+- **Case-study metrics + ROI badges**: added optional `metrics` (`{value,label}[]`) to `WebProject` (rendered as a stat strip on `/projects/[id]`), and restyled the automation card `metricBadge` into a prominent emerald ROI chip (TrendingUp icon) in `AutomationShowcase.tsx`. Current values are placeholders the user is happy with for now — replace with real numbers when available.
+- **Automation GIFs**: added optional `gif` field to `AutomationWorkflow` and wired `AutomationShowcase` to prefer the GIF ("View demo" button) with fallback to `screenshot` on error. Animated pan/zoom GIFs were generated from the static PNGs with ffmpeg (`C:\Users\Franz\AppData\Local\Microsoft\WinGet\Packages\Gyan.FFmpeg...\bin\ffmpeg.exe`, 640px wide, ~4.7s, 12fps, palette dither). To regenerate: zoompan filter `zoompan=z='min(zoom+0.0020,1.25)':d=120:...s=<w>x<h>,fps=12` + palettegen/paletteuse.
+- **Other sales-lever ideas** the user hasn't decided on: booking link is done (Cal.com); remaining proposals: niche landing pages, live/interactive demo, case study pages, lead magnet + email capture, certification strip, blog.
 
 ## Gotchas
 - `robots.ts` disallows `/analytics` and `/api` (intentional — analytics is private).
