@@ -8,9 +8,9 @@ const nextConfig = {
         pathname: "/v1/storage/buckets/**",
       },
       {
-        protocol: "http",
-        hostname: "cloud.appwrite.io",
-        pathname: "/v1/storage/buckets/**",
+        protocol: "https",
+        hostname: "s.wordpress.com",
+        pathname: "/mshots/v1/**",
       },
     ],
   },

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ExternalLink, Check, ArrowUpRight } from "lucide-react";
 import { GitHubLogoIcon } from "@radix-ui/react-icons";
@@ -22,6 +23,7 @@ export function generateMetadata({ params }: Props): Metadata {
   return {
     title: `${project.title} — Case Study`,
     description: project.description,
+    alternates: { canonical: `/projects/${project.id}` },
     openGraph: {
       title: `${project.title} — Case Study`,
       description: project.description,
@@ -128,10 +130,12 @@ export default function ProjectDetailPage({ params }: Props) {
         <div className="mt-8 overflow-hidden rounded-card border border-white/[0.08] bg-surface">
           {project.image && (
             <div className="relative aspect-[16/9] w-full overflow-hidden border-b border-white/[0.06]">
-              <img
+              <Image
                 src={project.image}
                 alt={`${project.title} live site screenshot`}
-                className="h-full w-full object-cover object-top"
+                fill
+                sizes="(max-width: 768px) 100vw, 80vw"
+                className="object-cover object-top"
               />
             </div>
           )}

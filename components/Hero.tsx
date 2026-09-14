@@ -34,13 +34,14 @@ export default function Hero() {
       <div className="pointer-events-none absolute bottom-0 right-0 h-[420px] w-[520px] translate-x-1/3 translate-y-1/3 rounded-full bg-coral/10 blur-[120px]" />
 
       <div className="relative mx-auto w-full max-w-4xl px-5 pt-24 pb-20 text-center sm:px-8">
-        <BlurText
-          text="Full Stack Developer and AI Specialist"
-          delay={0.05}
-          direction="top"
-          threshold={0.1}
-          className="mx-auto block max-w-4xl text-balance text-4xl font-semibold leading-[1.08] tracking-tight text-ink sm:text-5xl lg:text-6xl"
-        />
+        <h1 className="mx-auto block max-w-4xl text-balance text-4xl font-semibold leading-[1.08] tracking-tight text-ink sm:text-5xl lg:text-6xl">
+          <BlurText
+            text="Full Stack Developer and AI Specialist"
+            delay={0.05}
+            direction="top"
+            threshold={0.1}
+          />
+        </h1>
 
         <motion.p
           {...fade(0.7)}

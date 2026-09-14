@@ -1,6 +1,11 @@
 import Link from "next/link";
 import { ArrowLeft, Home } from "lucide-react";
 
+export const metadata = {
+  title: "Page Not Found",
+  description: "The page you're looking for doesn't exist.",
+};
+
 export default function NotFound() {
   return (
     <main className="relative flex min-h-[100dvh] flex-col items-center justify-center px-5 text-center">

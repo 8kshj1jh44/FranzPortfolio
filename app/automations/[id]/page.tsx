@@ -23,6 +23,7 @@ export function generateMetadata({ params }: Props): Metadata {
   return {
     title: `${automation.title} — Automation Case Study`,
     description: automation.description,
+    alternates: { canonical: `/automations/${automation.id}` },
     openGraph: {
       title: `${automation.title} — Automation Case Study`,
       description: automation.description,
@@ -146,6 +147,7 @@ export default function AutomationDetailPage({ params }: Props) {
                     src={automation.screenshot}
                     alt={`${automation.title} workflow screenshot`}
                     fill
+                    priority
                     sizes="(max-width: 1024px) 100vw, 60vw"
                     className="object-contain"
                   />

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 import { Check, ExternalLink, ArrowUpRight, ArrowRight, Lock } from "lucide-react";
 import { GitHubLogoIcon } from "@radix-ui/react-icons";
@@ -23,6 +24,7 @@ function MockupFrame({ project, index }: { project: WebProject; index: number })
   const [failed, setFailed] = useState(false);
   const showImage = !!project.image && !failed;
   const monogram = project.title.charAt(0).toUpperCase();
+  const imageSrc = project.image as string;
 
   return (
     <div className="relative overflow-hidden rounded-t-card border-b border-white/[0.06] bg-surface-2">
@@ -38,12 +40,14 @@ function MockupFrame({ project, index }: { project: WebProject; index: number })
 
       {showImage ? (
         <div className="relative h-44 overflow-hidden sm:h-52">
-          <img
-            src={project.image}
+          <Image
+            src={imageSrc}
             alt={`${project.title} live site screenshot`}
+            fill
+            sizes="(max-width: 768px) 100vw, 50vw"
             onError={() => setFailed(true)}
             loading="lazy"
-            className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
+            className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
           />
         </div>
       ) : (

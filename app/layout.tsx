@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import localFont from "next/font/local";
 import VisitTracker from "@/components/VisitTracker";
+import { FAQS } from "@/data/portfolioData";
 import "./globals.css";
 
 const geistSans = localFont({
@@ -77,6 +79,19 @@ const jsonLd = {
   knowsAbout: ["Web Development", "n8n Automation", "AI Pipelines", "Next.js"],
 };
 
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: FAQS.map((faq) => ({
+    "@type": "Question",
+    name: faq.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: faq.answer,
+    },
+  })),
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -85,11 +100,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <script
+        <Script
           async
           src="https://www.googletagmanager.com/gtag/js?id=G-QTY3RTVPK1"
+          strategy="afterInteractive"
         />
-        <script
+        <Script
+          id="gtag-init"
+          strategy="afterInteractive"
           dangerouslySetInnerHTML={{
             __html: `window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
@@ -105,6 +123,10 @@ gtag('config', 'G-QTY3RTVPK1');`,
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
         />
         {children}
         <VisitTracker />
