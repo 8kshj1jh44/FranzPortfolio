@@ -68,9 +68,12 @@ export default function Testimonials() {
                 text="Client Testimonials"
                 className="text-3xl font-semibold tracking-tight text-ink sm:text-4xl"
               />
-              <p className="mt-3 max-w-[55ch] text-base leading-relaxed text-ink-secondary">
-                What clients say after working together across my two niches.
-              </p>
+              <ScrollFloat
+                as="p"
+                text="What clients say after working together across my two niches."
+                className="mt-3 max-w-[55ch] text-base leading-relaxed text-ink-secondary"
+                stagger={0.015}
+              />
             </div>
           </div>
         </Reveal>

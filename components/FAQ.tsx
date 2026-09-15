@@ -27,10 +27,12 @@ export default function FAQ() {
             text="Questions, answered"
             className="text-3xl font-semibold tracking-tight text-ink sm:text-4xl"
           />
-          <p className="mt-3 max-w-[55ch] text-base leading-relaxed text-ink-secondary">
-            The things clients usually ask before hiring. If yours isn&apos;t here,
-            just reach out.
-          </p>
+          <ScrollFloat
+            as="p"
+            text="The things clients usually ask before hiring. If yours isn't here, just reach out."
+            className="mt-3 max-w-[55ch] text-base leading-relaxed text-ink-secondary"
+            stagger={0.015}
+          />
 
           <div className="mt-10 space-y-3">
             {FAQS.map((faq, index) => {

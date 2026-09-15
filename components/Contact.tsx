@@ -6,6 +6,7 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Send, Loader2, Mail, MapPin, CheckCircle2, AlertCircle, ArrowUpRight, ShieldCheck } from "lucide-react";
 import { submitContactForm, type ContactFormState } from "@/actions/contact";
 import { CTA_BANNER, SOCIAL_LINKS } from "@/data/portfolioData";
+import TextType from "@/components/TextType";
 
 import { cn } from "@/lib/utils";
 
@@ -49,9 +50,13 @@ export default function Contact() {
       <div className="relative mx-auto max-w-6xl px-5 sm:px-8">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-2">
           <div>
-            <h2 className="text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
-              Let&apos;s build something
-            </h2>
+            <TextType
+              as="h2"
+              text={["Let's build something"]}
+              loop={false}
+              startOnVisible
+              className="text-3xl font-semibold tracking-tight text-ink sm:text-4xl"
+            />
             <p className="mt-3 max-w-[48ch] text-base leading-relaxed text-ink-secondary">
               Tell me about the product, the workflow, or the problem you&apos;re
               trying to automate. I&apos;ll reply within one business day.

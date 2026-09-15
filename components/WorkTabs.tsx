@@ -41,7 +41,7 @@ export default function WorkTabs() {
     typeof window === "undefined" ? "projects" : tabFromHash()
   );
   const reduceMotion = useReducedMotion();
-  const skipFirstScroll = useRef(true);
+  const prevActive = useRef(active);
 
   useEffect(() => {
     const onHashChange = () => setActive(tabFromHash());
@@ -50,10 +50,8 @@ export default function WorkTabs() {
   }, []);
 
   useEffect(() => {
-    if (skipFirstScroll.current) {
-      skipFirstScroll.current = false;
-      return;
-    }
+    if (prevActive.current === active) return;
+    prevActive.current = active;
     scrollToHash("#work");
   }, [active]);
 

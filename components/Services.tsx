@@ -51,10 +51,12 @@ export default function Services() {
             text="What I can build for you"
             className="text-3xl font-semibold tracking-tight text-ink sm:text-4xl"
           />
-          <p className="mt-3 max-w-[55ch] text-base leading-relaxed text-ink-secondary">
-            Every offer is scoped around your goals — no one-size-fits-all
-            packages. Let&apos;s talk about what you need on a free discovery call.
-          </p>
+          <ScrollFloat
+            as="p"
+            text="Every offer is scoped around your goals — no one-size-fits-all packages. Let's talk about what you need on a free discovery call."
+            className="mt-3 max-w-[55ch] text-base leading-relaxed text-ink-secondary"
+            stagger={0.015}
+          />
         </Reveal>
 
         <div className="mt-14 grid grid-cols-1 gap-6 lg:grid-cols-3">

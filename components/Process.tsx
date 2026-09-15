@@ -45,10 +45,12 @@ export default function Process() {
             text="A simple, no-surprises process"
             className="text-3xl font-semibold tracking-tight text-ink sm:text-4xl"
           />
-          <p className="mt-3 max-w-[55ch] text-base leading-relaxed text-ink-secondary">
-            Four clear steps from first call to launch — you always know what&apos;s
-            happening and what comes next.
-          </p>
+          <ScrollFloat
+            as="p"
+            text="Four clear steps from first call to launch — you always know what's happening and what comes next."
+            className="mt-3 max-w-[55ch] text-base leading-relaxed text-ink-secondary"
+            stagger={0.015}
+          />
         </Reveal>
 
         <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">

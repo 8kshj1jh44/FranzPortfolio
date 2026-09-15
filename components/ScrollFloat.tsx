@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef } from "react";
+import { Fragment, useEffect, useMemo, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -9,33 +9,38 @@ gsap.registerPlugin(ScrollTrigger);
 interface ScrollFloatProps {
   text: string;
   className?: string;
+  as?: React.ElementType;
   animationDuration?: number;
   ease?: string;
   scrollStart?: string;
-  scrollEnd?: string;
   stagger?: number;
 }
 
 export default function ScrollFloat({
   text,
   className = "",
+  as: Tag = "h2",
   animationDuration = 1,
   ease = "back.inOut(2)",
   scrollStart = "top bottom-=10%",
-  scrollEnd = "top 25%",
   stagger = 0.03,
 }: ScrollFloatProps) {
-  const containerRef = useRef<HTMLHeadingElement>(null);
+  const containerRef = useRef<HTMLElement>(null);
 
-  const chars = useMemo(
-    () =>
-      text.split("").map((char, index) => (
-        <span key={index} aria-hidden="true" className="sf-char inline-block">
-          {char === " " ? "\u00A0" : char}
-        </span>
-      )),
-    [text]
-  );
+  const words = useMemo(() => text.split(" "), [text]);
+
+  const content = words.map((word, wordIndex) => (
+    <Fragment key={wordIndex}>
+      {wordIndex > 0 ? " " : null}
+      <span className="sf-word inline-block whitespace-nowrap">
+        {Array.from(word).map((char, charIndex) => (
+          <span key={charIndex} aria-hidden="true" className="sf-char inline-block">
+            {char}
+          </span>
+        ))}
+      </span>
+    </Fragment>
+  ));
 
   useEffect(() => {
     const el = containerRef.current;
@@ -74,8 +79,7 @@ export default function ScrollFloat({
         scrollTrigger: {
           trigger: el,
           start: scrollStart,
-          end: scrollEnd,
-          scrub: true,
+          once: true,
         },
       }
     );
@@ -84,11 +88,15 @@ export default function ScrollFloat({
       tween.scrollTrigger?.kill();
       tween.kill();
     };
-  }, [animationDuration, ease, scrollStart, scrollEnd, stagger]);
+  }, [animationDuration, ease, scrollStart, stagger]);
 
   return (
-    <h2 ref={containerRef} className={`overflow-hidden ${className}`}>
-      <span className="inline-block">{chars}</span>
-    </h2>
+    <Tag
+      ref={containerRef}
+      className={`overflow-hidden ${className}`}
+      aria-label={text}
+    >
+      <span className="inline-block">{content}</span>
+    </Tag>
   );
 }

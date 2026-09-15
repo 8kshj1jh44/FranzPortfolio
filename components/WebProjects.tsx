@@ -186,10 +186,12 @@ export default function WebProjects({ projects }: { projects: WebProject[] }) {
             text="Web Projects"
             className="text-3xl font-semibold tracking-tight text-ink sm:text-4xl"
           />
-          <p className="mt-3 max-w-[55ch] text-base leading-relaxed text-ink-secondary">
-            5+ live products in production, each built end-to-end and
-            deployed to Vercel.
-          </p>
+          <ScrollFloat
+            as="p"
+            text="5+ live products in production, each built end-to-end and deployed to Vercel."
+            className="mt-3 max-w-[55ch] text-base leading-relaxed text-ink-secondary"
+            stagger={0.015}
+          />
         </div>
         <span className="shrink-0 font-mono text-sm text-ink-muted">
           5+ deployed sites

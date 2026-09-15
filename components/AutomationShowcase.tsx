@@ -262,10 +262,12 @@ export default function AutomationShowcase({
             text="Automation Workflows"
             className="text-3xl font-semibold tracking-tight text-ink sm:text-4xl"
           />
-          <p className="mt-3 max-w-[55ch] text-base leading-relaxed text-ink-secondary">
-            Event-driven n8n pipelines that connect webhooks, AI, and Appwrite
-            to move work without a human in the loop.
-          </p>
+          <ScrollFloat
+            as="p"
+            text="Event-driven n8n pipelines that connect webhooks, AI, and Appwrite to move work without a human in the loop."
+            className="mt-3 max-w-[55ch] text-base leading-relaxed text-ink-secondary"
+            stagger={0.015}
+          />
         </div>
 
         <div className="mb-10 flex flex-wrap gap-2">
