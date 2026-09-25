@@ -249,8 +249,6 @@ export const SOCIAL_LINKS = {
   email: "mailto:franzlyster@gmail.com",
 };
 
-export const RESUME_PATH = "/CV.pdf";
-
 export interface Service {
   id: string;
   title: string;

@@ -4,7 +4,6 @@ import { useState } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { HelpCircle, Plus } from "lucide-react";
 import { FAQS } from "@/data/portfolioData";
-import ScrollFloat from "@/components/ScrollFloat";
 import { cn } from "@/lib/utils";
 
 export default function FAQ() {
@@ -23,16 +22,12 @@ export default function FAQ() {
             <HelpCircle className="h-3.5 w-3.5 text-coral" />
             FAQ
           </p>
-          <ScrollFloat
-            text="Questions, answered"
-            className="text-3xl font-semibold tracking-tight text-ink sm:text-4xl"
-          />
-          <ScrollFloat
-            as="p"
-            text="The things clients usually ask before hiring. If yours isn't here, just reach out."
-            className="mt-3 max-w-[55ch] text-base leading-relaxed text-ink-secondary"
-            stagger={0.015}
-          />
+          <h2 className="text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
+            Questions, answered
+          </h2>
+          <p className="mt-3 max-w-[55ch] text-base leading-relaxed text-ink-secondary">
+            The things clients usually ask before hiring. If yours isn&apos;t here, just reach out.
+          </p>
 
           <div className="mt-10 space-y-3">
             {FAQS.map((faq, index) => {

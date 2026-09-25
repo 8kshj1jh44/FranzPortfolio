@@ -4,7 +4,6 @@ import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, Workflow } from "lucide-react";
 import BlurText from "@/components/BlurText";
 import { SOCIAL_ITEMS, SocialGlyph, isExternal } from "@/components/socials";
-import CVButton from "@/components/CVButton";
 import { navigateToHash } from "@/lib/utils";
 
 const fade = (delay: number) => ({
@@ -108,18 +107,6 @@ export default function Hero() {
               </span>
             </a>
           ))}
-        </motion.div>
-
-        <motion.div
-          initial={reduceMotion ? false : { opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.05, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="mt-6"
-        >
-          <CVButton
-            label="Check My CV"
-            className="mt-6 inline-flex"
-          />
         </motion.div>
       </div>
     </section>

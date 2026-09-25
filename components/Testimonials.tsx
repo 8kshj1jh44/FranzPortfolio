@@ -3,7 +3,6 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { Quote, MessageSquareQuote, Workflow } from "lucide-react";
 import { TESTIMONIALS, type TestimonialNiche } from "@/data/portfolioData";
-import ScrollFloat from "@/components/ScrollFloat";
 import { cn } from "@/lib/utils";
 
 const NICHES: Array<{
@@ -64,16 +63,12 @@ export default function Testimonials() {
                 <Quote className="h-3.5 w-3.5 text-coral" />
                 Testimonials
               </p>
-              <ScrollFloat
-                text="Client Testimonials"
-                className="text-3xl font-semibold tracking-tight text-ink sm:text-4xl"
-              />
-              <ScrollFloat
-                as="p"
-                text="What clients say after working together across my two niches."
-                className="mt-3 max-w-[55ch] text-base leading-relaxed text-ink-secondary"
-                stagger={0.015}
-              />
+              <h2 className="text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
+                Client Testimonials
+              </h2>
+              <p className="mt-3 max-w-[55ch] text-base leading-relaxed text-ink-secondary">
+                What clients say after working together across my two niches.
+              </p>
             </div>
           </div>
         </Reveal>

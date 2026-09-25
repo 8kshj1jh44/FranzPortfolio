@@ -24,7 +24,6 @@ import {
 } from "lucide-react";
 import { type AutomationWorkflow } from "@/data/portfolioData";
 import { cn } from "@/lib/utils";
-import ScrollFloat from "@/components/ScrollFloat";
 
 const FILTERS = [
   { label: "All", value: "All" },
@@ -258,16 +257,12 @@ export default function AutomationShowcase({
       />
       <div className="relative">
         <div className="mb-10 max-w-2xl">
-          <ScrollFloat
-            text="Automation Workflows"
-            className="text-3xl font-semibold tracking-tight text-ink sm:text-4xl"
-          />
-          <ScrollFloat
-            as="p"
-            text="Event-driven n8n pipelines that connect webhooks, AI, and Appwrite to move work without a human in the loop."
-            className="mt-3 max-w-[55ch] text-base leading-relaxed text-ink-secondary"
-            stagger={0.015}
-          />
+          <h2 className="text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
+            Automation Workflows
+          </h2>
+          <p className="mt-3 max-w-[55ch] text-base leading-relaxed text-ink-secondary">
+            Event-driven n8n pipelines that connect webhooks, AI, and Appwrite to move work without a human in the loop.
+          </p>
         </div>
 
         <div className="mb-10 flex flex-wrap gap-2">

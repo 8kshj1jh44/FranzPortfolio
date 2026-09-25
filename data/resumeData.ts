@@ -60,7 +60,7 @@ export const RESUME_DATA = {
     {
       role: "Freelance Full-Stack Developer & Automation Engineer",
       company: "Self-Employed",
-      period: "Sept 2025 – Present",
+      period: "Sept 2022 – Present",
       type: "Freelance",
       description: [
         "Architected and deployed 5+ production web applications using Next.js, React, and Tailwind CSS.",

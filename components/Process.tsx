@@ -3,7 +3,6 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { Workflow } from "lucide-react";
 import { PROCESS_STEPS } from "@/data/portfolioData";
-import ScrollFloat from "@/components/ScrollFloat";
 
 function Reveal({
   children,
@@ -41,16 +40,12 @@ export default function Process() {
             <Workflow className="h-3.5 w-3.5 text-coral" />
             How I work
           </p>
-          <ScrollFloat
-            text="A simple, no-surprises process"
-            className="text-3xl font-semibold tracking-tight text-ink sm:text-4xl"
-          />
-          <ScrollFloat
-            as="p"
-            text="Four clear steps from first call to launch — you always know what's happening and what comes next."
-            className="mt-3 max-w-[55ch] text-base leading-relaxed text-ink-secondary"
-            stagger={0.015}
-          />
+          <h2 className="text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
+            A simple, no-surprises process
+          </h2>
+          <p className="mt-3 max-w-[55ch] text-base leading-relaxed text-ink-secondary">
+            Four clear steps from first call to launch — you always know what&apos;s happening and what comes next.
+          </p>
         </Reveal>
 
         <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">

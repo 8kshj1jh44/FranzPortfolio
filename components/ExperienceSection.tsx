@@ -13,8 +13,6 @@ import {
   type CertificationItem,
   type ExperienceItem,
 } from "@/data/resumeData";
-import CVButton from "@/components/CVButton";
-import ScrollFloat from "@/components/ScrollFloat";
 import { cn } from "@/lib/utils";
 
 const TYPE_TONE: Record<
@@ -187,18 +185,13 @@ export default function ExperienceSection() {
                 <User className="h-3.5 w-3.5 text-coral" />
                 {RESUME_DATA.name}
               </p>
-              <ScrollFloat
-                text="Experience & Background"
-                className="text-3xl font-semibold tracking-tight text-ink sm:text-4xl"
-              />
-              <ScrollFloat
-                as="p"
-                text={RESUME_DATA.summary}
-                className="mt-3 max-w-[55ch] text-base leading-relaxed text-ink-secondary"
-                stagger={0.015}
-              />
+              <h2 className="text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
+                Experience & Background
+              </h2>
+              <p className="mt-3 max-w-[55ch] text-base leading-relaxed text-ink-secondary">
+                {RESUME_DATA.summary}
+              </p>
             </div>
-            <CVButton label="Check My CV" />
           </div>
         </Reveal>
 

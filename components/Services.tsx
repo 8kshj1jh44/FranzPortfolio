@@ -3,7 +3,6 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { Layers, Zap, RefreshCcw, Check, Sparkles } from "lucide-react";
 import { SERVICES, type Service } from "@/data/portfolioData";
-import ScrollFloat from "@/components/ScrollFloat";
 
 const SERVICE_ICONS: Record<Service["id"], typeof Layers> = {
   web: Layers,
@@ -47,16 +46,12 @@ export default function Services() {
             <Sparkles className="h-3.5 w-3.5 text-coral" />
             Services
           </p>
-          <ScrollFloat
-            text="What I can build for you"
-            className="text-3xl font-semibold tracking-tight text-ink sm:text-4xl"
-          />
-          <ScrollFloat
-            as="p"
-            text="Every offer is scoped around your goals — no one-size-fits-all packages. Let's talk about what you need on a free discovery call."
-            className="mt-3 max-w-[55ch] text-base leading-relaxed text-ink-secondary"
-            stagger={0.015}
-          />
+          <h2 className="text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
+            What I can build for you
+          </h2>
+          <p className="mt-3 max-w-[55ch] text-base leading-relaxed text-ink-secondary">
+            Every offer is scoped around your goals — no one-size-fits-all packages. Let&apos;s talk about what you need on a free discovery call.
+          </p>
         </Reveal>
 
         <div className="mt-14 grid grid-cols-1 gap-6 lg:grid-cols-3">

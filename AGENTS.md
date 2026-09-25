@@ -18,8 +18,8 @@ Repo: https://github.com/8kshj1jh44/FranzPortfolio
 - `app/not-found.tsx` — custom 404
 - `app/icon.svg` — favicon (FL monogram)
 - `app/sitemap.ts` — includes homepage + all project/automation detail URLs
-- `data/portfolioData.ts` — source of truth: WEB_PROJECTS, AUTOMATION_WORKFLOWS, SOCIAL_LINKS, RESUME_PATH
-- `components/` — Navbar, Hero, WorkTabs (tabs: web / automations / experience), AutomationShowcase, WebProjects, ExperienceSection, Contact, Footer, CVButton, VisitTracker, BlurText, ScrollFloat
+- `data/portfolioData.ts` — source of truth: WEB_PROJECTS, AUTOMATION_WORKFLOWS, SOCIAL_LINKS
+- `components/` — Navbar, Hero, WorkTabs (tabs: web / automations / experience), AutomationShowcase, WebProjects, ExperienceSection, Contact, Footer, VisitTracker, BlurText, ScrollFloat
 - `public/n8n/` — workflow screenshots (.png) + workflow JSONs (.json). Pair by matching name.
 
 ## Design system
@@ -38,7 +38,7 @@ Dark theme. Tokens in `tailwind.config.ts`: `background #0a0a0c`, `surface`, `su
 - Header is **static** (scrolls away, no fixed/glass). Done in commit `607f6c0`.
 - Web + automation **detail pages** live with per-page metadata, breadcrumb JSON-LD, sitemap entries, "Read case study" links on cards. Done in `607f6c0`.
 - Custom **404** and **favicon** added. Done in `607f6c0`.
-- CV swapped to `public/CV.pdf` (converted from `public/CV.docx`); `RESUME_PATH = "/CV.pdf"` in `data/portfolioData.ts`. Done in `eda640f`.
+- CV removed from the site (button, component, `RESUME_PATH`, and `public/CV.*` files deleted).
 - ShapeGrid canvas backgrounds and GooeyNav removed from Hero/WorkTabs/Contact/Navbar (plain nav links instead). Done in `eda640f`.
 - **AI Social Media Repurposer workflow dropped** from AUTOMATION_WORKFLOWS (was trimmed previously too). `cafbb0e`.
 - Automation screenshots fixed so each workflow points to its own PNG that actually exists and is decodable. `cafbb0e`. **Lesson: always verify the referenced screenshot file exists AND decodes before wiring it up.**

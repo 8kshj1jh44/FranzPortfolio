@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import localFont from "next/font/local";
 import VisitTracker from "@/components/VisitTracker";
-import { FAQS } from "@/data/portfolioData";
+import { FAQS, SERVICES, SOCIAL_LINKS } from "@/data/portfolioData";
+import { RESUME_DATA } from "@/data/resumeData";
 import "./globals.css";
 
 const geistSans = localFont({
@@ -40,6 +41,12 @@ export const metadata: Metadata = {
     "Next.js",
     "freelance",
     "portfolio",
+    "freelance web developer",
+    "n8n developer",
+    "n8n expert",
+    "AI chatbot developer",
+    "workflow automation",
+    "Next.js developer",
   ],
   authors: [{ name: "Franz Lyster Tagalogon", url: `${SITE_URL}` }],
   creator: "Franz Lyster Tagalogon",
@@ -61,22 +68,88 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+  verification: {
+    other: {
+      "msvalidate.01": "09924E29D29ED1C1C1D5506201BD7A5A",
+    },
+  },
 };
 
 const jsonLd = {
   "@context": "https://schema.org",
-  "@type": "Person",
-  name: "Franz Lyster Tagalogon",
-  url: SITE_URL,
-  jobTitle: "Full-Stack Developer & Automation Engineer",
-  description: DESCRIPTION,
-  sameAs: [
-    "https://github.com/8kshj1jh44",
-    "https://www.linkedin.com/in/franz-lyster-tagalogon-2b7283217/",
-    "https://www.upwork.com/freelancers/~01b4e057e37d32e9fd",
-    "https://www.facebook.com/tagalogonXD/",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": `${SITE_URL}/#person`,
+      name: "Franz Lyster Tagalogon",
+      alternateName: ["Franz Lyster L. Tagalogon", "Franz Lyster"],
+      url: SITE_URL,
+      image: `${SITE_URL}/opengraph-image`,
+      email: "mailto:franzlyster@gmail.com",
+      jobTitle: "Full-Stack Developer & n8n Automation Specialist",
+      description: RESUME_DATA.summary,
+      alumniOf: {
+        "@type": "CollegeOrUniversity",
+        name: RESUME_DATA.education.school,
+      },
+      hasCredential: RESUME_DATA.certifications.map((cert) => ({
+        "@type": "EducationalOccupationalCredential",
+        name: cert.name,
+        recognizedBy: { "@type": "Organization", name: cert.issuer },
+      })),
+      sameAs: Object.values(SOCIAL_LINKS).filter((link) =>
+        link.startsWith("https://"),
+      ),
+      knowsAbout: [
+        "Full-Stack Web Development",
+        "Next.js",
+        "React",
+        "TypeScript",
+        "Tailwind CSS",
+        "E-Commerce Development",
+        "n8n Automation",
+        "Workflow Automation",
+        "AI Chatbots",
+        "AI Agents",
+        "Webhooks",
+        "REST APIs",
+        "Appwrite",
+        "Supabase",
+        "CRM Automation",
+      ],
+    },
+    {
+      "@type": "ProfessionalService",
+      "@id": `${SITE_URL}/#service`,
+      name: "Franz Lyster — Web Development & n8n Automation",
+      url: SITE_URL,
+      description: DESCRIPTION,
+      founder: { "@id": `${SITE_URL}/#person` },
+      areaServed: "Worldwide",
+      availableLanguage: "English",
+      hasOfferCatalog: {
+        "@type": "OfferCatalog",
+        name: "Services",
+        itemListElement: SERVICES.map((service) => ({
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: service.title,
+            description: service.description,
+          },
+        })),
+      },
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${SITE_URL}/#website`,
+      url: SITE_URL,
+      name: "Franz Lyster",
+      description: DESCRIPTION,
+      publisher: { "@id": `${SITE_URL}/#person` },
+      inLanguage: "en",
+    },
   ],
-  knowsAbout: ["Web Development", "n8n Automation", "AI Pipelines", "Next.js"],
 };
 
 const faqJsonLd = {

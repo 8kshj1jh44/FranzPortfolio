@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { Menu, X, ArrowUpRight } from "lucide-react";
 import { SOCIAL_ITEMS, SocialGlyph } from "@/components/socials";
-import CVButton from "@/components/CVButton";
 import { cn, navigateToHash } from "@/lib/utils";
 
 const NAV_LINKS = [
@@ -77,7 +76,6 @@ export default function Navbar() {
             </span>
             <span className="font-mono">Available for builds</span>
           </span>
-          <CVButton variant="compact" />
           <a
             href="https://cal.com/franzlysert/callwfranz"
             target="_blank"
@@ -120,10 +118,6 @@ export default function Navbar() {
               {link.label}
             </a>
           ))}
-          <CVButton
-            label="Check My CV"
-            className="mt-2 flex w-full"
-          />
           <a
             href="https://cal.com/franzlysert/callwfranz"
             target="_blank"

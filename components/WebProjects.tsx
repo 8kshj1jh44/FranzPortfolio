@@ -7,7 +7,6 @@ import { Check, ExternalLink, ArrowUpRight, ArrowRight, Lock } from "lucide-reac
 import { GitHubLogoIcon } from "@radix-ui/react-icons";
 import { type WebProject } from "@/data/portfolioData";
 import { cn } from "@/lib/utils";
-import ScrollFloat from "@/components/ScrollFloat";
 
 const THUMB_TONES: Record<number, string> = {
   0: "from-accent/35 via-accent/10 to-transparent",
@@ -182,16 +181,12 @@ export default function WebProjects({ projects }: { projects: WebProject[] }) {
       <div className="relative">
         <div className="mb-14 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <ScrollFloat
-            text="Web Projects"
-            className="text-3xl font-semibold tracking-tight text-ink sm:text-4xl"
-          />
-          <ScrollFloat
-            as="p"
-            text="5+ live products in production, each built end-to-end and deployed to Vercel."
-            className="mt-3 max-w-[55ch] text-base leading-relaxed text-ink-secondary"
-            stagger={0.015}
-          />
+          <h2 className="text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
+            Web Projects
+          </h2>
+          <p className="mt-3 max-w-[55ch] text-base leading-relaxed text-ink-secondary">
+            5+ live products in production, each built end-to-end and deployed to Vercel.
+          </p>
         </div>
         <span className="shrink-0 font-mono text-sm text-ink-muted">
           5+ deployed sites
