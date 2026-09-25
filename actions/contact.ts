@@ -1,13 +1,16 @@
 "use server";
 
+import { headers } from "next/headers";
 import { AppwriteException, ID } from "node-appwrite";
 import { z } from "zod";
 import { adminDatabases } from "@/lib/appwrite-server";
+import { PROJECT_TYPES } from "@/data/portfolioData";
+import { clientIp, isRateLimited } from "@/lib/rate-limit";
 
 const contactSchema = z.object({
   name: z.string().trim().min(1, "Please enter your name.").max(100),
   email: z.email("Please enter a valid email address."),
-  projectType: z.string().trim().min(1, "Please choose a project type.").max(100),
+  projectType: z.enum(PROJECT_TYPES, "Please choose a project type."),
   message: z.string().trim().min(1, "Please include a message.").max(2000),
 });
 
@@ -25,6 +28,13 @@ export async function submitContactForm(
     return {
       success: true,
       message: "Message sent. I'll get back to you shortly.",
+    };
+  }
+
+  if (isRateLimited(`contact:${clientIp(headers())}`, 3, 10 * 60 * 1000)) {
+    return {
+      success: false,
+      message: "Too many messages. Please wait a few minutes or email me directly.",
     };
   }
 

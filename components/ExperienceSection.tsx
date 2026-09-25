@@ -1,6 +1,7 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useInView, useReducedMotion } from "framer-motion";
 import {
   Briefcase,
   Calendar,
@@ -116,21 +117,28 @@ function TimelineItem({ item, index }: { item: ExperienceItem; index: number }) 
 }
 
 function CertificationCard({ cert }: { cert: CertificationItem }) {
+  // Only load the PDF once the card is on screen; cards in a hidden tab never
+  // intersect, so the homepage doesn't download every certificate up front.
+  const previewRef = useRef<HTMLAnchorElement>(null);
+  const previewInView = useInView(previewRef, { once: true, margin: "200px" });
+
   return (
     <Reveal className="h-full">
       <div className="group flex h-full flex-col rounded-card border border-white/[0.08] bg-surface p-3 transition-colors duration-300 hover:border-white/20">
         <a
+          ref={previewRef}
           href={cert.pdfPath}
           download
           aria-label={`Download ${cert.name} certificate`}
           className="relative block h-48 w-full overflow-hidden rounded-lg border border-white/10 bg-surface-2"
         >
-          <iframe
-            src={cert.pdfPath}
-            title={`${cert.name} certificate`}
-            loading="lazy"
-            className="h-full w-full bg-white"
-          />
+          {previewInView && (
+            <iframe
+              src={cert.pdfPath}
+              title={`${cert.name} certificate`}
+              className="h-full w-full bg-white"
+            />
+          )}
           <span className="pointer-events-none absolute inset-0 flex items-center justify-center bg-transparent transition-colors duration-300 group-hover:bg-background/50">
             <span className="inline-flex items-center gap-1.5 rounded-lg border border-white/10 bg-background/80 px-3 py-1.5 text-xs font-medium text-ink opacity-0 transition-opacity duration-300 group-hover:opacity-100">
               <Download className="h-3.5 w-3.5" />

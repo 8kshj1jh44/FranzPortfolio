@@ -5,12 +5,10 @@ import { useFormState } from "react-dom";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Send, Loader2, Mail, MapPin, CheckCircle2, AlertCircle, ArrowUpRight, ShieldCheck } from "lucide-react";
 import { submitContactForm, type ContactFormState } from "@/actions/contact";
-import { CTA_BANNER, SOCIAL_LINKS } from "@/data/portfolioData";
+import { CTA_BANNER, PROJECT_TYPES, SOCIAL_LINKS } from "@/data/portfolioData";
 import TextType from "@/components/TextType";
 
 import { cn } from "@/lib/utils";
-
-const PROJECT_TYPES = ["Web App", "n8n Automation", "Full Stack"] as const;
 
 const INITIAL_STATE: ContactFormState = { success: false, message: "" };
 

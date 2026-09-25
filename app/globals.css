@@ -46,7 +46,25 @@ body {
   }
 }
 
+.blur-text-token {
+  animation: blur-text-in 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes blur-text-in {
+  from {
+    opacity: 0;
+    transform: translateY(var(--blur-text-offset, -2em));
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .blur-text-token {
+    animation: none;
+  }
   html {
     scroll-behavior: auto;
   }

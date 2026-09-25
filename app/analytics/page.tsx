@@ -21,7 +21,15 @@ export default function AnalyticsPage() {
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch(`/api/analytics?password=${encodeURIComponent(password)}`);
+      const res = await fetch("/api/analytics", {
+        headers: { "x-analytics-password": password },
+        cache: "no-store",
+      });
+      if (res.status === 429) {
+        setError("Too many attempts. Try again in 15 minutes.");
+        setLoading(false);
+        return;
+      }
       if (res.status === 401) {
         setError("Incorrect password.");
         setLoading(false);

@@ -37,14 +37,15 @@ function tabFromHash(): TabKey {
 }
 
 export default function WorkTabs() {
-  const [active, setActive] = useState<TabKey>(() =>
-    typeof window === "undefined" ? "projects" : tabFromHash()
-  );
+  // Always start on "projects" so the server and client render the same HTML;
+  // the tab from the URL hash is applied after hydration.
+  const [active, setActive] = useState<TabKey>("projects");
   const reduceMotion = useReducedMotion();
   const prevActive = useRef(active);
 
   useEffect(() => {
     const onHashChange = () => setActive(tabFromHash());
+    onHashChange();
     window.addEventListener("hashchange", onHashChange);
     return () => window.removeEventListener("hashchange", onHashChange);
   }, []);
@@ -85,14 +86,26 @@ export default function WorkTabs() {
           })}
         </div>
 
-        <motion.div
-          key={active}
-          initial={reduceMotion ? false : { opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-        >
-          {PANELS[active]}
-        </motion.div>
+        {/* All panels are rendered so crawlers see every section; inactive
+            ones are hidden. */}
+        {TABS.map((tab) => {
+          const isActive = active === tab.key;
+          return (
+            <motion.div
+              key={tab.key}
+              hidden={!isActive}
+              initial={false}
+              animate={
+                isActive || reduceMotion
+                  ? { opacity: 1, y: 0 }
+                  : { opacity: 0, y: 20 }
+              }
+              transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+            >
+              {PANELS[tab.key]}
+            </motion.div>
+          );
+        })}
       </div>
     </section>
   );

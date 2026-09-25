@@ -74,12 +74,11 @@ function FlowDiagram({ nodes }: { nodes: string[] }) {
 function WorkflowCard({ automation }: { automation: AutomationWorkflow }) {
   const [open, setOpen] = useState(false);
   const [showImage, setShowImage] = useState(false);
-  const [gifFailed, setGifFailed] = useState(false);
+  const [videoFailed, setVideoFailed] = useState(false);
   const reduceMotion = useReducedMotion();
 
-  const hasMedia = !!automation.gif || !!automation.screenshot;
-  const mediaSrc =
-    !gifFailed && automation.gif ? automation.gif : automation.screenshot ?? "";
+  const hasMedia = !!automation.video || !!automation.screenshot;
+  const showVideo = !!automation.video && !videoFailed;
 
   return (
     <motion.article
@@ -133,7 +132,7 @@ function WorkflowCard({ automation }: { automation: AutomationWorkflow }) {
           >
             <span className="inline-flex items-center gap-2">
               <Workflow className="h-4 w-4 text-coral" />
-              {automation.gif ? "View demo" : "View workflow"}
+              {automation.video ? "View demo" : "View workflow"}
             </span>
             <ChevronDown
               className={cn(
@@ -221,13 +220,32 @@ function WorkflowCard({ automation }: { automation: AutomationWorkflow }) {
             className="overflow-hidden border-t border-white/[0.06] bg-background"
           >
             <div className="relative aspect-[16/10] w-full bg-background">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={mediaSrc}
-                alt={`${automation.title} demo`}
-                onError={() => setGifFailed(true)}
-                className="h-full w-full object-contain"
-              />
+              {showVideo ? (
+                <video
+                  ref={(video) => {
+                    // React doesn't reliably apply `muted`, which browsers
+                    // require before they allow autoplay.
+                    if (!video) return;
+                    video.muted = true;
+                    video.play().catch(() => {});
+                  }}
+                  src={automation.video}
+                  aria-label={`${automation.title} demo`}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  onError={() => setVideoFailed(true)}
+                  className="h-full w-full object-contain"
+                />
+              ) : (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={automation.screenshot ?? ""}
+                  alt={`${automation.title} workflow`}
+                  className="h-full w-full object-contain"
+                />
+              )}
             </div>
           </motion.div>
         )}

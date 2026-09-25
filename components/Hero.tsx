@@ -38,7 +38,6 @@ export default function Hero() {
             text="Full Stack Developer and AI Specialist"
             delay={0.05}
             direction="top"
-            threshold={0.1}
           />
         </h1>
 

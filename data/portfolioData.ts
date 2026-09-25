@@ -13,10 +13,6 @@ export interface WebProject {
   metrics?: Array<{ value: string; label: string }>;
 }
 
-function screenshotOf(url: string): string {
-  return `https://s.wordpress.com/mshots/v1/${encodeURIComponent(url)}?w=1280`;
-}
-
 export interface AutomationWorkflow {
   id: string;
   title: string;
@@ -27,7 +23,7 @@ export interface AutomationWorkflow {
   metricBadge: string;
   samplePayload: string;
   screenshot?: string;
-  gif?: string;
+  video?: string;
   workflowFile?: string;
   githubUrl?: string;
 }
@@ -42,7 +38,7 @@ export const WEB_PROJECTS: WebProject[] = [
     liveUrl: "https://takers-daily.vercel.app/",
     githubUrl: "https://github.com/8kshj1jh44/TakersDaily",
     techStack: ["Next.js", "Tailwind CSS", "TypeScript", "E-Commerce"],
-    image: screenshotOf("https://takers-daily.vercel.app/"),
+    image: "/projects/takers-daily.webp",
     highlights: [
       "Signature drinks & menu catalog",
       "Streamlined ordering & cart flow",
@@ -63,7 +59,7 @@ export const WEB_PROJECTS: WebProject[] = [
     liveUrl: "https://oroq-coco-shop.vercel.app/",
     githubUrl: "https://github.com/8kshj1jh44/oroq-coco-shop",
     techStack: ["React", "Tailwind CSS", "TypeScript", "E-Commerce"],
-    image: screenshotOf("https://oroq-coco-shop.vercel.app/"),
+    image: "/projects/oroq-coco-shop.webp",
     highlights: [
       "Interactive product catalog",
       "Responsive cart flow",
@@ -84,7 +80,7 @@ export const WEB_PROJECTS: WebProject[] = [
     liveUrl: "https://pixel-vibe-portfolio.vercel.app/",
     githubUrl: "https://github.com/8kshj1jh44/pixel-vibe-portfolio",
     techStack: ["Next.js", "Framer Motion", "Tailwind CSS", "TypeScript"],
-    image: screenshotOf("https://pixel-vibe-portfolio.vercel.app/"),
+    image: "/projects/pixel-vibe.webp",
     highlights: [
       "Smooth micro-animations",
       "Bold design accents",
@@ -105,7 +101,7 @@ export const WEB_PROJECTS: WebProject[] = [
     liveUrl: "https://discover-oroq.vercel.app/",
     githubUrl: "https://github.com/8kshj1jh44/TouristSpotsOroq",
     techStack: ["Next.js", "Tailwind CSS", "TypeScript", "Location Feeds"],
-    image: screenshotOf("https://discover-oroq.vercel.app/"),
+    image: "/projects/discover-oroq.webp",
     highlights: [
       "Location discovery guides",
       "Interactive spot cards",
@@ -124,7 +120,7 @@ export const AUTOMATION_WORKFLOWS: AutomationWorkflow[] = [
     id: "dental-chatbot-booking",
     title: "AI Dental Booking Chatbot",
     screenshot: "/n8n/Dental Chatbot.png",
-    gif: "/n8n/Dental Chatbot.gif",
+    video: "/n8n/Dental Chatbot.mp4",
     workflowFile: "/n8n/Dental Chatbot Remade.json",
     githubUrl: "https://github.com/8kshj1jh44/Dental-Chatbot-n8n",
     category: "AI/LLM",
@@ -148,7 +144,7 @@ export const AUTOMATION_WORKFLOWS: AutomationWorkflow[] = [
     id: "content-auto-sync",
     title: "Automated Content Ingestion & AI Summarizer",
     screenshot: "/n8n/ABS-CBN Automated Content Ingestion.png",
-    gif: "/n8n/ABS-CBN Automated Content Ingestion & AI Summarizer.gif",
+    video: "/n8n/ABS-CBN Automated Content Ingestion & AI Summarizer.mp4",
     workflowFile: "/n8n/ABS-CBN Automated Content Ingestion & AI Summarizer.json",
     githubUrl: "https://github.com/8kshj1jh44/n8n-Projects",
     category: "AI/LLM",
@@ -169,7 +165,7 @@ export const AUTOMATION_WORKFLOWS: AutomationWorkflow[] = [
     id: "dental-aftercare-reviews",
     title: "Daily Aftercare & Review Emails",
     screenshot: "/n8n/Dental - Daily Aftercare & Reviews.png",
-    gif: "/n8n/Dental - Daily Aftercare & Reviews.gif",
+    video: "/n8n/Dental - Daily Aftercare & Reviews.mp4",
     workflowFile: "/n8n/Dental - Daily Aftercare & Reviews.json",
     githubUrl: "https://github.com/8kshj1jh44/Dental-Chatbot-n8n",
     category: "CRM & Ops",
@@ -192,7 +188,7 @@ export const AUTOMATION_WORKFLOWS: AutomationWorkflow[] = [
     id: "client-onboarding",
     title: "Client Onboarding System",
     screenshot: "/n8n/Client Onboarding.png",
-    gif: "/n8n/Client Onboarding.gif",
+    video: "/n8n/Client Onboarding.mp4",
     workflowFile: "/n8n/Client Onboarding System.json",
     githubUrl: "https://github.com/8kshj1jh44/n8n-Projects",
     category: "CRM & Ops",
@@ -215,7 +211,7 @@ export const AUTOMATION_WORKFLOWS: AutomationWorkflow[] = [
     id: "lead-to-appointment",
     title: "Complete Lead-to-Appointment System",
     screenshot: "/n8n/Complete Lead-to-Appointment System.png",
-    gif: "/n8n/Complete Lead-to-Appointment System.gif",
+    video: "/n8n/Complete Lead-to-Appointment System.mp4",
     workflowFile: "/n8n/Complete Lead-to-Appointment System.json",
     githubUrl: "https://github.com/8kshj1jh44/n8n-Projects",
     category: "CRM & Ops",
@@ -256,6 +252,8 @@ export interface Service {
   description: string;
   deliverables: string[];
 }
+
+export const PROJECT_TYPES = ["Web App", "n8n Automation", "Full Stack"] as const;
 
 export const SERVICES: Service[] = [
   {

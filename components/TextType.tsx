@@ -179,16 +179,19 @@ export default function TextType({
       ref: containerRef,
       className: `text-type ${className}`,
     },
-    <span className="text-type__content" style={{ color: getCurrentTextColor() }}>
-      {displayedText}
-    </span>,
-    showCursor && (
-      <span
-        ref={cursorRef}
-        className={`text-type__cursor ${cursorClassName} ${shouldHideCursor ? "text-type__cursor--hidden" : ""}`}
-      >
-        {cursorCharacter}
+    <span className="sr-only">{textArray.join(" ")}</span>,
+    <span aria-hidden="true">
+      <span className="text-type__content" style={{ color: getCurrentTextColor() }}>
+        {displayedText}
       </span>
-    )
+      {showCursor && (
+        <span
+          ref={cursorRef}
+          className={`text-type__cursor ${cursorClassName} ${shouldHideCursor ? "text-type__cursor--hidden" : ""}`}
+        >
+          {cursorCharacter}
+        </span>
+      )}
+    </span>
   );
 }
