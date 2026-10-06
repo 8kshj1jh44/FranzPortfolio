@@ -229,6 +229,29 @@ export const AUTOMATION_WORKFLOWS: AutomationWorkflow[] = [
     samplePayload:
       '{\n  "client_name": "Maria Santos",\n  "client_email": "maria@example.com",\n  "company": "Acme Corp",\n  "budget": "$1,000 - $2,500/mo",\n  "meeting_date": "Thursday, September 10, 2026",\n  "meeting_time": "10:00 AM",\n  "meeting_link": "https://meet.google.com/abc-defg-hij",\n  "pipeline_stage": "Discovery Call Scheduled"\n}',
   },
+  {
+    id: "inbox-ai-triage",
+    title: "Automated Customer Inbox AI Triage",
+    screenshot: "/n8n/Automated Customer Inbox AI Triage Workflow.png",
+    video: "/n8n/Automated Customer Inbox AI Triage Workflow.mp4",
+    workflowFile: "/n8n/Automated Customer Inbox AI Triage Workflow.json",
+    category: "AI/LLM",
+    description:
+      "A webhook receives every incoming customer email, a Code node validates and dedupes the message, then a Gemini AI Agent classifies it (Billing, Access, Scheduling, Technical Support, Refund Request, or General Question) with a confidence score and a draft reply. An If node routes anything low-confidence, refund-related, or flagged for human review to Google Sheets and Slack — the rest pass through untouched.",
+    trigger: "Webhook / New Customer Message",
+    flowNodes: [
+      "Webhook Trigger",
+      "Validate & Dedupe (Code)",
+      "AI Triage Agent (Gemini)",
+      "Parse Triage JSON",
+      "Confidence & Category Check (If)",
+      "Log to Google Sheets",
+      "Slack Alert",
+    ],
+    metricBadge: "🧠 Auto-triages every email",
+    samplePayload:
+      '{\n  "message_id": "msg_8f3k2a",\n  "sender": "maria@example.com",\n  "subject": "Refund for duplicate charge",\n  "Category": "Refund Request",\n  "Confidence": 95,\n  "Human Review Needed": true,\n  "Draft Response": "Hi Maria, thanks for flagging this — we are processing your refund..."\n}',
+  },
 ];
 
 export const AUTOMATION_FILTERS: Array<"All" | AutomationCategory> = [

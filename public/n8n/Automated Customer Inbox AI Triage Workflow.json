@@ -1,0 +1,361 @@
+{
+  "name": "Test Workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "support-triage",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        -96
+      ],
+      "id": "8c73aba1-22e3-4e1b-91ab-0bb5d8b6d5c4",
+      "name": "Webhook",
+      "webhookId": "6dad683e-1dd2-4c50-adc8-cbcc4a3e07c2"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Check input items\nconst items = $input.all();\nconst processedItems = [];\n\n// Track message IDs in memory/execution\nfor (const item of items) {\n  const json = item.json.body || item.json;\n  \n  // Basic validation check\n  if (!json.body || !json.sender) {\n    throw new Error(\"Missing required fields: 'body' or 'sender' in payload.\");\n  }\n\n  // Create unique hash or ID fallback\n  const messageId = json.message_id || `msg_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;\n\n  processedItems.push({\n    json: {\n      message_id: messageId,\n      sender: json.sender,\n      subject: json.subject || \"No Subject\",\n      body: json.body,\n      received_at: new Date().toISOString()\n    }\n  });\n}\n\nreturn processedItems;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        224,
+        -96
+      ],
+      "id": "3051cc08-5f75-4758-a181-8c1823ae1a37",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "jsCode": "const rawOutput = $json.output || \"\";\nlet parsed = {};\n\ntry {\n  // Strip markdown code blocks if present\n  const cleanJson = rawOutput.replace(/```json/gi, '').replace(/```/g, '').trim();\n  parsed = JSON.parse(cleanJson);\n} catch (e) {\n  parsed = {\n    category: \"General Question\",\n    confidence_score: 50,\n    draft_response: \"Thank you for reaching out. A support agent will review your inquiry shortly.\",\n    requires_human_review: true,\n    reasoning: \"Failed to parse AI JSON response.\"\n  };\n}\n\n// Merge original input details (sender, subject, message_id) with the AI triage fields\nconst originalData = $('Code in JavaScript').first().json;\n\nreturn [{\n  json: {\n    ...originalData,\n    ...parsed\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        800,
+        -96
+      ],
+      "id": "22e3e6b8-4a38-4b76-af9c-cb11eeec4267",
+      "name": "Code in JavaScript1"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "3628ea62-9bb1-4fdc-93b5-d0d523735718",
+              "leftValue": "={{ $json.Confidence }}",
+              "rightValue": 80,
+              "operator": {
+                "type": "number",
+                "operation": "lt"
+              }
+            },
+            {
+              "id": "820d0f46-37b0-4b8c-88db-8320a72d200b",
+              "leftValue": "={{ $json.Category }}",
+              "rightValue": "Refund Request",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            },
+            {
+              "id": "ab29515f-4f8f-425f-8686-790a77a7a4dd",
+              "leftValue": "={{ $json['Human Review Needed'] }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1248,
+        -96
+      ],
+      "id": "5c837028-4cbc-4831-b0fe-5edbc800c5dc",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Please analyze and triage this incoming customer message:\n\nSubject: {{ $json.subject }}\nBody: {{ $json.body }}",
+        "options": {
+          "systemMessage": "=You are an expert customer support triage agent.\n\nCategories allowed:\n- Billing\n- Access\n- Scheduling\n- Technical Support\n- General Question\n- Refund Request\n\nRules:\n1. Assign a confidence_score between 0 and 100 based on clarity and certainty.\n2. Set requires_human_review to true if:\n   - The category is \"Refund Request\"\n   - The message is ambiguous, angry, or complex\n   - Confidence score is below 80\n3. Draft a polite, clear, and empathetic response.\n4. Output strictly valid JSON with no markdown wrapping (no ```json):\n{\n  \"category\": \"category_name\",\n  \"confidence_score\": 85,\n  \"draft_response\": \"Draft response text...\",\n  \"requires_human_review\": false,\n  \"reasoning\": \"Brief explanation\"\n}"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        448,
+        -96
+      ],
+      "id": "564fba01-49b1-45a1-abae-13ac370198ee",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1.1,
+      "position": [
+        528,
+        128
+      ],
+      "id": "ca2c9270-6405-4027-b99c-c0983db40e68",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "6aHL7Ju6lvz8IHOQ",
+          "name": "Google Gemini(PaLM) Api account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1_cHcPpHbqEOU3E-hJ3BQoZq7-DVOYwrNT6rDkKeCi78",
+          "mode": "list",
+          "cachedResultName": "Test",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1_cHcPpHbqEOU3E-hJ3BQoZq7-DVOYwrNT6rDkKeCi78/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1_cHcPpHbqEOU3E-hJ3BQoZq7-DVOYwrNT6rDkKeCi78/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Message ID": "={{ $json.message_id }}",
+            "Sender": "={{ $json.sender }}",
+            "Category": "={{ $json.category }}",
+            "Confidence": "={{ $json.confidence_score }}",
+            "Draft": "={{ $json.draft_response }}",
+            "Human Review Needed": "={{ $json.requires_human_review }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Message ID",
+              "displayName": "Message ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Sender",
+              "displayName": "Sender",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Category",
+              "displayName": "Category",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Confidence",
+              "displayName": "Confidence",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Draft",
+              "displayName": "Draft",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Human Review Needed",
+              "displayName": "Human Review Needed",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1024,
+        -96
+      ],
+      "id": "269183a8-3991-4be2-810d-492cf3b99e05",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "lB5bSbNAVEojQV5Q",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "C0C65V20CSW",
+          "mode": "list",
+          "cachedResultName": "support-escalations"
+        },
+        "text": "=🚨 *Customer Support Request Escalation*\n\n• *Sender:* {{ $json.Sender }}\n• *Category:* {{ $json.Category }}\n• *AI Confidence:* {{ $json.Confidence }}%\n• *Human Review Required:* {{ $json['Human Review Needed'] }}\n\n📋 *Reason for Review:*\n{{ $json.Confidence < 80 ? \"⚠️ Low AI Confidence (<80%)\" : ($json.Category === \"Refund Request\" ? \"💰 Refund Request\" : \"🚩 Flagged by AI logic\") }}\n\n📝 *Drafted Response (Pending Approval):*\n> {{ $json.Draft }}",
+        "otherOptions": {}
+      },
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.5,
+      "position": [
+        1472,
+        -96
+      ],
+      "id": "3d93ce03-68a3-43dd-bdbf-4db272746985",
+      "name": "Send a message",
+      "webhookId": "9b69b965-e129-44c1-86ec-21d090f0a800",
+      "credentials": {
+        "slackApi": {
+          "id": "EikpXZxMVQpxj0Eg",
+          "name": "Slack account 2"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript1": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "fb2f9123-164a-47a7-84ea-939c5bb4ab4e",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "d47817c96aac052ed41b97e2a2dc5de26e9e1a3574e54409c0794a096ee01ee2"
+  },
+  "nodeGroups": [],
+  "id": "oxqzgVFiVo6A8VfA",
+  "tags": []
+}
