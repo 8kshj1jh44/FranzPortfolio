@@ -76,14 +76,14 @@ export const WEB_PROJECTS: WebProject[] = [
     title: "Care Appliance",
     category: "Service Business Website",
     description:
-      "Appliance service business website built on WordPress — showcasing offered repair services, service areas, and making it easy for customers to get in touch or request a repair.",
+      "Care Appliance Aircon Trading website built on WordPress — a direct dealer, installer, and service center showcasing branded window and split-type aircons with free installation in Oroquieta City, and making it easy for customers to call or message to request a repair.",
     liveUrl: "https://careappliance.gt.tc/",
     techStack: ["WordPress", "PHP", "Custom Theme", "Custom Plugins", "Responsive Design", "SEO"],
-    image: "https://s.wordpress.com/mshots/v1/https%3A%2F%2Fcareappliance.gt.tc%2F?w=1200",
+    image: "/projects/care-appliance.jpg",
     highlights: [
-      "Service catalog & service areas",
-      "Customer inquiry / booking flow",
-      "Mobile-friendly WordPress build",
+      "Branded aircon catalog at bodega prices",
+      "Call & Facebook Messenger contact flow",
+      "Installer & service-center credibility sections",
     ],
   },
   {
@@ -91,13 +91,13 @@ export const WEB_PROJECTS: WebProject[] = [
     title: "Bellas Cafe",
     category: "Cafe & Restaurant Website",
     description:
-      "Cafe website built on WordPress — presenting the menu, ambiance, and store information in a warm, inviting layout that helps customers decide and visit.",
+      "Bella's Cafe website built on WordPress — a cozy cafe in Oroquieta City presenting its menu, dine-in, delivery, and outdoor seating in a warm, inviting layout that turns visitors into walk-in customers.",
     liveUrl: "https://bellascafe.freedev.app/",
     techStack: ["WordPress", "PHP", "Custom Theme", "Custom Plugins", "Responsive Design", "SEO"],
-    image: "https://s.wordpress.com/mshots/v1/https%3A%2F%2Fbellascafe.freedev.app%2F?w=1200",
+    image: "/projects/bellas-cafe.jpg",
     highlights: [
       "Menu & offerings showcase",
-      "Store info & contact details",
+      "Dine-in, delivery & outdoor seating sections",
       "Warm, inviting design",
     ],
   },
