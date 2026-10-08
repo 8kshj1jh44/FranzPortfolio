@@ -6,7 +6,7 @@ export interface WebProject {
   category: string;
   description: string;
   liveUrl: string;
-  githubUrl: string;
+  githubUrl?: string;
   techStack: string[];
   highlights: string[];
   image?: string;
@@ -51,48 +51,6 @@ export const WEB_PROJECTS: WebProject[] = [
     ],
   },
   {
-    id: "oroq-coco-shop",
-    title: "Oroq Coco Shop",
-    category: "E-Commerce & Storefront",
-    description:
-      "Specialty e-commerce storefront tailored for local product showcase, catalog management, and seamless buyer UX.",
-    liveUrl: "https://oroq-coco-shop.vercel.app/",
-    githubUrl: "https://github.com/8kshj1jh44/oroq-coco-shop",
-    techStack: ["React", "Tailwind CSS", "TypeScript", "E-Commerce"],
-    image: "/projects/oroq-coco-shop.webp",
-    highlights: [
-      "Interactive product catalog",
-      "Responsive cart flow",
-      "Optimized image delivery",
-    ],
-    metrics: [
-      { value: "+41%", label: "Product engagement" },
-      { value: "97", label: "Lighthouse score" },
-      { value: "1.1s", label: "Avg. page load" },
-    ],
-  },
-  {
-    id: "pixel-vibe",
-    title: "Pixel Vibe",
-    category: "Creative & Interactive UI",
-    description:
-      "Visually expressive portfolio showcasing creative front-end styling, micro-interactions, and modern design aesthetics.",
-    liveUrl: "https://pixel-vibe-portfolio.vercel.app/",
-    githubUrl: "https://github.com/8kshj1jh44/pixel-vibe-portfolio",
-    techStack: ["Next.js", "Framer Motion", "Tailwind CSS", "TypeScript"],
-    image: "/projects/pixel-vibe.webp",
-    highlights: [
-      "Smooth micro-animations",
-      "Bold design accents",
-      "Fluid responsive layout",
-    ],
-    metrics: [
-      { value: "100", label: "Lighthouse score" },
-      { value: "0.8s", label: "First contentful paint" },
-      { value: "+27%", label: "Avg. session time" },
-    ],
-  },
-  {
     id: "discover-oroq",
     title: "Discover Oroq",
     category: "Tourism & Exploration",
@@ -111,6 +69,36 @@ export const WEB_PROJECTS: WebProject[] = [
       { value: "+48%", label: "Spot page visits" },
       { value: "96", label: "Lighthouse score" },
       { value: "1.3s", label: "Avg. page load" },
+    ],
+  },
+  {
+    id: "care-appliance",
+    title: "Care Appliance",
+    category: "Service Business Website",
+    description:
+      "Appliance service business website built on WordPress — showcasing offered repair services, service areas, and making it easy for customers to get in touch or request a repair.",
+    liveUrl: "https://careappliance.gt.tc/",
+    techStack: ["WordPress", "Custom Theme", "Responsive Design", "SEO"],
+    image: "https://s.wordpress.com/mshots/v1/https%3A%2F%2Fcareappliance.gt.tc%2F?w=1200",
+    highlights: [
+      "Service catalog & service areas",
+      "Customer inquiry / booking flow",
+      "Mobile-friendly WordPress build",
+    ],
+  },
+  {
+    id: "bellas-cafe",
+    title: "Bellas Cafe",
+    category: "Cafe & Restaurant Website",
+    description:
+      "Cafe website built on WordPress — presenting the menu, ambiance, and store information in a warm, inviting layout that helps customers decide and visit.",
+    liveUrl: "https://bellascafe.freedev.app/",
+    techStack: ["WordPress", "Custom Theme", "Responsive Design", "SEO"],
+    image: "https://s.wordpress.com/mshots/v1/https%3A%2F%2Fbellascafe.freedev.app%2F?w=1200",
+    highlights: [
+      "Menu & offerings showcase",
+      "Store info & contact details",
+      "Warm, inviting design",
     ],
   },
 ];
@@ -284,7 +272,7 @@ export const SERVICES: Service[] = [
     title: "Web Development",
     tagline: "Sites & storefronts that sell",
     description:
-      "Fast, responsive, on-brand websites and e-commerce storefronts built to convert visitors into customers.",
+      "Fast, responsive, on-brand websites and e-commerce storefronts built to convert visitors into customers — in modern stacks like Next.js or WordPress.",
     deliverables: [
       "Custom responsive design",
       "E-commerce & checkout",

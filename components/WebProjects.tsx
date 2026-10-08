@@ -157,14 +157,16 @@ function ProjectCard({ project, index }: { project: WebProject; index: number })
           >
             <ExternalLink className="h-4 w-4" /> Live Site
           </a>
-          <a
-            href={project.githubUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex flex-1 items-center justify-center gap-2 rounded-lg border border-white/10 bg-surface-2 px-4 py-2.5 text-sm font-medium text-ink transition-all hover:border-white/20 active:scale-[0.98]"
-          >
-            <GitHubLogoIcon className="h-4 w-4" /> Source
-          </a>
+          {project.githubUrl && (
+            <a
+              href={project.githubUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex flex-1 items-center justify-center gap-2 rounded-lg border border-white/10 bg-surface-2 px-4 py-2.5 text-sm font-medium text-ink transition-all hover:border-white/20 active:scale-[0.98]"
+            >
+              <GitHubLogoIcon className="h-4 w-4" /> Source
+            </a>
+          )}
         </div>
       </div>
     </motion.article>
