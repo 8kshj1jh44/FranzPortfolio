@@ -78,7 +78,7 @@ export const WEB_PROJECTS: WebProject[] = [
     description:
       "Appliance service business website built on WordPress — showcasing offered repair services, service areas, and making it easy for customers to get in touch or request a repair.",
     liveUrl: "https://careappliance.gt.tc/",
-    techStack: ["WordPress", "Custom Theme", "Responsive Design", "SEO"],
+    techStack: ["WordPress", "PHP", "Custom Theme", "Custom Plugins", "Responsive Design", "SEO"],
     image: "https://s.wordpress.com/mshots/v1/https%3A%2F%2Fcareappliance.gt.tc%2F?w=1200",
     highlights: [
       "Service catalog & service areas",
@@ -93,7 +93,7 @@ export const WEB_PROJECTS: WebProject[] = [
     description:
       "Cafe website built on WordPress — presenting the menu, ambiance, and store information in a warm, inviting layout that helps customers decide and visit.",
     liveUrl: "https://bellascafe.freedev.app/",
-    techStack: ["WordPress", "Custom Theme", "Responsive Design", "SEO"],
+    techStack: ["WordPress", "PHP", "Custom Theme", "Custom Plugins", "Responsive Design", "SEO"],
     image: "https://s.wordpress.com/mshots/v1/https%3A%2F%2Fbellascafe.freedev.app%2F?w=1200",
     highlights: [
       "Menu & offerings showcase",
