@@ -38,6 +38,11 @@ const nextConfig = {
         hostname: "cloud.appwrite.io",
         pathname: "/v1/storage/buckets/**",
       },
+      {
+        protocol: "https",
+        hostname: "s.wordpress.com",
+        pathname: "/mshots/v1/**",
+      },
     ],
   },
   async headers() {
