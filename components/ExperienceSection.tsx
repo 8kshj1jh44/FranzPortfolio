@@ -29,8 +29,9 @@ const SKILL_GROUPS: Array<{
   key: keyof typeof RESUME_DATA.skills;
   label: string;
 }> = [
-  { key: "automation", label: "Automation" },
   { key: "frontend", label: "Frontend" },
+  { key: "wordpress", label: "WordPress" },
+  { key: "automation", label: "AI Automation" },
   { key: "backend", label: "BaaS / Backend" },
   { key: "devopsSecurity", label: "DevOps / Security" },
 ];

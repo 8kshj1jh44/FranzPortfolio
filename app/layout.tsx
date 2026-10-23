@@ -21,9 +21,9 @@ const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL || "https://franz-portfolio-psi.vercel.app";
 
 const TITLE =
-  "Franz Lyster — Full-Stack Developer & n8n Automation Specialist";
+  "Franz Lyster — Full-Stack Web Developer, WordPress & AI Automation";
 const DESCRIPTION =
-  "Portfolio of Franz Lyster Tagalogon: production-ready full-stack web applications and end-to-end n8n automation pipelines.";
+  "Portfolio of Franz Lyster Tagalogon: full-stack web development with Next.js and WordPress, plus end-to-end AI automation with n8n.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -47,6 +47,10 @@ export const metadata: Metadata = {
     "AI chatbot developer",
     "workflow automation",
     "Next.js developer",
+    "WordPress developer",
+    "WordPress expert",
+    "PHP",
+    "AI automation",
   ],
   authors: [{ name: "Franz Lyster Tagalogon", url: `${SITE_URL}` }],
   creator: "Franz Lyster Tagalogon",
@@ -87,7 +91,7 @@ const jsonLd = {
       url: SITE_URL,
       image: `${SITE_URL}/opengraph-image`,
       email: "mailto:franzlyster@gmail.com",
-      jobTitle: "Full-Stack Developer & n8n Automation Specialist",
+      jobTitle: "Full-Stack Web Developer, WordPress Expert & AI Automation Specialist",
       description: RESUME_DATA.summary,
       alumniOf: {
         "@type": "CollegeOrUniversity",
@@ -103,12 +107,15 @@ const jsonLd = {
       ),
       knowsAbout: [
         "Full-Stack Web Development",
+        "WordPress",
+        "PHP",
         "Next.js",
         "React",
         "TypeScript",
         "Tailwind CSS",
         "E-Commerce Development",
         "n8n Automation",
+        "AI Automation",
         "Workflow Automation",
         "AI Chatbots",
         "AI Agents",
@@ -122,7 +129,7 @@ const jsonLd = {
     {
       "@type": "ProfessionalService",
       "@id": `${SITE_URL}/#service`,
-      name: "Franz Lyster — Web Development & n8n Automation",
+      name: "Franz Lyster — Web Development, WordPress & AI Automation",
       url: SITE_URL,
       description: DESCRIPTION,
       founder: { "@id": `${SITE_URL}/#person` },

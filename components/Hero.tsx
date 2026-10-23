@@ -35,7 +35,7 @@ export default function Hero() {
       <div className="relative mx-auto w-full max-w-4xl px-5 pt-24 pb-20 text-center sm:px-8">
         <h1 className="mx-auto block max-w-4xl text-balance text-4xl font-semibold leading-[1.08] tracking-tight text-ink sm:text-5xl lg:text-6xl">
           <BlurText
-            text="Full Stack Developer and AI Specialist"
+            text="Full-Stack Web Developer, WordPress Expert & AI Automation"
             delay={0.05}
             direction="top"
           />
@@ -45,8 +45,8 @@ export default function Hero() {
           {...fade(0.7)}
           className="mx-auto mt-6 max-w-2xl text-balance text-base leading-relaxed text-ink-secondary sm:text-lg"
         >
-          Shipping high-performance web applications and autonomous webhook
-          pipelines.
+          High-performance websites in Next.js and WordPress, plus autonomous
+          n8n AI workflows that run your operations for you.
         </motion.p>
 
         <motion.div

@@ -52,9 +52,9 @@ export function buildSocialImage() {
             lineHeight: 1.08,
           }}
         >
-          Full-Stack Developer
+          Full-Stack Web Developer
           <br />
-          &amp; AI Automation Specialist
+          WordPress &amp; AI Automation Expert
         </div>
         <div
           style={{
@@ -64,7 +64,8 @@ export function buildSocialImage() {
             maxWidth: 900,
           }}
         >
-          Production web apps and end-to-end n8n automation pipelines.
+          Websites in Next.js &amp; WordPress, plus end-to-end n8n AI
+          workflows.
         </div>
       </div>
     ),

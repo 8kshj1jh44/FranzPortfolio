@@ -17,29 +17,36 @@ export interface CertificationItem {
 
 export const RESUME_DATA = {
   name: "Franz Lyster L. Tagalogon",
-  title: "Full-Stack Web Developer & n8n Automation Specialist",
+  title: "Full-Stack Web Developer, WordPress Expert & AI Automation Specialist",
   summary:
-    "Solutions-driven Full-Stack Web Developer and Automation Engineer with a Computer Engineering foundation and specialized expertise in architecting autonomous n8n workflows, cloud databases, and high-performance web applications.",
+    "Solutions-driven Full-Stack Web Developer, WordPress expert, and automation engineer with a Computer Engineering foundation — shipping high-performance Next.js applications, custom WordPress themes and plugins, and autonomous AI/n8n workflows.",
   education: {
     degree: "Bachelor of Science in Computer Engineering",
     school: "Jose Rizal Memorial State University – Main Campus",
     period: "2019 – 2023",
   },
   skills: {
-    automation: [
-      "n8n Workflows",
-      "Webhooks",
-      "REST APIs",
-      "JSON/Node.js Logic",
-      "Cron Triggers",
-      "Discord/Slack Alerts",
-    ],
     frontend: [
       "Next.js 14",
       "React",
       "TypeScript",
       "Tailwind CSS",
       "Framer Motion",
+    ],
+    wordpress: [
+      "WordPress",
+      "PHP",
+      "Custom Theme Development",
+      "Custom Plugin Development",
+    ],
+    automation: [
+      "AI Agents (Gemini/OpenAI)",
+      "n8n Workflows",
+      "Webhooks",
+      "REST APIs",
+      "JSON/Node.js Logic",
+      "Cron Triggers",
+      "Google Workspace",
     ],
     backend: [
       "Appwrite BaaS",
@@ -64,10 +71,11 @@ export const RESUME_DATA = {
       type: "Freelance",
       description: [
         "Architected and deployed 5+ production web applications using Next.js, React, and Tailwind CSS.",
-        "Built autonomous n8n workflows connecting Appwrite databases, contact webhooks, and multi-channel notifications.",
+        "Built client websites on WordPress with custom themes and plugins (PHP) for local businesses.",
+        "Built autonomous n8n AI workflows connecting Appwrite databases, contact webhooks, and multi-channel notifications.",
         "Delivered performant edge deployments on Vercel with optimized assets and sub-second response times.",
       ],
-      skills: ["Next.js", "TypeScript", "n8n", "Appwrite", "Tailwind CSS"],
+      skills: ["Next.js", "WordPress", "PHP", "TypeScript", "n8n", "Appwrite"],
     },
     {
       role: "Systems & Operations Support Engineer",

@@ -264,7 +264,7 @@ export interface Service {
   deliverables: string[];
 }
 
-export const PROJECT_TYPES = ["Web App", "n8n Automation", "Full Stack"] as const;
+export const PROJECT_TYPES = ["Web App", "AI Automation", "Full Stack"] as const;
 
 export const SERVICES: Service[] = [
   {
@@ -275,17 +275,17 @@ export const SERVICES: Service[] = [
       "Fast, responsive, on-brand websites and e-commerce storefronts built to convert visitors into customers — in modern stacks like Next.js or WordPress.",
     deliverables: [
       "Custom responsive design",
+      "Custom WordPress themes & plugins",
       "E-commerce & checkout",
-      "Micro-interactions & animations",
       "SEO + analytics setup",
     ],
   },
   {
     id: "automation",
-    title: "n8n Automation",
-    tagline: "Workflows that run themselves",
+    title: "AI Automation",
+    tagline: "n8n workflows that run themselves",
     description:
-      "AI chatbots, CRM sync, onboarding flows and integrations that eliminate manual, repetitive work.",
+      "AI agents, chatbots, CRM sync, onboarding flows and integrations built on n8n — eliminating manual, repetitive work.",
     deliverables: [
       "AI chatbots & agents",
       "CRM & sheet sync",
@@ -298,7 +298,7 @@ export const SERVICES: Service[] = [
     title: "Full Stack / Retainer",
     tagline: "Ongoing build & support",
     description:
-      "Continuous builds, maintenance, and iterations for teams that want a reliable technical partner.",
+      "Continuous builds, maintenance, and iterations across Next.js, WordPress, and n8n — a reliable long-term technical partner.",
     deliverables: [
       "Ongoing feature builds",
       "Site & workflow maintenance",
