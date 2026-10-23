@@ -87,18 +87,18 @@ export const WEB_PROJECTS: WebProject[] = [
     ],
   },
   {
-    id: "bellas-cafe",
-    title: "Bellas Cafe",
-    category: "Cafe & Restaurant Website",
+    id: "identify-snakes-ph",
+    title: "Identify Snakes in PH",
+    category: "Educational / Interactive Guide",
     description:
-      "Bella's Cafe website built on WordPress — a cozy cafe in Oroquieta City presenting its menu, dine-in, delivery, and outdoor seating in a warm, inviting layout that turns visitors into walk-in customers.",
-    liveUrl: "https://bellascafe.freedev.app/",
+      "\"A Dummy's Guide to the Philippine Snakes\" — an educational WordPress site that walks visitors through identifying snake species in the Philippines, with a guided, beginner-friendly flow from landing page to species information.",
+    liveUrl: "https://identifysnakesinph.freedev.app/",
     techStack: ["WordPress", "PHP", "Custom Theme", "Custom Plugins", "Responsive Design", "SEO"],
-    image: "/projects/bellas-cafe.jpg",
+    image: "/projects/identify-snakes-ph.jpg",
     highlights: [
-      "Menu & offerings showcase",
-      "Dine-in, delivery & outdoor seating sections",
-      "Warm, inviting design",
+      "Guided species-identification flow",
+      "Beginner-friendly educational content",
+      "Bold, imagery-driven landing page",
     ],
   },
 ];
