@@ -93,6 +93,7 @@ export const WEB_PROJECTS: WebProject[] = [
     description:
       "\"A Dummy's Guide to the Philippine Snakes\" — an educational WordPress site that walks visitors through identifying snake species in the Philippines, with a guided, beginner-friendly flow from landing page to species information.",
     liveUrl: "https://identifysnakesinph.freedev.app/",
+    githubUrl: "https://github.com/8kshj1jh44/Snake-Website-",
     techStack: ["WordPress", "PHP", "Custom Theme", "Custom Plugins", "Responsive Design", "SEO"],
     image: "/projects/identify-snakes-ph.jpg",
     highlights: [
