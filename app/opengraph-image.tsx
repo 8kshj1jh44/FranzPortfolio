@@ -2,7 +2,7 @@ import { buildSocialImage, OG_SIZE } from "@/lib/og-image";
 
 export const runtime = "edge";
 export const alt =
-  "Franz Lyster — Full-Stack Web Developer, WordPress & AI Automation";
+  "Franz Lyster — GHL Automation Specialist & Full-Stack Web Developer";
 export const size = OG_SIZE;
 export const contentType = "image/png";
 

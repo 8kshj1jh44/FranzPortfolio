@@ -21,9 +21,9 @@ const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL || "https://franz-portfolio-psi.vercel.app";
 
 const TITLE =
-  "Franz Lyster — Full-Stack Web Developer, WordPress & AI Automation";
+  "Franz Lyster — GHL Automation Specialist & Full-Stack Web Developer";
 const DESCRIPTION =
-  "Portfolio of Franz Lyster Tagalogon: full-stack web development with Next.js and WordPress, plus end-to-end AI automation with n8n.";
+  "Portfolio of Franz Lyster Tagalogon: GoHighLevel (GHL) automation — speed-to-lead, appointment confirmations, reactivation — plus n8n AI pipelines and full-stack Next.js & WordPress development.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -51,6 +51,10 @@ export const metadata: Metadata = {
     "WordPress expert",
     "PHP",
     "AI automation",
+    "GoHighLevel",
+    "GHL automation specialist",
+    "GHL expert",
+    "speed-to-lead",
   ],
   authors: [{ name: "Franz Lyster Tagalogon", url: `${SITE_URL}` }],
   creator: "Franz Lyster Tagalogon",
@@ -91,7 +95,7 @@ const jsonLd = {
       url: SITE_URL,
       image: `${SITE_URL}/opengraph-image`,
       email: "mailto:franzlyster@gmail.com",
-      jobTitle: "Full-Stack Web Developer, WordPress Expert & AI Automation Specialist",
+      jobTitle: "GoHighLevel (GHL) Automation Specialist & Full-Stack Web Developer",
       description: RESUME_DATA.summary,
       alumniOf: {
         "@type": "CollegeOrUniversity",
@@ -106,6 +110,9 @@ const jsonLd = {
         link.startsWith("https://"),
       ),
       knowsAbout: [
+        "GoHighLevel (GHL)",
+        "GHL Workflows",
+        "Speed-to-Lead Automation",
         "Full-Stack Web Development",
         "WordPress",
         "PHP",
@@ -116,6 +123,8 @@ const jsonLd = {
         "E-Commerce Development",
         "n8n Automation",
         "AI Automation",
+        "Appointment Confirmation Automation",
+        "Lead Reactivation",
         "Workflow Automation",
         "AI Chatbots",
         "AI Agents",
@@ -129,7 +138,7 @@ const jsonLd = {
     {
       "@type": "ProfessionalService",
       "@id": `${SITE_URL}/#service`,
-      name: "Franz Lyster — Web Development, WordPress & AI Automation",
+      name: "Franz Lyster — GHL Automation & Full-Stack Web Development",
       url: SITE_URL,
       description: DESCRIPTION,
       founder: { "@id": `${SITE_URL}/#person` },

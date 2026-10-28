@@ -17,9 +17,9 @@ export interface CertificationItem {
 
 export const RESUME_DATA = {
   name: "Franz Lyster L. Tagalogon",
-  title: "Full-Stack Web Developer, WordPress Expert & AI Automation Specialist",
+  title: "GHL Automation Specialist & Full-Stack Web Developer",
   summary:
-    "Solutions-driven Full-Stack Web Developer, WordPress expert, and automation engineer with a Computer Engineering foundation — shipping high-performance Next.js applications, custom WordPress themes and plugins, and autonomous AI/n8n workflows.",
+    "GoHighLevel (GHL) Automation Specialist and Full-Stack Web Developer — building speed-to-lead, appointment-confirmation, and reactivation workflows in GHL, AI pipelines in n8n, and high-performance Next.js and WordPress sites with custom themes and plugins.",
   education: {
     degree: "Bachelor of Science in Computer Engineering",
     school: "Jose Rizal Memorial State University – Main Campus",
@@ -40,13 +40,14 @@ export const RESUME_DATA = {
       "Custom Plugin Development",
     ],
     automation: [
+      "GoHighLevel (GHL)",
+      "GHL Workflows & Pipelines",
+      "GHL Conversation AI",
       "AI Agents (Gemini/OpenAI)",
       "n8n Workflows",
       "Webhooks",
       "REST APIs",
-      "JSON/Node.js Logic",
       "Cron Triggers",
-      "Google Workspace",
     ],
     backend: [
       "Appwrite BaaS",
@@ -64,6 +65,18 @@ export const RESUME_DATA = {
     ],
   },
   experience: [
+    {
+      role: "GoHighLevel (GHL) Automation Specialist",
+      company: "Freelance — Agency & Local Business Clients",
+      period: "2024 – Present (2+ yrs)",
+      type: "Freelance",
+      description: [
+        "Built speed-to-lead workflows that fire personalized SMS within a second of quiz or form submission, tagging and prioritizing leads automatically.",
+        "Deployed high-value consultation workflows — prep-note emails, SMS confirmation asks, reply branching (confirm / reschedule), and no-reply timeouts with team alerts.",
+        "Configured GHL pipelines, Conversation AI lead qualification, tagging logic, and opportunity automation across client sub-accounts.",
+      ],
+      skills: ["GoHighLevel", "GHL Workflows", "Conversation AI", "SMS/Email Automation", "Pipeline Design"],
+    },
     {
       role: "Freelance Full-Stack Developer & Automation Engineer",
       company: "Self-Employed",

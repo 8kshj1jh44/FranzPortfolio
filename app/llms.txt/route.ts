@@ -21,7 +21,7 @@ export function GET() {
     "",
     `> ${RESUME_DATA.title}. ${RESUME_DATA.summary}`,
     "",
-    "Available for freelance projects: full-stack web development (Next.js & WordPress), e-commerce storefronts, AI automation with n8n, AI chatbots and agents, and ongoing retainers.",
+    "Available for freelance projects: GoHighLevel (GHL) automation (speed-to-lead, appointment confirmations, reactivation), n8n AI automation, full-stack web development (Next.js & WordPress), e-commerce storefronts, AI chatbots and agents, and ongoing retainers.",
     "",
     `- Website: ${SITE_URL}`,
     `- Book a call: https://cal.com/franzlysert/callwfranz`,

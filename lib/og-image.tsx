@@ -52,9 +52,9 @@ export function buildSocialImage() {
             lineHeight: 1.08,
           }}
         >
-          Full-Stack Web Developer
+          GHL Automation Specialist
           <br />
-          WordPress &amp; AI Automation Expert
+          &amp; Full-Stack Web Developer
         </div>
         <div
           style={{
@@ -64,8 +64,8 @@ export function buildSocialImage() {
             maxWidth: 900,
           }}
         >
-          Websites in Next.js &amp; WordPress, plus end-to-end n8n AI
-          workflows.
+          GoHighLevel workflows that book, confirm, and reactivate leads —
+          plus n8n, Next.js &amp; WordPress.
         </div>
       </div>
     ),

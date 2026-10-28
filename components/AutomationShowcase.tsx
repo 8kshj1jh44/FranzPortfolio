@@ -75,10 +75,20 @@ function WorkflowCard({ automation }: { automation: AutomationWorkflow }) {
   const [open, setOpen] = useState(false);
   const [showImage, setShowImage] = useState(false);
   const [videoFailed, setVideoFailed] = useState(false);
+  const [hovering, setHovering] = useState(false);
   const reduceMotion = useReducedMotion();
 
   const hasMedia = !!automation.video || !!automation.screenshot;
   const showVideo = !!automation.video && !videoFailed;
+  const playPreview = hovering && !reduceMotion && !!automation.video;
+
+  const videoRef = (video: HTMLVideoElement | null) => {
+    // React doesn't reliably apply `muted`, which browsers
+    // require before they allow autoplay.
+    if (!video) return;
+    video.muted = true;
+    video.play().catch(() => {});
+  };
 
   return (
     <motion.article
@@ -88,7 +98,43 @@ function WorkflowCard({ automation }: { automation: AutomationWorkflow }) {
       exit={reduceMotion ? undefined : { opacity: 0, y: 16 }}
       transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
       className="flex flex-col overflow-hidden rounded-card border border-white/[0.08] bg-surface transition-colors hover:border-coral/30"
+      onMouseEnter={() => setHovering(true)}
+      onMouseLeave={() => setHovering(false)}
     >
+      {automation.screenshot && (
+        <div
+          className="relative aspect-[16/9] w-full cursor-pointer overflow-hidden border-b border-white/[0.06] bg-background"
+          onClick={() => setHovering((v) => !v)}
+        >
+          {playPreview && showVideo ? (
+            <video
+              ref={videoRef}
+              src={automation.video}
+              aria-label={`${automation.title} demo`}
+              autoPlay
+              loop
+              muted
+              playsInline
+              onError={() => setVideoFailed(true)}
+              className="h-full w-full object-cover object-top"
+            />
+          ) : (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={automation.screenshot}
+              alt={`${automation.title} workflow`}
+              loading="lazy"
+              className="h-full w-full object-cover object-top"
+            />
+          )}
+          {!playPreview && automation.video && (
+            <span className="pointer-events-none absolute bottom-2 right-2 rounded-md border border-white/10 bg-background/80 px-2 py-1 font-mono text-[10px] text-ink-secondary">
+              hover to play
+            </span>
+          )}
+        </div>
+      )}
+
       <div className="flex flex-1 flex-col p-6">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <span className="inline-flex items-center gap-1.5 rounded-full border border-coral/25 bg-coral/10 px-3 py-1 font-mono text-[11px] text-coral">
@@ -222,13 +268,7 @@ function WorkflowCard({ automation }: { automation: AutomationWorkflow }) {
             <div className="relative aspect-[16/10] w-full bg-background">
               {showVideo ? (
                 <video
-                  ref={(video) => {
-                    // React doesn't reliably apply `muted`, which browsers
-                    // require before they allow autoplay.
-                    if (!video) return;
-                    video.muted = true;
-                    video.play().catch(() => {});
-                  }}
+                  ref={videoRef}
                   src={automation.video}
                   aria-label={`${automation.title} demo`}
                   autoPlay
@@ -279,7 +319,9 @@ export default function AutomationShowcase({
             Automation Workflows
           </h2>
           <p className="mt-3 max-w-[55ch] text-base leading-relaxed text-ink-secondary">
-            Event-driven n8n pipelines that connect webhooks, AI, and Appwrite to move work without a human in the loop.
+            GoHighLevel and n8n workflows that capture, qualify, and follow up
+            with every lead — booking, confirming, and reactivating on autopilot
+            with no human in the loop.
           </p>
         </div>
 

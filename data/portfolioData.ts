@@ -197,26 +197,52 @@ export const AUTOMATION_WORKFLOWS: AutomationWorkflow[] = [
       '{\n  "data": { "fields": [{ "value": "Maria Santos" }, { "value": "Acme Corp" }, { "value": "maria@example.com" }, { "options": [{ "text": "Growth" }] }] },\n  "drive_hub_id": "1AbCdEfGhIjKlMnOpQrStUvWxYz",\n  "status": "Onboarding Sent"\n}',
   },
   {
-    id: "lead-to-appointment",
-    title: "Complete Lead-to-Appointment System",
-    screenshot: "/n8n/Complete Lead-to-Appointment System.png",
-    video: "/n8n/Complete Lead-to-Appointment System.mp4",
-    workflowFile: "/n8n/Complete Lead-to-Appointment System.json",
-    githubUrl: "https://github.com/8kshj1jh44/n8n-Projects",
+    id: "ghl-speed-to-lead",
+    title: "GHL Speed-to-Lead: Quiz to Booking",
+    screenshot: "/n8n/GHL - Speed to Lead.png",
+    video: "/n8n/GHL - Speed to Lead.mp4",
     category: "CRM & Ops",
     description:
-      "A Cal.com webhook fires the moment a discovery call is booked, a Code node normalizes the lead's name, company, and budget tier, then the lead is appended to a Google Sheet, a confirmation email with the meeting link is sent, and the team is alerted in Slack — the full inbound funnel handled with zero manual entry.",
-    trigger: "Webhook / Call Booked",
+      "A GoHighLevel workflow that fires the moment a quiz is submitted: the lead is tagged and prioritized, an AI conversation qualifies their skin concern, and a personalized SMS goes out within a second — booking the appointment straight from the text thread.",
+    trigger: "Quiz Submitted (GHL)",
     flowNodes: [
-      "Webhook Trigger",
-      "Parse Lead Details (Code)",
-      "Append to Google Sheets",
-      "Send Confirmation Email (Gmail)",
-      "Slack Alert",
+      "Quiz Submitted Trigger",
+      "Update Opportunity",
+      "Add Tag (speed-to-lead, high priority)",
+      "Wait",
+      "Conversation AI — Lead Qualification",
+      "Qualified / Ready to Book → SMS + Book",
+      "Price Inquiry / Objection → SMS",
+      "Not Interested → Tag & Close",
+      "Internal Notification",
     ],
-    metricBadge: "📅 Full funnel, zero-touch",
+    metricBadge: "⚡ First touch in 1 second",
     samplePayload:
-      '{\n  "client_name": "Maria Santos",\n  "client_email": "maria@example.com",\n  "company": "Acme Corp",\n  "budget": "$1,000 - $2,500/mo",\n  "meeting_date": "Thursday, September 10, 2026",\n  "meeting_time": "10:00 AM",\n  "meeting_link": "https://meet.google.com/abc-defg-hij",\n  "pipeline_stage": "Discovery Call Scheduled"\n}',
+      '{\n  "contact_name": "Maya Torres",\n  "quiz": "Franz Med Spa Quiz",\n  "skin_primary_concern": "Acne & Active Breakouts",\n  "tags": ["speed-to-lead", "high priority"],\n  "first_sms": "Hi Maya — it\'s the studio assistant. Based on your quiz, let\'s start on the acne program. Would Tuesday 10:30 work?",\n  "reply": "Yes — book it",\n  "appointment": { "status": "confirmed", "slot": "Tue 10:30" }\n}',
+  },
+  {
+    id: "ghl-high-value-consultation",
+    title: "GHL High-Value Consultation: Confirm & Rebook",
+    screenshot: "/n8n/GHL - High Value Consultation.png",
+    video: "/n8n/GHL - High Value Consultation.mp4",
+    category: "CRM & Ops",
+    description:
+      "A GoHighLevel workflow that guards every booked consultation: it updates the pipeline, emails a prep note, asks for confirmation by SMS, then branches on the reply — YES confirms, RESCHEDULE rebooks, and a 2-hour no-reply timeout alerts the team and marks the lead for follow-up.",
+    trigger: "Appointment Status (GHL)",
+    flowNodes: [
+      "Appointment Status Trigger",
+      "Update Opportunity (Consultation pipeline)",
+      "Add Tag (appointment-booked)",
+      "Email — Prep Note",
+      "SMS — Confirmation Ask",
+      "Wait for Reply (2h timeout)",
+      "Reply YES → Confirmed",
+      "Reply RESCHEDULE → Rebooked",
+      "No Reply → Internal Notification + Follow-up",
+    ],
+    metricBadge: "📅 Every consult answered",
+    samplePayload:
+      '{\n  "appointment": { "date": "Tue 10:30", "type": "Consultation", "status": "booked" },\n  "prep_email_subject": "Quick prep for your consultation",\n  "confirmation_sms": "Reply YES to confirm, or RESCHEDULE.",\n  "reply": "YES",\n  "outcome": "confirmed",\n  "followup_sms": "You\'re confirmed — see you at your consultation. 🎉"\n}',
   },
   {
     id: "inbox-ai-triage",
@@ -265,7 +291,7 @@ export interface Service {
   deliverables: string[];
 }
 
-export const PROJECT_TYPES = ["Web App", "AI Automation", "Full Stack"] as const;
+export const PROJECT_TYPES = ["Web App", "GHL Automation", "Full Stack"] as const;
 
 export const SERVICES: Service[] = [
   {
@@ -283,15 +309,15 @@ export const SERVICES: Service[] = [
   },
   {
     id: "automation",
-    title: "AI Automation",
-    tagline: "n8n workflows that run themselves",
+    title: "GHL & AI Automation",
+    tagline: "Workflows that book, confirm & reactivate",
     description:
-      "AI agents, chatbots, CRM sync, onboarding flows and integrations built on n8n — eliminating manual, repetitive work.",
+      "GoHighLevel workflows — speed-to-lead, appointment confirmations, reactivation campaigns, Conversation AI qualification — plus n8n AI pipelines that eliminate manual, repetitive work.",
     deliverables: [
-      "AI chatbots & agents",
-      "CRM & sheet sync",
-      "Lead-to-appointment funnels",
-      "Email / Slack alerts",
+      "GHL speed-to-lead & quiz funnels",
+      "Appointment confirm & rebook flows",
+      "Conversation AI & tagging logic",
+      "n8n AI chatbots & CRM sync",
     ],
   },
   {
@@ -442,7 +468,7 @@ export const TESTIMONIALS: Testimonial[] = [
   {
     niche: "Automation",
     quote:
-      "The lead-to-appointment flow saves us hours every week. Franz understood the whole funnel and built exactly what the team needed.",
+      "The speed-to-lead automation saves us hours every week. Franz understood the whole funnel and built exactly what the team needed.",
     name: "Kimmy D.",
     role: "Sales Manager",
     initials: "KD",

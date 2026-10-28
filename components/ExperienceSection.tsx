@@ -31,7 +31,7 @@ const SKILL_GROUPS: Array<{
 }> = [
   { key: "frontend", label: "Frontend" },
   { key: "wordpress", label: "WordPress" },
-  { key: "automation", label: "AI Automation" },
+  { key: "automation", label: "GHL & AI Automation" },
   { key: "backend", label: "BaaS / Backend" },
   { key: "devopsSecurity", label: "DevOps / Security" },
 ];

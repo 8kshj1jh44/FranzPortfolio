@@ -14,7 +14,7 @@ export default function Footer() {
                 Franz Lyster L. Tagalogon
               </p>
               <p className="text-ink-muted">
-                Full-Stack Web Developer · WordPress &amp; AI Automation
+                GHL Automation Specialist · Full-Stack Web Developer
               </p>
             </div>
           </div>
