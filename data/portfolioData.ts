@@ -109,7 +109,7 @@ export const AUTOMATION_WORKFLOWS: AutomationWorkflow[] = [
     id: "dental-chatbot-booking",
     title: "AI Dental Booking Chatbot",
     screenshot: "/n8n/Dental Chatbot.png",
-    video: "/n8n/Dental Chatbot.mp4",
+    video: "/n8n/dental-chatbot-film.mp4",
     workflowFile: "/n8n/Dental Chatbot Remade.json",
     githubUrl: "https://github.com/8kshj1jh44/Dental-Chatbot-n8n",
     category: "AI/LLM",
