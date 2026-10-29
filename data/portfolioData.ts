@@ -133,7 +133,7 @@ export const AUTOMATION_WORKFLOWS: AutomationWorkflow[] = [
     id: "content-auto-sync",
     title: "Automated Content Ingestion & AI Summarizer",
     screenshot: "/n8n/ABS-CBN Automated Content Ingestion.png",
-    video: "/n8n/ABS-CBN Automated Content Ingestion & AI Summarizer.mp4",
+    video: "/n8n/content-ingestion-film.mp4",
     workflowFile: "/n8n/ABS-CBN Automated Content Ingestion & AI Summarizer.json",
     githubUrl: "https://github.com/8kshj1jh44/n8n-Projects",
     category: "AI/LLM",
@@ -248,7 +248,7 @@ export const AUTOMATION_WORKFLOWS: AutomationWorkflow[] = [
     id: "inbox-ai-triage",
     title: "Automated Customer Inbox AI Triage",
     screenshot: "/n8n/Automated Customer Inbox AI Triage Workflow.png",
-    video: "/n8n/Automated Customer Inbox AI Triage Workflow.mp4",
+    video: "/n8n/inbox-triage-film.mp4",
     workflowFile: "/n8n/Automated Customer Inbox AI Triage Workflow.json",
     category: "AI/LLM",
     description:
