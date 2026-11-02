@@ -124,7 +124,7 @@ function WorkflowCard({ automation }: { automation: AutomationWorkflow }) {
               src={automation.screenshot}
               alt={`${automation.title} workflow`}
               loading="lazy"
-              className="h-full w-full object-cover object-top brightness-[0.42] contrast-[1.06] saturate-[0.9]"
+              className="h-full w-full object-cover object-top"
             />
           )}
           {!playPreview && automation.video && (

@@ -15,12 +15,12 @@ const config: Config = {
         "surface-3": "#1b1b24",
         border: "#27272a",
         accent: {
-          DEFAULT: "#2dd4bf",
-          soft: "rgba(45, 212, 191, 0.12)",
+          DEFAULT: "#3b82f6",
+          soft: "rgba(59, 130, 246, 0.12)",
         },
         coral: {
-          DEFAULT: "#2dd4bf",
-          soft: "rgba(45, 212, 191, 0.12)",
+          DEFAULT: "#ff6d5a",
+          soft: "rgba(255, 109, 90, 0.12)",
         },
         ink: {
           DEFAULT: "#fafafa",
@@ -36,8 +36,8 @@ const config: Config = {
         card: "1rem",
       },
       boxShadow: {
-        "accent-glow": "0 0 0 1px rgba(45,212,191,0.25), 0 12px 40px -12px rgba(45,212,191,0.4)",
-        "coral-glow": "0 0 0 1px rgba(45,212,191,0.25), 0 12px 40px -12px rgba(45,212,191,0.4)",
+        "accent-glow": "0 0 0 1px rgba(59,130,246,0.25), 0 12px 40px -12px rgba(59,130,246,0.4)",
+        "coral-glow": "0 0 0 1px rgba(255,109,90,0.25), 0 12px 40px -12px rgba(255,109,90,0.4)",
       },
       keyframes: {
         "pulse-soft": {

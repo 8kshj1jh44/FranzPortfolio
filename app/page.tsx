@@ -2,6 +2,7 @@ import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import StatsBar from "@/components/StatsBar";
 import Services from "@/components/Services";
+import Process from "@/components/Process";
 import WorkTabs from "@/components/WorkTabs";
 import Testimonials from "@/components/Testimonials";
 import FAQ from "@/components/FAQ";
@@ -22,6 +23,7 @@ export default function Home() {
         <div className="mx-auto max-w-6xl px-5 sm:px-8">
           <div className="hairline-top" />
         </div>
+        <Process />
         <div className="mx-auto max-w-6xl px-5 sm:px-8">
           <div className="hairline-top" />
         </div>

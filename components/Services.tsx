@@ -46,7 +46,7 @@ export default function Services() {
             <Sparkles className="h-3.5 w-3.5 text-coral" />
             Services
           </p>
-          <h2 className="text-4xl font-semibold tracking-tight text-ink sm:text-6xl">
+          <h2 className="text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
             What I can build for you
           </h2>
           <p className="mt-3 max-w-[55ch] text-base leading-relaxed text-ink-secondary">
