@@ -153,7 +153,7 @@ function ProjectCard({ project, index }: { project: WebProject; index: number })
             href={project.liveUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex flex-1 items-center justify-center gap-2 rounded-lg bg-accent px-4 py-2.5 text-sm font-medium text-white transition-all hover:bg-accent/90 active:scale-[0.98]"
+            className="inline-flex flex-1 items-center justify-center gap-2 rounded-lg bg-accent px-4 py-2.5 text-sm font-medium text-[#06251f] transition-all hover:bg-accent/90 active:scale-[0.98]"
           >
             <ExternalLink className="h-4 w-4" /> Live Site
           </a>
@@ -183,7 +183,7 @@ export default function WebProjects({ projects }: { projects: WebProject[] }) {
       <div className="relative">
         <div className="mb-14 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <h2 className="text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
+          <h2 className="text-4xl font-semibold tracking-tight text-ink sm:text-6xl">
             Web Projects
           </h2>
           <p className="mt-3 max-w-[55ch] text-base leading-relaxed text-ink-secondary">

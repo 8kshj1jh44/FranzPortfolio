@@ -22,7 +22,7 @@ export default function FAQ() {
             <HelpCircle className="h-3.5 w-3.5 text-coral" />
             FAQ
           </p>
-          <h2 className="text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
+          <h2 className="text-4xl font-semibold tracking-tight text-ink sm:text-6xl">
             Questions, answered
           </h2>
           <p className="mt-3 max-w-[55ch] text-base leading-relaxed text-ink-secondary">

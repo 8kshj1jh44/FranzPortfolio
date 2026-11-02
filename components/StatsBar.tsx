@@ -20,7 +20,7 @@ export default function StatsBar() {
               key={stat.label}
               className="flex flex-col items-center justify-center gap-1 bg-background px-6 py-8 text-center"
             >
-              <span className="text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
+              <span className="text-4xl font-semibold tracking-tight text-ink sm:text-6xl">
                 {stat.value}
               </span>
               <span className="font-mono text-xs uppercase tracking-[0.14em] text-ink-muted">

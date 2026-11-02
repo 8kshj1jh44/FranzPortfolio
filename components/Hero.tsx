@@ -28,12 +28,22 @@ export default function Hero() {
       id="top"
       className="relative flex min-h-[100dvh] items-center justify-center overflow-hidden"
     >
+      <video
+        src="/n8n/speed-to-lead-quiz-film.mp4"
+        autoPlay
+        loop
+        muted
+        playsInline
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 h-full w-full scale-105 object-cover opacity-60 [mask-image:radial-gradient(120%_100%_at_50%_38%,black_55%,transparent_100%)]"
+      />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-background/60 via-background/20 to-background" />
       <div className="pointer-events-none absolute inset-0 dot-grid opacity-60" />
       <div className="pointer-events-none absolute -top-40 left-1/2 h-[520px] w-[820px] -translate-x-1/2 rounded-full bg-accent/15 blur-[120px]" />
       <div className="pointer-events-none absolute bottom-0 right-0 h-[420px] w-[520px] translate-x-1/3 translate-y-1/3 rounded-full bg-coral/10 blur-[120px]" />
 
-      <div className="relative mx-auto w-full max-w-4xl px-5 pt-24 pb-20 text-center sm:px-8">
-        <h1 className="mx-auto block max-w-4xl text-balance text-4xl font-semibold leading-[1.08] tracking-tight text-ink sm:text-5xl lg:text-6xl">
+      <div className="relative mx-auto w-full max-w-6xl px-5 pt-24 pb-20 text-center sm:px-8">
+        <h1 className="mx-auto block max-w-4xl text-balance text-5xl font-semibold leading-[1.02] tracking-tight text-ink sm:text-6xl lg:text-7xl">
           <BlurText
             text="GHL Automation Specialist & Full-Stack Web Developer"
             delay={0.05}
@@ -57,7 +67,7 @@ export default function Hero() {
             href="https://cal.com/franzlysert/callwfranz"
             target="_blank"
             rel="noopener noreferrer"
-            className="group inline-flex w-full items-center justify-center gap-2 rounded-xl bg-accent px-6 py-3.5 text-sm font-medium text-white transition-all hover:bg-accent/90 active:scale-[0.98] sm:w-auto"
+            className="group inline-flex w-full items-center justify-center gap-2 rounded-xl bg-accent px-6 py-3.5 text-sm font-medium text-[#06251f] transition-all hover:bg-accent/90 active:scale-[0.98] sm:w-auto"
           >
             Book a Free Discovery Call
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
